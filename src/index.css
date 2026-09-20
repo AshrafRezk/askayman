@@ -843,10 +843,21 @@ a[href^="tel:"],
   flex-wrap: wrap;
 }
 
-.partners-sodic {
+.partners-sodic,
+.partners-taj {
   height: 28px;
   width: auto;
   object-fit: contain;
+}
+
+.partners-brands {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.partners-taj {
+  height: 22px;
 }
 
 .partner-regions {
@@ -987,6 +998,10 @@ a[href^="tel:"],
   width: 100%;
   height: 22px;
   object-fit: contain;
+}
+
+.partners-map .leaflet-interactive {
+  cursor: pointer;
 }
 
 .form {

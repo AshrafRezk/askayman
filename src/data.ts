@@ -89,7 +89,7 @@ export const copy = {
     ],
     partnersTitle: 'Partner compounds',
     partnersLead:
-      'SODIC communities Ayman works with — East Cairo, West Cairo, and the North Coast. Hop from one compound to the next.',
+      'SODIC land and Taj Sultan inside Taj City — real zone polygons, not pins. Hop East Cairo, West Cairo, and the North Coast.',
     partnersAll: 'All SODIC compounds',
     partnersHint: 'Pick a compound, or use the arrows to fly the map.',
     partnersPrev: 'Previous compound',
@@ -174,7 +174,7 @@ export const copy = {
     ],
     partnersTitle: 'كمباوندات الشركاء',
     partnersLead:
-      'مجتمعات سوديك اللي أيمن بيشتغل عليها — شرق القاهرة، غرب القاهرة، والساحل. انتقل من كمباوند للتاني على الخريطة.',
+      'أراضي سوديك، وتاج سلطان جوه تاج سيتي — بوليغونات المناطق الحقيقية. انتقل بين شرق القاهرة، غرب القاهرة، والساحل.',
     partnersAll: 'كل كمباوندات سوديك',
     partnersHint: 'اختار كمباوند، أو استخدم الأسهم عشان تطير على الخريطة.',
     partnersPrev: 'الكمباوند السابق',

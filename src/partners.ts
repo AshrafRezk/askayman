@@ -28,6 +28,17 @@ export const PARTNER_REGIONS: {
 
 export const PARTNER_COMPOUNDS: PartnerCompound[] = [
   {
+    id: 'taj-sultan',
+    name: 'Taj Sultan',
+    nameAr: 'تاج سلطان',
+    region: 'east',
+    lat: 30.061683,
+    lng: 31.40812,
+    zoom: 15.3,
+    logo: 'images/partners/taj-sultan.svg',
+    status: 'explore',
+  },
+  {
     id: 'sodic-east',
     name: 'SODIC East',
     nameAr: 'سوديك إيست',

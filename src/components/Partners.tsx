@@ -52,7 +52,10 @@ export function Partners({ lang }: { lang: Lang }) {
       </div>
 
       <div className="partners-toolbar">
-        <img className="partners-sodic" src={asset('images/partners/sodic.png')} alt="SODIC" />
+        <div className="partners-brands">
+          <img className="partners-sodic" src={asset('images/partners/sodic.png')} alt="SODIC" />
+          <img className="partners-taj" src={asset('images/partners/taj-sultan.svg')} alt="Taj Sultan" />
+        </div>
         <div className="partner-regions" role="tablist" aria-label={t.partnersTitle}>
           {PARTNER_REGIONS.map((item) => (
             <button
