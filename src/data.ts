@@ -89,7 +89,7 @@ export const copy = {
     ],
     partnersTitle: 'Partner compounds',
     partnersLead:
-      'SODIC land and Taj Sultan inside Taj City — real zone polygons, not pins. Hop East Cairo, West Cairo, and the North Coast.',
+      'SODIC land, Taj City phases on the Suez Road, and Sarai beside Madinaty — hop zone to zone on real polygons.',
     partnersAll: 'All SODIC compounds',
     partnersHint: 'Pick a compound, or use the arrows to fly the map.',
     partnersPrev: 'Previous compound',
@@ -174,7 +174,7 @@ export const copy = {
     ],
     partnersTitle: 'كمباوندات الشركاء',
     partnersLead:
-      'أراضي سوديك، وتاج سلطان جوه تاج سيتي — بوليغونات المناطق الحقيقية. انتقل بين شرق القاهرة، غرب القاهرة، والساحل.',
+      'أراضي سوديك، مراحل تاج سيتي على طريق السويس، وسرايا جنب مدينتي — انتقل من زون لزون على البوليغونات الحقيقية.',
     partnersAll: 'كل كمباوندات سوديك',
     partnersHint: 'اختار كمباوند، أو استخدم الأسهم عشان تطير على الخريطة.',
     partnersPrev: 'الكمباوند السابق',

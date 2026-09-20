@@ -7,8 +7,10 @@ import { haptic } from '../haptics'
 import {
   PARTNER_COMPOUNDS,
   PARTNER_REGIONS,
+  compoundInView,
   type PartnerCompound,
-  type PartnerRegion,
+  type PartnerGroup,
+  type PartnerView,
 } from '../partners'
 import { CloudastickFootnote } from './CloudastickFootnote'
 import 'leaflet/dist/leaflet.css'
@@ -18,6 +20,7 @@ type ParcelProps = {
   name: string
   kind: 'compound' | 'zone' | 'outline'
   primary: boolean
+  family?: PartnerGroup
 }
 
 type ParcelFeature = {
@@ -32,9 +35,11 @@ type ParcelFeature = {
 
 const PARCELS = parcels as { type: 'FeatureCollection'; features: ParcelFeature[] }
 
+const TAJ_PIN_IDS = new Set(['taj-city', 'taj-sultan', 'taj-tzone', 'taj-shalya', 'taj-origami'])
+
 function pin(compound: PartnerCompound, active: boolean) {
   return L.divIcon({
-    className: `partner-pin${active ? ' is-on' : ''}`,
+    className: `partner-pin${active ? ' is-on' : ''}${compound.group === 'taj' || compound.group === 'sarai' ? ' is-taj' : ''}`,
     html: `<span class="partner-pin-disc"><img src="${asset(compound.logo)}" alt="" /></span>`,
     iconSize: active ? [108, 52] : [92, 44],
     iconAnchor: active ? [54, 26] : [46, 22],
@@ -42,14 +47,27 @@ function pin(compound: PartnerCompound, active: boolean) {
   })
 }
 
+function selectedCompound(selected: string | null) {
+  return PARTNER_COMPOUNDS.find((item) => item.id === selected) ?? null
+}
+
+function parcelTargetId(compound: PartnerCompound | null) {
+  if (!compound) return null
+  return compound.parcelId ?? compound.id
+}
+
 function parcelStyle(props: ParcelProps, selected: string | null): L.PathOptions {
-  const active = props.partnerId === selected
+  const activeId = parcelTargetId(selectedCompound(selected))
+  const active = props.partnerId === activeId || props.partnerId === selected
+  const family = selectedCompound(selected)?.group
+  const familyOn = Boolean(props.family && family && props.family === family)
+
   if (props.kind === 'outline') {
     return {
-      color: '#d4b15a',
+      color: active || familyOn ? '#f0d48a' : '#d4b15a',
       fillColor: '#08111c',
-      fillOpacity: active ? 0.1 : 0.04,
-      weight: 1.5,
+      fillOpacity: active ? 0.14 : familyOn ? 0.08 : 0.04,
+      weight: active ? 2.2 : 1.5,
       dashArray: '7,6',
     }
   }
@@ -61,12 +79,12 @@ function parcelStyle(props: ParcelProps, selected: string | null): L.PathOptions
       weight: 3.4,
     }
   }
-  if (active) {
+  if (active || (familyOn && props.kind === 'zone')) {
     return {
       color: '#7dcea0',
       fillColor: '#2a9d8f',
-      fillOpacity: 0.28,
-      weight: 2,
+      fillOpacity: active ? 0.32 : 0.18,
+      weight: active ? 2.2 : 1.6,
     }
   }
   return {
@@ -78,22 +96,29 @@ function parcelStyle(props: ParcelProps, selected: string | null): L.PathOptions
 }
 
 function boundsForPartner(partnerId: string) {
-  const primary = PARCELS.features.find((feature) => feature.properties.partnerId === partnerId && feature.properties.primary)
-  const fallback = PARCELS.features.find((feature) => feature.properties.partnerId === partnerId)
+  const compound = PARTNER_COMPOUNDS.find((item) => item.id === partnerId)
+  const target = compound ? parcelTargetId(compound) : partnerId
+  const primary = PARCELS.features.find((feature) => feature.properties.partnerId === target && feature.properties.primary)
+  const fallback = PARCELS.features.find((feature) => feature.properties.partnerId === target)
   const feature = primary ?? fallback
   if (!feature) return null
   return L.geoJSON(feature as never).getBounds()
 }
 
-function boundsForRegion(region: PartnerRegion | 'all') {
-  const ids = new Set(
-    PARTNER_COMPOUNDS.filter((item) => region === 'all' || item.region === region).map((item) => item.id),
-  )
-  const features = PARCELS.features.filter(
-    (feature) => ids.has(feature.properties.partnerId) && feature.properties.kind !== 'outline',
-  )
+function boundsForRegion(region: PartnerView) {
+  const ids = new Set(PARTNER_COMPOUNDS.filter((item) => compoundInView(item, region)).map((item) => item.id))
+  const features = PARCELS.features.filter((feature) => ids.has(feature.properties.partnerId))
   if (!features.length) return null
-  return features.reduce((bounds, feature) => bounds.extend(L.geoJSON(feature as never).getBounds()), L.geoJSON(features[0] as never).getBounds())
+  return features.reduce(
+    (bounds, feature) => bounds.extend(L.geoJSON(feature as never).getBounds()),
+    L.geoJSON(features[0] as never).getBounds(),
+  )
+}
+
+function showMarker(compound: PartnerCompound, selected: string | null) {
+  if (compound.id === selected) return true
+  if (compound.group === 'sodic' || compound.group === 'sarai') return true
+  return TAJ_PIN_IDS.has(compound.id)
 }
 
 function MapCamera({
@@ -101,7 +126,7 @@ function MapCamera({
   region,
 }: {
   selected: string | null
-  region: PartnerRegion | 'all'
+  region: PartnerView
 }) {
   const map = useMap()
 
@@ -121,7 +146,7 @@ function MapCamera({
       const bounds = boundsForRegion(region)
       const view = PARTNER_REGIONS.find((item) => item.id === region) ?? PARTNER_REGIONS[0]
       if (region !== 'all' && bounds?.isValid()) {
-        map.flyToBounds(bounds, { padding: [48, 48], duration: 1.35, maxZoom: 13 })
+        map.flyToBounds(bounds, { padding: [48, 48], duration: 1.35, maxZoom: region === 'taj' ? 15 : 13 })
         return
       }
       map.flyTo([view.lat, view.lng], view.zoom, { duration: 1.35 })
@@ -159,6 +184,7 @@ function ParcelLayer({
 }) {
   const onSelectRef = useRef(onSelect)
   onSelectRef.current = onSelect
+  const activeId = parcelTargetId(selectedCompound(selected))
 
   return (
     <ParcelGeoJSON
@@ -170,7 +196,7 @@ function ParcelLayer({
           haptic('medium')
           onSelectRef.current(props.partnerId)
         })
-        if (selected === props.partnerId && props.primary && 'bringToFront' in layer) {
+        if ((props.partnerId === selected || props.partnerId === activeId) && props.primary && 'bringToFront' in layer) {
           ;(layer as L.Path).bringToFront()
         }
       }}
@@ -187,7 +213,7 @@ export function PartnersMap({
 }: {
   lang: 'en' | 'ar'
   selected: string | null
-  region: PartnerRegion | 'all'
+  region: PartnerView
   onSelect: (id: string) => void
 }) {
   const icons = useMemo(
@@ -208,7 +234,7 @@ export function PartnersMap({
       <MapCamera selected={selected} region={region} />
       <WheelOnHover />
       <ParcelLayer selected={selected} onSelect={onSelect} />
-      {PARTNER_COMPOUNDS.map((compound) => (
+      {PARTNER_COMPOUNDS.filter((compound) => showMarker(compound, selected)).map((compound) => (
         <Marker
           key={compound.id}
           position={[compound.lat, compound.lng]}
@@ -224,9 +250,7 @@ export function PartnersMap({
           <Popup>
             <strong>{lang === 'ar' ? compound.nameAr : compound.name}</strong>
             <br />
-            {lang === 'ar'
-              ? PARTNER_REGIONS.find((item) => item.id === compound.region)?.nameAr
-              : PARTNER_REGIONS.find((item) => item.id === compound.region)?.name}
+            {lang === 'ar' ? compound.detailAr : compound.detail}
           </Popup>
         </Marker>
       ))}

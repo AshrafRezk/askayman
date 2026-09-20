@@ -2,17 +2,22 @@ import { useEffect, useMemo, useState } from 'react'
 import { asset } from '../assets'
 import { copy, type Lang } from '../data'
 import { haptic } from '../haptics'
-import { PARTNER_COMPOUNDS, PARTNER_REGIONS, type PartnerRegion } from '../partners'
+import {
+  PARTNER_COMPOUNDS,
+  PARTNER_REGIONS,
+  compoundInView,
+  type PartnerView,
+} from '../partners'
 import { PartnersMap } from './PartnersMap'
 
 export function Partners({ lang }: { lang: Lang }) {
   const t = copy[lang]
-  const [region, setRegion] = useState<PartnerRegion | 'all'>('all')
+  const [region, setRegion] = useState<PartnerView>('all')
   const [selected, setSelected] = useState<string | null>(null)
   const [ready, setReady] = useState(false)
 
   const visible = useMemo(
-    () => PARTNER_COMPOUNDS.filter((item) => region === 'all' || item.region === region),
+    () => PARTNER_COMPOUNDS.filter((item) => compoundInView(item, region)),
     [region],
   )
   const active = PARTNER_COMPOUNDS.find((item) => item.id === selected) ?? null
@@ -22,7 +27,7 @@ export function Partners({ lang }: { lang: Lang }) {
     setReady(true)
   }, [])
 
-  function chooseRegion(next: PartnerRegion | 'all') {
+  function chooseRegion(next: PartnerView) {
     haptic('light')
     setRegion(next)
     setSelected(null)
@@ -32,7 +37,11 @@ export function Partners({ lang }: { lang: Lang }) {
     const compound = PARTNER_COMPOUNDS.find((item) => item.id === id)
     if (!compound) return
     haptic('medium')
-    if (region !== 'all' && compound.region !== region) setRegion(compound.region)
+    if (region === 'taj' && compound.group !== 'taj') {
+      setRegion(compound.region)
+    } else if (region !== 'all' && region !== 'taj' && compound.region !== region) {
+      setRegion(compound.region)
+    }
     setSelected(compound.id)
   }
 
@@ -42,6 +51,22 @@ export function Partners({ lang }: { lang: Lang }) {
     const next = visible[(index + step + visible.length) % visible.length]
     chooseCompound(next.id)
   }
+
+  const hudPlace = active
+    ? active.group === 'sarai'
+      ? lang === 'ar'
+        ? 'مدينة المستقبل · جنب مدينتي'
+        : 'Mostakbal City · beside Madinaty'
+      : active.group === 'taj'
+        ? lang === 'ar'
+          ? 'تاج سيتي · القاهرة الجديدة'
+          : 'Taj City · New Cairo'
+        : lang === 'ar'
+          ? PARTNER_REGIONS.find((item) => item.id === active.region)?.nameAr
+          : PARTNER_REGIONS.find((item) => item.id === active.region)?.name
+    : lang === 'ar'
+      ? regionMeta?.nameAr
+      : regionMeta?.name
 
   return (
     <section className="section partners-section" id="partners">
@@ -54,7 +79,7 @@ export function Partners({ lang }: { lang: Lang }) {
       <div className="partners-toolbar">
         <div className="partners-brands">
           <img className="partners-sodic" src={asset('images/partners/sodic.png')} alt="SODIC" />
-          <img className="partners-taj" src={asset('images/partners/taj-sultan.svg')} alt="Taj Sultan" />
+          <img className="partners-taj" src={asset('images/partners/taj-city.jpg')} alt="Taj City" />
         </div>
         <div className="partner-regions" role="tablist" aria-label={t.partnersTitle}>
           {PARTNER_REGIONS.map((item) => (
@@ -77,7 +102,7 @@ export function Partners({ lang }: { lang: Lang }) {
           <button
             key={compound.id}
             type="button"
-            className={`partner-chip${compound.id === selected ? ' is-on' : ''}`}
+            className={`partner-chip${compound.id === selected ? ' is-on' : ''}${compound.group === 'taj' || compound.group === 'sarai' ? ' is-taj' : ''}`}
             onClick={() => chooseCompound(compound.id)}
           >
             <img src={asset(compound.logo)} alt="" />
@@ -103,15 +128,14 @@ export function Partners({ lang }: { lang: Lang }) {
                 ? lang === 'ar'
                   ? active.nameAr
                   : active.name
-                : lang === 'ar'
-                  ? regionMeta?.nameAr
-                  : regionMeta?.name}
+                : hudPlace}
             </b>
             <span>
               {active
-                ? `${lang === 'ar' ? PARTNER_REGIONS.find((item) => item.id === active.region)?.nameAr : PARTNER_REGIONS.find((item) => item.id === active.region)?.name} · ${active.status === 'sold' ? t.partnersSold : t.partnersExplore}`
+                ? `${hudPlace} · ${active.status === 'sold' ? t.partnersSold : t.partnersExplore}`
                 : t.partnersHint}
             </span>
+            {active ? <em>{lang === 'ar' ? active.detailAr : active.detail}</em> : null}
           </div>
           <button type="button" className="partners-hop" onClick={() => hop(1)} aria-label={t.partnersNext}>
             ›
