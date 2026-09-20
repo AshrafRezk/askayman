@@ -931,6 +931,17 @@ a[href^="tel:"],
   border-radius: 28px;
   overflow: hidden;
   border: 1px solid var(--line);
+  background: #070d14;
+}
+
+.partners-stage.is-iso {
+  perspective: 1600px;
+  perspective-origin: 50% 58%;
+  background: radial-gradient(ellipse at 50% 72%, #163024 0%, #070d14 62%);
+}
+
+.partners-stage.is-iso:not(.is-green) {
+  background: radial-gradient(ellipse at 50% 72%, #182436 0%, #070d14 62%);
 }
 
 .partners-map.brand-map,
@@ -939,6 +950,83 @@ a[href^="tel:"],
   height: min(62vh, 560px);
   border: 0;
   border-radius: 0;
+  transition: height 0.45s var(--ease);
+}
+
+.partners-stage.is-iso .partners-map.brand-map,
+.partners-stage.is-iso .partners-map.brand-map-fallback {
+  height: min(68vh, 640px);
+}
+
+.partners-stage.is-iso .partners-map.leaflet-container {
+  transform: rotateX(40deg) rotateZ(-16deg) scale(1.12);
+  transform-origin: 50% 52%;
+  transition: transform 0.8s var(--ease);
+}
+
+.partners-iso-canvas {
+  pointer-events: none;
+}
+
+.partners-map.is-iso .leaflet-tile-pane {
+  opacity: 0.5;
+}
+
+.partners-map.is-green.brand-map .leaflet-tile-pane {
+  filter: invert(0.86) hue-rotate(148deg) saturate(1.7) sepia(0.08) brightness(0.92) contrast(1.12);
+  opacity: 0.72;
+}
+
+.partners-map.is-iso.is-green .leaflet-tile-pane {
+  opacity: 0.55;
+}
+
+.partners-map.is-iso .partner-pin {
+  opacity: 0.9;
+}
+
+.partners-view {
+  position: absolute;
+  top: 14px;
+  inset-inline-end: 14px;
+  z-index: 7;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+  max-width: calc(100% - 28px);
+}
+
+.partners-view .lang-toggle,
+.partners-green {
+  background: rgba(8, 16, 26, 0.84);
+  backdrop-filter: blur(16px);
+}
+
+.partners-green {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line);
+  color: var(--ivory);
+  border-radius: 999px;
+  padding: 7px 12px 7px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+.partners-green.is-on {
+  border-color: #7dcea0;
+  color: #9be7b0;
+  background: rgba(46, 122, 74, 0.24);
+}
+
+.partners-green svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
 }
 
 .partners-hud {
@@ -1236,6 +1324,15 @@ a[href^="tel:"],
   .footer {
     flex-direction: column;
     padding-bottom: 88px;
+  }
+
+  .partners-view {
+    top: 10px;
+    inset-inline-end: 10px;
+  }
+
+  .partners-green {
+    padding: 7px 10px;
   }
 }
 

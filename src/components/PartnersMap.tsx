@@ -13,6 +13,7 @@ import {
   type PartnerView,
 } from '../partners'
 import { CloudastickFootnote } from './CloudastickFootnote'
+import { IsoMassingLayer } from './IsoMassingLayer'
 import 'leaflet/dist/leaflet.css'
 
 type ParcelProps = {
@@ -56,16 +57,32 @@ function parcelTargetId(compound: PartnerCompound | null) {
   return compound.parcelId ?? compound.id
 }
 
-function parcelStyle(props: ParcelProps, selected: string | null): L.PathOptions {
+function parcelStyle(
+  props: ParcelProps,
+  selected: string | null,
+  greenery: boolean,
+  iso3d: boolean,
+): L.PathOptions {
   const activeId = parcelTargetId(selectedCompound(selected))
   const active = props.partnerId === activeId || props.partnerId === selected
   const family = selectedCompound(selected)?.group
   const familyOn = Boolean(props.family && family && props.family === family)
+  const ink = greenery ? '#7dcea0' : '#d4b15a'
+  const gold = greenery ? '#9be7b0' : '#f0d48a'
 
+  if (iso3d) {
+    return {
+      color: active || familyOn ? gold : ink,
+      fillColor: greenery ? '#163828' : '#08111c',
+      fillOpacity: active ? 0.1 : familyOn ? 0.06 : 0.03,
+      weight: active ? 1.6 : 1.1,
+      dashArray: props.kind === 'outline' ? '7,6' : undefined,
+    }
+  }
   if (props.kind === 'outline') {
     return {
-      color: active || familyOn ? '#f0d48a' : '#d4b15a',
-      fillColor: '#08111c',
+      color: active || familyOn ? gold : ink,
+      fillColor: greenery ? '#10281c' : '#08111c',
       fillOpacity: active ? 0.14 : familyOn ? 0.08 : 0.04,
       weight: active ? 2.2 : 1.5,
       dashArray: '7,6',
@@ -73,8 +90,8 @@ function parcelStyle(props: ParcelProps, selected: string | null): L.PathOptions
   }
   if (active && props.primary) {
     return {
-      color: '#f0d48a',
-      fillColor: '#c49c4f',
+      color: gold,
+      fillColor: greenery ? '#2a9d8f' : '#c49c4f',
       fillOpacity: 0.5,
       weight: 3.4,
     }
@@ -88,9 +105,9 @@ function parcelStyle(props: ParcelProps, selected: string | null): L.PathOptions
     }
   }
   return {
-    color: '#d4b15a',
-    fillColor: '#c49c4f',
-    fillOpacity: 0.24,
+    color: ink,
+    fillColor: greenery ? '#2f6b4a' : '#c49c4f',
+    fillOpacity: greenery ? 0.3 : 0.24,
     weight: 2,
   }
 }
@@ -124,19 +141,22 @@ function showMarker(compound: PartnerCompound, selected: string | null) {
 function MapCamera({
   selected,
   region,
+  iso3d,
 }: {
   selected: string | null
   region: PartnerView
+  iso3d: boolean
 }) {
   const map = useMap()
 
   useEffect(() => {
     const fly = () => {
       map.invalidateSize()
+      const pad = iso3d ? 64 : 36
       if (selected) {
         const bounds = boundsForPartner(selected)
         if (bounds?.isValid()) {
-          map.flyToBounds(bounds, { padding: [36, 36], duration: 1.45, maxZoom: 16 })
+          map.flyToBounds(bounds, { padding: [pad, pad], duration: 1.45, maxZoom: iso3d ? 16.2 : 16 })
           return
         }
         const compound = PARTNER_COMPOUNDS.find((item) => item.id === selected)
@@ -146,14 +166,18 @@ function MapCamera({
       const bounds = boundsForRegion(region)
       const view = PARTNER_REGIONS.find((item) => item.id === region) ?? PARTNER_REGIONS[0]
       if (region !== 'all' && bounds?.isValid()) {
-        map.flyToBounds(bounds, { padding: [48, 48], duration: 1.35, maxZoom: region === 'taj' ? 15 : 13 })
+        map.flyToBounds(bounds, {
+          padding: [iso3d ? 72 : 48, iso3d ? 72 : 48],
+          duration: 1.35,
+          maxZoom: region === 'taj' ? 15 : 13,
+        })
         return
       }
       map.flyTo([view.lat, view.lng], view.zoom, { duration: 1.35 })
     }
     const id = window.setTimeout(fly, 80)
     return () => window.clearTimeout(id)
-  }, [map, region, selected])
+  }, [iso3d, map, region, selected])
 
   return null
 }
@@ -177,9 +201,13 @@ function WheelOnHover() {
 
 function ParcelLayer({
   selected,
+  greenery,
+  iso3d,
   onSelect,
 }: {
   selected: string | null
+  greenery: boolean
+  iso3d: boolean
   onSelect: (id: string) => void
 }) {
   const onSelectRef = useRef(onSelect)
@@ -189,7 +217,7 @@ function ParcelLayer({
   return (
     <ParcelGeoJSON
       data={PARCELS}
-      style={(feature) => parcelStyle((feature?.properties ?? {}) as ParcelProps, selected)}
+      style={(feature) => parcelStyle((feature?.properties ?? {}) as ParcelProps, selected, greenery, iso3d)}
       onEachFeature={(feature, layer) => {
         const props = feature.properties as ParcelProps
         layer.on('click', () => {
@@ -200,7 +228,7 @@ function ParcelLayer({
           ;(layer as L.Path).bringToFront()
         }
       }}
-      key={selected ?? 'all'}
+      key={`${selected ?? 'all'}-${greenery ? 'g' : 'd'}-${iso3d ? '3' : '2'}`}
     />
   )
 }
@@ -209,11 +237,15 @@ export function PartnersMap({
   lang,
   selected,
   region,
+  iso3d,
+  greenery,
   onSelect,
 }: {
   lang: 'en' | 'ar'
   selected: string | null
   region: PartnerView
+  iso3d: boolean
+  greenery: boolean
   onSelect: (id: string) => void
 }) {
   const icons = useMemo(
@@ -223,7 +255,7 @@ export function PartnersMap({
 
   return (
     <MapContainer
-      className="partners-map brand-map"
+      className={`partners-map brand-map${iso3d ? ' is-iso' : ''}${greenery ? ' is-green' : ''}`}
       center={[30.3, 30.3]}
       zoom={6.4}
       scrollWheelZoom={false}
@@ -231,9 +263,10 @@ export function PartnersMap({
     >
       <TileLayer attribution="" url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       <CloudastickFootnote />
-      <MapCamera selected={selected} region={region} />
+      <MapCamera selected={selected} region={region} iso3d={iso3d} />
       <WheelOnHover />
-      <ParcelLayer selected={selected} onSelect={onSelect} />
+      <ParcelLayer selected={selected} greenery={greenery} iso3d={iso3d} onSelect={onSelect} />
+      <IsoMassingLayer selected={selected} iso3d={iso3d} greenery={greenery} />
       {PARTNER_COMPOUNDS.filter((compound) => showMarker(compound, selected)).map((compound) => (
         <Marker
           key={compound.id}
