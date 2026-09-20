@@ -7,7 +7,9 @@ import { haptic } from '../haptics'
 import {
   PARTNER_COMPOUNDS,
   PARTNER_REGIONS,
+  TAJ_MAP_ZONE_IDS,
   compoundInView,
+  isTajMapZone,
   type PartnerCompound,
   type PartnerGroup,
   type PartnerView,
@@ -35,8 +37,7 @@ type ParcelFeature = {
 }
 
 const PARCELS = parcels as { type: 'FeatureCollection'; features: ParcelFeature[] }
-
-const TAJ_PIN_IDS = new Set(['taj-city', 'taj-sultan', 'taj-tzone', 'taj-shalya', 'taj-origami'])
+const TAJ_ZONE_SET = new Set<string>(TAJ_MAP_ZONE_IDS)
 
 function pin(compound: PartnerCompound, active: boolean) {
   return L.divIcon({
@@ -45,6 +46,17 @@ function pin(compound: PartnerCompound, active: boolean) {
     iconSize: active ? [108, 52] : [92, 44],
     iconAnchor: active ? [54, 26] : [46, 22],
     popupAnchor: [0, -22],
+  })
+}
+
+function namePin(label: string, active: boolean) {
+  const safe = label.replace(/</g, '&lt;')
+  return L.divIcon({
+    className: `partner-name-pin${active ? ' is-on' : ''}`,
+    html: `<span class="partner-name-label">${safe}</span>`,
+    iconSize: active ? [120, 28] : [104, 24],
+    iconAnchor: active ? [60, 14] : [52, 12],
+    popupAnchor: [0, -14],
   })
 }
 
@@ -114,6 +126,19 @@ function parcelStyle(
 
 function boundsForPartner(partnerId: string) {
   const compound = PARTNER_COMPOUNDS.find((item) => item.id === partnerId)
+  if (compound?.group === 'taj') {
+    if (TAJ_ZONE_SET.has(partnerId)) {
+      const feature = PARCELS.features.find((item) => item.properties.partnerId === partnerId)
+      if (feature) return L.geoJSON(feature as never).getBounds()
+    }
+    const zones = PARCELS.features.filter((feature) => TAJ_ZONE_SET.has(feature.properties.partnerId))
+    if (zones.length) {
+      return zones.reduce(
+        (bounds, feature) => bounds.extend(L.geoJSON(feature as never).getBounds()),
+        L.geoJSON(zones[0] as never).getBounds(),
+      )
+    }
+  }
   const target = compound ? parcelTargetId(compound) : partnerId
   const primary = PARCELS.features.find((feature) => feature.properties.partnerId === target && feature.properties.primary)
   const fallback = PARCELS.features.find((feature) => feature.properties.partnerId === target)
@@ -123,6 +148,15 @@ function boundsForPartner(partnerId: string) {
 }
 
 function boundsForRegion(region: PartnerView) {
+  if (region === 'taj') {
+    const zones = PARCELS.features.filter((feature) => TAJ_ZONE_SET.has(feature.properties.partnerId))
+    if (zones.length) {
+      return zones.reduce(
+        (bounds, feature) => bounds.extend(L.geoJSON(feature as never).getBounds()),
+        L.geoJSON(zones[0] as never).getBounds(),
+      )
+    }
+  }
   const ids = new Set(PARTNER_COMPOUNDS.filter((item) => compoundInView(item, region)).map((item) => item.id))
   const features = PARCELS.features.filter((feature) => ids.has(feature.properties.partnerId))
   if (!features.length) return null
@@ -133,11 +167,17 @@ function boundsForRegion(region: PartnerView) {
 }
 
 function showMarker(compound: PartnerCompound, selected: string | null) {
+  if (compound.group === 'taj') {
+    if (isTajMapZone(compound)) return true
+    if (compound.id === 'taj-city') {
+      const tajOpen = Boolean(selected && PARTNER_COMPOUNDS.find((item) => item.id === selected)?.group === 'taj')
+      return tajOpen || selected === 'taj-city'
+    }
+    return false
+  }
   if (compound.id === selected) return true
   if (compound.group === 'sodic' || compound.group === 'sarai') return true
-  const tajOpen = Boolean(selected && PARTNER_COMPOUNDS.find((item) => item.id === selected)?.group === 'taj')
-  if (compound.id === 'taj-city') return true
-  return tajOpen && TAJ_PIN_IDS.has(compound.id)
+  return false
 }
 
 function MapCamera({
@@ -154,30 +194,30 @@ function MapCamera({
   useEffect(() => {
     const fly = () => {
       map.invalidateSize()
-      const pad = iso3d ? 64 : 36
+      const pad = iso3d ? 56 : 32
       if (selected) {
         const bounds = boundsForPartner(selected)
         if (bounds?.isValid()) {
-          map.flyToBounds(bounds, { padding: [pad, pad], duration: 1.45, maxZoom: iso3d ? 16.2 : 16 })
+          map.flyToBounds(bounds, { padding: [pad, pad], duration: 0.85, maxZoom: iso3d ? 16.2 : 16 })
           return
         }
         const compound = PARTNER_COMPOUNDS.find((item) => item.id === selected)
-        if (compound) map.flyTo([compound.lat, compound.lng], compound.zoom, { duration: 1.45 })
+        if (compound) map.flyTo([compound.lat, compound.lng], compound.zoom, { duration: 0.85 })
         return
       }
       const bounds = boundsForRegion(region)
       const view = PARTNER_REGIONS.find((item) => item.id === region) ?? PARTNER_REGIONS[0]
       if (region !== 'all' && bounds?.isValid()) {
         map.flyToBounds(bounds, {
-          padding: [iso3d ? 72 : 48, iso3d ? 72 : 48],
-          duration: 1.35,
+          padding: [iso3d ? 64 : 40, iso3d ? 64 : 40],
+          duration: 0.8,
           maxZoom: region === 'taj' ? 15 : 13,
         })
         return
       }
-      map.flyTo([view.lat, view.lng], view.zoom, { duration: 1.35 })
+      map.flyTo([view.lat, view.lng], view.zoom, { duration: 0.75 })
     }
-    const id = window.setTimeout(fly, 80)
+    const id = window.setTimeout(fly, 40)
     return () => window.clearTimeout(id)
   }, [iso3d, map, region, selected])
 
@@ -205,32 +245,62 @@ function ParcelLayer({
   selected,
   greenery,
   iso3d,
+  budgetAllowed,
   onSelect,
 }: {
   selected: string | null
   greenery: boolean
   iso3d: boolean
+  budgetAllowed: Set<string> | null
   onSelect: (id: string) => void
 }) {
   const onSelectRef = useRef(onSelect)
   onSelectRef.current = onSelect
+  const layerRef = useRef<L.GeoJSON | null>(null)
   const activeId = parcelTargetId(selectedCompound(selected))
+
+  useEffect(() => {
+    const layer = layerRef.current
+    if (!layer) return
+    layer.setStyle((feature) => {
+      const props = (feature?.properties ?? {}) as ParcelProps
+      const base = parcelStyle(props, selected, greenery, iso3d)
+      if (budgetAllowed && !budgetAllowed.has(props.partnerId)) {
+        return { ...base, fillOpacity: Math.min(0.08, base.fillOpacity ?? 0.1), opacity: 0.25, weight: 1 }
+      }
+      return base
+    })
+    layer.eachLayer((path) => {
+      const props = (path as L.Layer & { feature?: { properties?: ParcelProps } }).feature?.properties
+      if (!props) return
+      if ((props.partnerId === selected || props.partnerId === activeId) && props.primary && 'bringToFront' in path) {
+        ;(path as L.Path).bringToFront()
+      }
+    })
+  }, [activeId, budgetAllowed, greenery, iso3d, selected])
 
   return (
     <ParcelGeoJSON
       data={PARCELS}
-      style={(feature) => parcelStyle((feature?.properties ?? {}) as ParcelProps, selected, greenery, iso3d)}
+      style={(feature) => {
+        const props = (feature?.properties ?? {}) as ParcelProps
+        const base = parcelStyle(props, selected, greenery, iso3d)
+        if (budgetAllowed && !budgetAllowed.has(props.partnerId)) {
+          return { ...base, fillOpacity: Math.min(0.08, base.fillOpacity ?? 0.1), opacity: 0.25, weight: 1 }
+        }
+        return base
+      }}
+      ref={(layer) => {
+        layerRef.current = layer
+      }}
       onEachFeature={(feature, layer) => {
         const props = feature.properties as ParcelProps
         layer.on('click', () => {
+          if (budgetAllowed && !budgetAllowed.has(props.partnerId)) return
           haptic('medium')
           onSelectRef.current(props.partnerId)
         })
-        if ((props.partnerId === selected || props.partnerId === activeId) && props.primary && 'bringToFront' in layer) {
-          ;(layer as L.Path).bringToFront()
-        }
       }}
-      key={`${selected ?? 'all'}-${greenery ? 'g' : 'd'}-${iso3d ? '3' : '2'}`}
     />
   )
 }
@@ -242,6 +312,7 @@ export function PartnersMap({
   iso3d,
   greenery,
   life,
+  budgetAllowed,
   onSelect,
 }: {
   lang: 'en' | 'ar'
@@ -250,12 +321,27 @@ export function PartnersMap({
   iso3d: boolean
   greenery: boolean
   life: boolean
+  budgetAllowed: Set<string> | null
   onSelect: (id: string) => void
 }) {
-  const icons = useMemo(
-    () => Object.fromEntries(PARTNER_COMPOUNDS.map((item) => [item.id, pin(item, item.id === selected)])),
-    [selected],
-  )
+  const icons = useMemo(() => {
+    return Object.fromEntries(
+      PARTNER_COMPOUNDS.map((item) => {
+        const active = item.id === selected
+        if (item.group === 'taj') {
+          const label = lang === 'ar' ? item.nameAr : item.name
+          return [item.id, namePin(label, active)]
+        }
+        return [item.id, pin(item, active)]
+      }),
+    )
+  }, [lang, selected])
+
+  const markers = PARTNER_COMPOUNDS.filter((compound) => {
+    if (!showMarker(compound, selected)) return false
+    if (!budgetAllowed) return true
+    return budgetAllowed.has(compound.id)
+  })
 
   return (
     <MapContainer
@@ -264,19 +350,34 @@ export function PartnersMap({
       zoom={6.4}
       scrollWheelZoom={false}
       attributionControl={false}
+      preferCanvas
+      fadeAnimation={false}
+      markerZoomAnimation={false}
     >
-      <TileLayer attribution="" url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      <TileLayer
+        attribution=""
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        updateWhenIdle
+        keepBuffer={1}
+      />
       <MapCamera selected={selected} region={region} iso3d={iso3d} />
       <WheelOnHover />
-      <ParcelLayer selected={selected} greenery={greenery} iso3d={iso3d} onSelect={onSelect} />
-      <LifeLayer selected={selected} life={life} iso3d={iso3d} greenery={greenery} />
-      <IsoMassingLayer selected={selected} iso3d={iso3d} greenery={greenery} />
-      {PARTNER_COMPOUNDS.filter((compound) => showMarker(compound, selected)).map((compound) => (
+      <ParcelLayer
+        selected={selected}
+        greenery={greenery}
+        iso3d={iso3d}
+        budgetAllowed={budgetAllowed}
+        onSelect={onSelect}
+      />
+      {life ? <LifeLayer selected={selected} life={life} iso3d={iso3d} greenery={greenery} /> : null}
+      {iso3d ? <IsoMassingLayer selected={selected} iso3d={iso3d} greenery={greenery} /> : null}
+      {markers.map((compound) => (
         <Marker
           key={compound.id}
           position={[compound.lat, compound.lng]}
           icon={icons[compound.id]}
-          zIndexOffset={compound.id === selected ? 600 : 0}
+          opacity={budgetAllowed && !budgetAllowed.has(compound.id) ? 0.25 : 1}
+          zIndexOffset={compound.id === selected ? 600 : compound.group === 'taj' ? 400 : 0}
           eventHandlers={{
             click: () => {
               haptic('medium')

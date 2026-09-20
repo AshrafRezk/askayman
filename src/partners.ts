@@ -43,8 +43,15 @@ export function compoundInView(item: PartnerCompound, view: PartnerView) {
   return item.region === view
 }
 
+/** Zones with accurate traced polygons on the map — names only, no other Taj land. */
+export const TAJ_MAP_ZONE_IDS = ['taj-sultan', 'taj-shalya', 'taj-kinda', 'taj-clubside'] as const
+
 export function isTajZone(item: PartnerCompound) {
   return item.group === 'taj' && item.id !== 'taj-city'
+}
+
+export function isTajMapZone(item: PartnerCompound) {
+  return (TAJ_MAP_ZONE_IDS as readonly string[]).includes(item.id)
 }
 
 export function chipInView(item: PartnerCompound, view: PartnerView) {
@@ -55,7 +62,7 @@ export function chipInView(item: PartnerCompound, view: PartnerView) {
 export function zonesForSelection(selected: string | null) {
   const item = PARTNER_COMPOUNDS.find((entry) => entry.id === selected)
   if (!item || item.group !== 'taj') return []
-  return PARTNER_COMPOUNDS.filter(isTajZone)
+  return PARTNER_COMPOUNDS.filter(isTajMapZone)
 }
 
 export const PARTNER_COMPOUNDS: PartnerCompound[] = [
@@ -93,8 +100,8 @@ export const PARTNER_COMPOUNDS: PartnerCompound[] = [
     nameAr: 'شاليا',
     region: 'east',
     group: 'taj',
-    lat: 30.062825,
-    lng: 31.41651,
+    lat: 30.0628,
+    lng: 31.4148,
     zoom: 16,
     logo: TAJ_LOGO,
     status: 'sold',
@@ -122,12 +129,11 @@ export const PARTNER_COMPOUNDS: PartnerCompound[] = [
     nameAr: 'كلوب سايد',
     region: 'east',
     group: 'taj',
-    lat: TAJ_CITY.lat,
-    lng: TAJ_CITY.lng,
-    zoom: 14.6,
+    lat: 30.0673,
+    lng: 31.4128,
+    zoom: 16,
     logo: TAJ_LOGO,
     status: 'sold',
-    parcelId: 'taj-city',
     detail: 'Clubside · apartments from 80 m² · Klub Kayan · sold out.',
     detailAr: 'كلوبسايد · شقق من ٨٠ م² · كلوب كيان · مباع بالكامل.',
   },
@@ -181,8 +187,8 @@ export const PARTNER_COMPOUNDS: PartnerCompound[] = [
     nameAr: 'تاج سلطان',
     region: 'east',
     group: 'taj',
-    lat: 30.061213,
-    lng: 31.408147,
+    lat: 30.0611,
+    lng: 31.408,
     zoom: 16,
     logo: TAJ_LOGO,
     status: 'sold',
@@ -207,17 +213,16 @@ export const PARTNER_COMPOUNDS: PartnerCompound[] = [
   {
     id: 'taj-kinda',
     name: 'Kinda',
-    nameAr: 'كندا',
+    nameAr: 'كيندا',
     region: 'east',
     group: 'taj',
-    lat: TAJ_CITY.lat,
-    lng: TAJ_CITY.lng,
-    zoom: 14.6,
+    lat: 30.0684,
+    lng: 31.4225,
+    zoom: 16,
     logo: TAJ_LOGO,
-    status: 'sold',
-    parcelId: 'taj-city',
-    detail: 'Minka Canadian-Egyptian villas 260–603 m² · sold out.',
-    detailAr: 'فيلات مينكا كندي-مصري ٢٦٠–٦٠٣ م² · مباع بالكامل.',
+    status: 'explore',
+    detail: 'Office and commercial · Kinda district inside Taj City.',
+    detailAr: 'مكاتب وتجاري · منطقة كيندا جوه تاج سيتي.',
   },
   {
     id: 'taj-ville',

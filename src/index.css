@@ -1062,13 +1062,213 @@ a[href^="tel:"],
   flex-shrink: 0;
 }
 
-.partners-life-canvas {
-  pointer-events: none;
+.partners-deal {
+  margin-top: 16px;
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  background: linear-gradient(160deg, rgba(12, 22, 34, 0.92), rgba(8, 14, 22, 0.88));
+}
+
+.partners-deal-kicker {
+  margin: 0 0 6px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-2);
+  opacity: 0.85;
+}
+
+.partners-budget-rail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.partners-budget-rail button {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--ivory);
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.partners-budget-rail button.is-on {
+  border-color: var(--gold-2);
+  background: rgba(196, 156, 79, 0.22);
+  color: var(--gold-2);
+}
+
+.partners-plan {
+  display: grid;
+  gap: 10px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(212, 177, 90, 0.16);
+}
+
+.partners-plan-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.partners-plan-head strong {
+  display: block;
+  font-size: 18px;
+  color: var(--ivory);
+}
+
+.partners-avail {
+  flex-shrink: 0;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  border: 1px solid var(--line);
+}
+
+.partners-avail.is-primary {
+  color: #9be7b0;
+  border-color: rgba(125, 206, 160, 0.45);
+}
+
+.partners-avail.is-resale {
+  color: var(--gold-2);
+  border-color: rgba(212, 177, 90, 0.45);
+}
+
+.partners-avail.is-sold {
+  color: var(--mist);
+}
+
+.partners-plan-price {
+  margin: 0;
+  color: var(--mist);
+  font-size: 14px;
+}
+
+.partners-plan-price b {
+  color: var(--gold-2);
+  font-size: 18px;
+}
+
+.partners-plan-hint,
+.partners-plan-note,
+.partners-plan-source,
+.partners-plan-empty {
+  margin: 0;
+  color: var(--mist);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.partners-plan-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.partners-plan-tabs button {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ivory);
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.partners-plan-tabs button.is-on {
+  border-color: var(--gold-2);
+  color: var(--gold-2);
+}
+
+.partners-plan-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+}
+
+.partners-plan-grid div {
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(212, 177, 90, 0.12);
+}
+
+.partners-plan-grid dt {
+  margin: 0 0 4px;
+  font-size: 11px;
+  color: var(--mist);
+}
+
+.partners-plan-grid dd {
+  margin: 0;
+  color: var(--ivory);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.partners-plan-grid small {
+  font-weight: 400;
+  color: var(--mist);
+}
+
+.partners-plan-source a {
+  color: var(--gold-2);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.partners-plan-cta {
+  justify-self: start;
+}
+
+@media (max-width: 720px) {
+  .partners-plan-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .partner-pin {
   background: transparent;
   border: 0;
+}
+
+.partner-name-pin {
+  background: transparent;
+  border: 0;
+}
+
+.partner-name-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: rgba(8, 17, 28, 0.88);
+  border: 1px solid rgba(212, 177, 90, 0.5);
+  color: var(--gold-2);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+}
+
+.partner-name-pin.is-on .partner-name-label {
+  border-color: var(--gold-2);
+  color: #08111c;
+  background: var(--gold-2);
+  box-shadow: 0 0 0 3px rgba(212, 177, 90, 0.28), 0 10px 22px rgba(0, 0, 0, 0.45);
 }
 
 .partner-pin-disc {

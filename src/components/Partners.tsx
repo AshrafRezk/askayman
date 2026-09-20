@@ -1,6 +1,12 @@
 import { useEffect, useMemo, useState } from 'react'
 import { asset } from '../assets'
 import { copy, type Lang } from '../data'
+import {
+  BUDGET_PRESETS,
+  offerFor,
+  offerMatchesBudget,
+  type BudgetPresetId,
+} from '../data/partner-offers'
 import { haptic } from '../haptics'
 import {
   PARTNER_COMPOUNDS,
@@ -9,6 +15,7 @@ import {
   zonesForSelection,
   type PartnerView,
 } from '../partners'
+import { BudgetDealPanel } from './BudgetDealPanel'
 import { CloudastickFootnote } from './CloudastickFootnote'
 import { PartnersMap } from './PartnersMap'
 
@@ -20,18 +27,43 @@ export function Partners({ lang }: { lang: Lang }) {
   const [iso3d, setIso3d] = useState(false)
   const [greenery, setGreenery] = useState(false)
   const [life, setLife] = useState(false)
+  const [budgetId, setBudgetId] = useState<BudgetPresetId>('any')
 
-  const compounds = useMemo(
-    () => PARTNER_COMPOUNDS.filter((item) => chipInView(item, region)),
-    [region],
-  )
+  const budgetPreset = BUDGET_PRESETS.find((item) => item.id === budgetId) ?? BUDGET_PRESETS[0]
+  const maxBudget = budgetPreset.max
+  const minBudget = 'min' in budgetPreset && typeof budgetPreset.min === 'number' ? budgetPreset.min : 0
+
+  const compounds = useMemo(() => {
+    return PARTNER_COMPOUNDS.filter((item) => {
+      if (!chipInView(item, region)) return false
+      if (budgetId === 'any') return true
+      const offer = offerFor(item.id)
+      if (!offer) return true
+      return offerMatchesBudget(offer, maxBudget, minBudget)
+    })
+  }, [budgetId, maxBudget, minBudget, region])
+
   const active = PARTNER_COMPOUNDS.find((item) => item.id === selected) ?? null
   const zones = useMemo(() => zonesForSelection(selected), [selected])
   const parentOn = active?.group === 'taj' ? 'taj-city' : null
+  const budgetAllowed = useMemo(() => {
+    if (budgetId === 'any') return null
+    const ids = new Set<string>()
+    for (const item of PARTNER_COMPOUNDS) {
+      const offer = offerFor(item.id)
+      if (!offer || offerMatchesBudget(offer, maxBudget, minBudget)) ids.add(item.id)
+    }
+    return ids
+  }, [budgetId, maxBudget, minBudget])
 
   useEffect(() => {
     setReady(true)
   }, [])
+
+  useEffect(() => {
+    if (!selected || !budgetAllowed) return
+    if (!budgetAllowed.has(selected)) setSelected(null)
+  }, [budgetAllowed, selected])
 
   function chooseRegion(next: PartnerView) {
     haptic('light')
@@ -42,6 +74,7 @@ export function Partners({ lang }: { lang: Lang }) {
   function chooseCompound(id: string) {
     const compound = PARTNER_COMPOUNDS.find((item) => item.id === id)
     if (!compound) return
+    if (budgetAllowed && !budgetAllowed.has(id)) return
     haptic('medium')
     if (region === 'taj' && compound.group !== 'taj') {
       setRegion(compound.region)
@@ -96,16 +129,18 @@ export function Partners({ lang }: { lang: Lang }) {
 
       {zones.length ? (
         <div className="partner-zones" role="list" aria-label={lang === 'ar' ? 'مراحل تاج سيتي' : 'Taj City zones'}>
-          {zones.map((zone) => (
-            <button
-              key={zone.id}
-              type="button"
-              className={`partner-chip is-zone${zone.id === selected ? ' is-on' : ''}`}
-              onClick={() => chooseCompound(zone.id)}
-            >
-              <span>{lang === 'ar' ? zone.nameAr : zone.name}</span>
-            </button>
-          ))}
+          {zones
+            .filter((zone) => !budgetAllowed || budgetAllowed.has(zone.id))
+            .map((zone) => (
+              <button
+                key={zone.id}
+                type="button"
+                className={`partner-chip is-zone${zone.id === selected ? ' is-on' : ''}`}
+                onClick={() => chooseCompound(zone.id)}
+              >
+                <span>{lang === 'ar' ? zone.nameAr : zone.name}</span>
+              </button>
+            ))}
         </div>
       ) : null}
 
@@ -118,6 +153,7 @@ export function Partners({ lang }: { lang: Lang }) {
             iso3d={iso3d}
             greenery={greenery}
             life={life}
+            budgetAllowed={budgetAllowed}
             onSelect={chooseCompound}
           />
         ) : (
@@ -187,6 +223,8 @@ export function Partners({ lang }: { lang: Lang }) {
 
         <CloudastickFootnote />
       </div>
+
+      <BudgetDealPanel lang={lang} selected={selected} budgetId={budgetId} onBudget={setBudgetId} />
     </section>
   )
 }
