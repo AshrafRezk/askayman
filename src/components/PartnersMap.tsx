@@ -12,7 +12,6 @@ import {
   type PartnerGroup,
   type PartnerView,
 } from '../partners'
-import { CloudastickFootnote } from './CloudastickFootnote'
 import { IsoMassingLayer } from './IsoMassingLayer'
 import 'leaflet/dist/leaflet.css'
 
@@ -135,7 +134,9 @@ function boundsForRegion(region: PartnerView) {
 function showMarker(compound: PartnerCompound, selected: string | null) {
   if (compound.id === selected) return true
   if (compound.group === 'sodic' || compound.group === 'sarai') return true
-  return TAJ_PIN_IDS.has(compound.id)
+  const tajOpen = Boolean(selected && PARTNER_COMPOUNDS.find((item) => item.id === selected)?.group === 'taj')
+  if (compound.id === 'taj-city') return true
+  return tajOpen && TAJ_PIN_IDS.has(compound.id)
 }
 
 function MapCamera({
@@ -262,7 +263,6 @@ export function PartnersMap({
       attributionControl={false}
     >
       <TileLayer attribution="" url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-      <CloudastickFootnote />
       <MapCamera selected={selected} region={region} iso3d={iso3d} />
       <WheelOnHover />
       <ParcelLayer selected={selected} greenery={greenery} iso3d={iso3d} onSelect={onSelect} />

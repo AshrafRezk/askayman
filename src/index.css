@@ -755,13 +755,23 @@ a[href^="tel:"],
 
 .brand-map,
 .brand-map-fallback {
-  margin-top: 18px;
   height: 260px;
   width: 100%;
+  background: #0b1522;
+}
+
+.map-credit-wrap {
+  position: relative;
+  margin-top: 18px;
   border-radius: 22px;
   overflow: hidden;
   border: 1px solid var(--line);
-  background: #0b1522;
+}
+
+.map-credit-wrap .brand-map,
+.map-credit-wrap .brand-map-fallback {
+  border: 0;
+  border-radius: 0;
 }
 
 .brand-map.leaflet-container {
@@ -783,34 +793,34 @@ a[href^="tel:"],
   background: rgba(20, 32, 48, 0.95);
 }
 
-.brand-map .leaflet-bottom.leaflet-right .leaflet-control-attribution {
-  display: flex !important;
+.cloudastick-footnote {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 8;
+  display: flex;
   align-items: center;
-  gap: 4px;
-  margin: 0 !important;
-  padding: 2px 6px !important;
-  background: rgba(255, 255, 255, 0.82) !important;
-  color: #333 !important;
-  border: 0;
-  border-radius: 0;
-  box-shadow: none !important;
-  font: 11px/1.35 'Helvetica Neue', Arial, sans-serif !important;
+  gap: 6px;
+  margin: 0;
+  padding: 3px 8px 3px 4px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  font: 11px/1.35 'Helvetica Neue', Arial, sans-serif;
   white-space: nowrap;
-  max-width: min(72vw, 280px);
+  pointer-events: none;
 }
 
-.brand-map .leaflet-control-attribution .cloudastick-map-logo {
+.cloudastick-map-logo {
   height: 18px;
   width: 18px;
-  object-fit: contain;
-  display: inline-block;
-  vertical-align: middle;
+  object-fit: cover;
+  display: block;
   flex: 0 0 18px;
   background: #000;
   border-radius: 3px;
 }
 
-.brand-map .leaflet-control-attribution .cloudastick-map-label {
+.cloudastick-map-label {
   font-weight: 400;
   color: #333;
 }
@@ -871,8 +881,7 @@ a[href^="tel:"],
 }
 
 .partner-regions button,
-.partner-chip,
-.partners-hop {
+.partner-chip {
   border: 1px solid var(--line);
   background: rgba(8, 17, 28, 0.72);
   color: var(--ivory);
@@ -924,6 +933,21 @@ a[href^="tel:"],
   object-fit: cover;
   border-radius: 4px;
   background: #000;
+}
+
+.partner-zones {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 0 2px 16px;
+  margin: -6px -2px 8px;
+  scrollbar-width: thin;
+}
+
+.partner-chip.is-zone {
+  padding: 6px 12px;
+  font-size: 12px;
+  background: rgba(8, 17, 28, 0.5);
 }
 
 .partners-stage {
@@ -1027,59 +1051,6 @@ a[href^="tel:"],
   width: 16px;
   height: 16px;
   flex-shrink: 0;
-}
-
-.partners-hud {
-  position: absolute;
-  left: 16px;
-  right: 16px;
-  bottom: 52px;
-  z-index: 6;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.partners-now {
-  flex: 1;
-  min-width: 0;
-  padding: 10px 16px;
-  border-radius: 18px;
-  background: rgba(8, 16, 26, 0.82);
-  border: 1px solid var(--line);
-  backdrop-filter: blur(16px);
-}
-
-.partners-now b {
-  display: block;
-  font-size: 16px;
-  color: var(--gold-2);
-}
-
-.partners-now span {
-  display: block;
-  margin-top: 4px;
-  color: var(--mist);
-  font-size: 13px;
-}
-
-.partners-now em {
-  display: block;
-  margin-top: 6px;
-  color: var(--ivory);
-  font-size: 12px;
-  font-style: normal;
-  line-height: 1.45;
-  opacity: 0.88;
-}
-
-.partners-hop {
-  width: 44px;
-  height: 44px;
-  flex-shrink: 0;
-  font-size: 28px;
-  line-height: 1;
-  color: var(--gold-2);
 }
 
 .partner-pin {

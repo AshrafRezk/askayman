@@ -5,9 +5,11 @@ import { haptic } from '../haptics'
 import {
   PARTNER_COMPOUNDS,
   PARTNER_REGIONS,
-  compoundInView,
+  chipInView,
+  zonesForSelection,
   type PartnerView,
 } from '../partners'
+import { CloudastickFootnote } from './CloudastickFootnote'
 import { PartnersMap } from './PartnersMap'
 
 export function Partners({ lang }: { lang: Lang }) {
@@ -18,12 +20,13 @@ export function Partners({ lang }: { lang: Lang }) {
   const [iso3d, setIso3d] = useState(false)
   const [greenery, setGreenery] = useState(false)
 
-  const visible = useMemo(
-    () => PARTNER_COMPOUNDS.filter((item) => compoundInView(item, region)),
+  const compounds = useMemo(
+    () => PARTNER_COMPOUNDS.filter((item) => chipInView(item, region)),
     [region],
   )
   const active = PARTNER_COMPOUNDS.find((item) => item.id === selected) ?? null
-  const regionMeta = PARTNER_REGIONS.find((item) => item.id === region)
+  const zones = useMemo(() => zonesForSelection(selected), [selected])
+  const parentOn = active?.group === 'taj' ? 'taj-city' : null
 
   useEffect(() => {
     setReady(true)
@@ -32,7 +35,7 @@ export function Partners({ lang }: { lang: Lang }) {
   function chooseRegion(next: PartnerView) {
     haptic('light')
     setRegion(next)
-    setSelected(null)
+    setSelected(next === 'taj' ? 'taj-city' : null)
   }
 
   function chooseCompound(id: string) {
@@ -46,29 +49,6 @@ export function Partners({ lang }: { lang: Lang }) {
     }
     setSelected(compound.id)
   }
-
-  function hop(step: number) {
-    if (!visible.length) return
-    const index = active ? visible.findIndex((item) => item.id === active.id) : -1
-    const next = visible[(index + step + visible.length) % visible.length]
-    chooseCompound(next.id)
-  }
-
-  const hudPlace = active
-    ? active.group === 'sarai'
-      ? lang === 'ar'
-        ? 'مدينة المستقبل · جنب مدينتي'
-        : 'Mostakbal City · beside Madinaty'
-      : active.group === 'taj'
-        ? lang === 'ar'
-          ? 'تاج سيتي · القاهرة الجديدة'
-          : 'Taj City · New Cairo'
-        : lang === 'ar'
-          ? PARTNER_REGIONS.find((item) => item.id === active.region)?.nameAr
-          : PARTNER_REGIONS.find((item) => item.id === active.region)?.name
-    : lang === 'ar'
-      ? regionMeta?.nameAr
-      : regionMeta?.name
 
   return (
     <section className="section partners-section" id="partners">
@@ -100,11 +80,11 @@ export function Partners({ lang }: { lang: Lang }) {
       </div>
 
       <div className="partner-rail" role="list">
-        {visible.map((compound) => (
+        {compounds.map((compound) => (
           <button
             key={compound.id}
             type="button"
-            className={`partner-chip${compound.id === selected ? ' is-on' : ''}${compound.group === 'taj' || compound.group === 'sarai' ? ' is-taj' : ''}`}
+            className={`partner-chip${compound.id === selected || compound.id === parentOn ? ' is-on' : ''}${compound.group === 'taj' || compound.group === 'sarai' ? ' is-taj' : ''}`}
             onClick={() => chooseCompound(compound.id)}
           >
             <img src={asset(compound.logo)} alt="" />
@@ -112,6 +92,21 @@ export function Partners({ lang }: { lang: Lang }) {
           </button>
         ))}
       </div>
+
+      {zones.length ? (
+        <div className="partner-zones" role="list" aria-label={lang === 'ar' ? 'مراحل تاج سيتي' : 'Taj City zones'}>
+          {zones.map((zone) => (
+            <button
+              key={zone.id}
+              type="button"
+              className={`partner-chip is-zone${zone.id === selected ? ' is-on' : ''}`}
+              onClick={() => chooseCompound(zone.id)}
+            >
+              <span>{lang === 'ar' ? zone.nameAr : zone.name}</span>
+            </button>
+          ))}
+        </div>
+      ) : null}
 
       <div className={`partners-stage${iso3d ? ' is-iso' : ''}${greenery ? ' is-green' : ''}`}>
         {ready ? (
@@ -171,29 +166,7 @@ export function Partners({ lang }: { lang: Lang }) {
           </button>
         </div>
 
-        <div className="partners-hud">
-          <button type="button" className="partners-hop" onClick={() => hop(-1)} aria-label={t.partnersPrev}>
-            ‹
-          </button>
-          <div className="partners-now">
-            <b>
-              {active
-                ? lang === 'ar'
-                  ? active.nameAr
-                  : active.name
-                : hudPlace}
-            </b>
-            <span>
-              {active
-                ? `${hudPlace} · ${active.status === 'sold' ? t.partnersSold : t.partnersExplore}`
-                : t.partnersHint}
-            </span>
-            {active ? <em>{lang === 'ar' ? active.detailAr : active.detail}</em> : null}
-          </div>
-          <button type="button" className="partners-hop" onClick={() => hop(1)} aria-label={t.partnersNext}>
-            ›
-          </button>
-        </div>
+        <CloudastickFootnote />
       </div>
     </section>
   )

@@ -24,29 +24,33 @@ export function BrandMap({ lang }: { lang: Lang }) {
     setReady(true)
   }, [])
 
-  if (!ready) return <div className="brand-map brand-map-fallback" />
-
   return (
-    <MapContainer
-      className="brand-map"
-      center={office}
-      zoom={16}
-      scrollWheelZoom={false}
-      attributionControl={false}
-    >
-      <TileLayer attribution="" url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+    <div className="map-credit-wrap">
+      {ready ? (
+        <MapContainer
+          className="brand-map"
+          center={office}
+          zoom={16}
+          scrollWheelZoom={false}
+          attributionControl={false}
+        >
+          <TileLayer attribution="" url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          <Marker
+            position={office}
+            icon={pin}
+            eventHandlers={{ click: () => haptic('medium') }}
+          >
+            <Popup>
+              <strong>Ask Ayman</strong>
+              <br />
+              {lang === 'ar' ? CONTACT.addressAr : CONTACT.addressEn}
+            </Popup>
+          </Marker>
+        </MapContainer>
+      ) : (
+        <div className="brand-map brand-map-fallback" />
+      )}
       <CloudastickFootnote />
-      <Marker
-        position={office}
-        icon={pin}
-        eventHandlers={{ click: () => haptic('medium') }}
-      >
-        <Popup>
-          <strong>Ask Ayman</strong>
-          <br />
-          {lang === 'ar' ? CONTACT.addressAr : CONTACT.addressEn}
-        </Popup>
-      </Marker>
-    </MapContainer>
+    </div>
   )
 }

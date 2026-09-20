@@ -43,6 +43,21 @@ export function compoundInView(item: PartnerCompound, view: PartnerView) {
   return item.region === view
 }
 
+export function isTajZone(item: PartnerCompound) {
+  return item.group === 'taj' && item.id !== 'taj-city'
+}
+
+export function chipInView(item: PartnerCompound, view: PartnerView) {
+  if (isTajZone(item)) return false
+  return compoundInView(item, view)
+}
+
+export function zonesForSelection(selected: string | null) {
+  const item = PARTNER_COMPOUNDS.find((entry) => entry.id === selected)
+  if (!item || item.group !== 'taj') return []
+  return PARTNER_COMPOUNDS.filter(isTajZone)
+}
+
 export const PARTNER_COMPOUNDS: PartnerCompound[] = [
   {
     id: 'taj-city',
