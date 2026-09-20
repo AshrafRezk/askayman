@@ -13,6 +13,7 @@ import {
   type PartnerView,
 } from '../partners'
 import { IsoMassingLayer } from './IsoMassingLayer'
+import { LifeLayer } from './LifeLayer'
 import 'leaflet/dist/leaflet.css'
 
 type ParcelProps = {
@@ -240,6 +241,7 @@ export function PartnersMap({
   region,
   iso3d,
   greenery,
+  life,
   onSelect,
 }: {
   lang: 'en' | 'ar'
@@ -247,6 +249,7 @@ export function PartnersMap({
   region: PartnerView
   iso3d: boolean
   greenery: boolean
+  life: boolean
   onSelect: (id: string) => void
 }) {
   const icons = useMemo(
@@ -256,7 +259,7 @@ export function PartnersMap({
 
   return (
     <MapContainer
-      className={`partners-map brand-map${iso3d ? ' is-iso' : ''}${greenery ? ' is-green' : ''}`}
+      className={`partners-map brand-map${iso3d ? ' is-iso' : ''}${greenery ? ' is-green' : ''}${life ? ' is-life' : ''}`}
       center={[30.3, 30.3]}
       zoom={6.4}
       scrollWheelZoom={false}
@@ -266,6 +269,7 @@ export function PartnersMap({
       <MapCamera selected={selected} region={region} iso3d={iso3d} />
       <WheelOnHover />
       <ParcelLayer selected={selected} greenery={greenery} iso3d={iso3d} onSelect={onSelect} />
+      <LifeLayer selected={selected} life={life} iso3d={iso3d} greenery={greenery} />
       <IsoMassingLayer selected={selected} iso3d={iso3d} greenery={greenery} />
       {PARTNER_COMPOUNDS.filter((compound) => showMarker(compound, selected)).map((compound) => (
         <Marker

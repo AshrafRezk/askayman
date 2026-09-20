@@ -22,6 +22,8 @@ export type IsoSite = {
   region: 'east' | 'west' | 'coast' | null
   buildings: IsoBuilding[]
   trees: IsoTree[]
+  /** Street centerlines in the inset gaps between building footprints. */
+  roads: LngLat[][]
 }
 
 type ParcelLike = {
@@ -116,6 +118,85 @@ function cellRing(x0: number, y0: number, x1: number, y1: number, inset: number)
   ]
 }
 
+function inAnyBuilding(pt: LngLat, buildings: IsoBuilding[]): boolean {
+  for (const building of buildings) {
+    if (pointInRing(pt, building.ring)) return true
+  }
+  return false
+}
+
+function polylineLength(line: LngLat[]): number {
+  let sum = 0
+  for (let i = 1; i < line.length; i += 1) {
+    const dx = line[i][0] - line[i - 1][0]
+    const dy = line[i][1] - line[i - 1][1]
+    sum += Math.hypot(dx, dy)
+  }
+  return sum
+}
+
+/** Sample a grid edge and split into street segments that stay off buildings. */
+function clipStreetLine(
+  samples: LngLat[],
+  parcel: LngLat[],
+  buildings: IsoBuilding[],
+  minLen: number,
+): LngLat[][] {
+  const out: LngLat[][] = []
+  let current: LngLat[] = []
+  for (const pt of samples) {
+    const ok = pointInRing(pt, parcel) && !inAnyBuilding(pt, buildings)
+    if (ok) {
+      current.push(pt)
+    } else if (current.length >= 2) {
+      if (polylineLength(current) >= minLen) out.push(current)
+      current = []
+    } else {
+      current = []
+    }
+  }
+  if (current.length >= 2 && polylineLength(current) >= minLen) out.push(current)
+  return out
+}
+
+function buildRoads(
+  ring: LngLat[],
+  buildings: IsoBuilding[],
+  minX: number,
+  minY: number,
+  cols: number,
+  rows: number,
+  stepX: number,
+  stepY: number,
+): LngLat[][] {
+  if (!buildings.length) return []
+  const roads: LngLat[][] = []
+  const minLen = Math.min(stepX, stepY) * 0.55
+  const samplesPerCell = 5
+
+  for (let row = 0; row <= rows; row += 1) {
+    const y = minY + row * stepY
+    const samples: LngLat[] = []
+    const steps = cols * samplesPerCell
+    for (let i = 0; i <= steps; i += 1) {
+      samples.push([minX + (i / steps) * cols * stepX, y])
+    }
+    roads.push(...clipStreetLine(samples, ring, buildings, minLen))
+  }
+
+  for (let col = 0; col <= cols; col += 1) {
+    const x = minX + col * stepX
+    const samples: LngLat[] = []
+    const steps = rows * samplesPerCell
+    for (let i = 0; i <= steps; i += 1) {
+      samples.push([x, minY + (i / steps) * rows * stepY])
+    }
+    roads.push(...clipStreetLine(samples, ring, buildings, minLen))
+  }
+
+  return roads
+}
+
 function layoutSite(
   feature: ParcelLike,
   region: 'east' | 'west' | 'coast' | null,
@@ -137,6 +218,7 @@ function layoutSite(
       region,
       buildings,
       trees,
+      roads: [],
     }
   }
 
@@ -216,6 +298,8 @@ function layoutSite(
     }
   }
 
+  const roads = buildRoads(ring, buildings, minX, minY, cols, rows, stepX, stepY)
+
   return {
     partnerId: feature.properties.partnerId,
     kind: feature.properties.kind,
@@ -225,6 +309,7 @@ function layoutSite(
     region,
     buildings,
     trees,
+    roads,
   }
 }
 
@@ -375,4 +460,84 @@ export function drawTree(
 export function heightToPx(lat: number, meters: number, zoom: number, progress: number) {
   const metersPerPx = (40075016.686 * Math.cos((lat * Math.PI) / 180)) / (256 * 2 ** zoom)
   return Math.min(110, (meters / Math.max(metersPerPx, 0.35)) * 3.15 * progress)
+}
+
+export function roadLength(line: LngLat[]): number {
+  return polylineLength(line)
+}
+
+/** Point and heading along a polyline at progress t in [0, 1]. */
+export function pointOnRoad(line: LngLat[], t: number): { lng: number; lat: number; angle: number } {
+  if (line.length < 2) {
+    const pt = line[0] ?? [0, 0]
+    return { lng: pt[0], lat: pt[1], angle: 0 }
+  }
+  const total = polylineLength(line)
+  if (total < 1e-12) {
+    return { lng: line[0][0], lat: line[0][1], angle: 0 }
+  }
+  let target = Math.max(0, Math.min(1, t)) * total
+  for (let i = 1; i < line.length; i += 1) {
+    const a = line[i - 1]
+    const b = line[i]
+    const seg = Math.hypot(b[0] - a[0], b[1] - a[1])
+    if (target <= seg || i === line.length - 1) {
+      const u = seg < 1e-12 ? 0 : Math.min(1, target / seg)
+      return {
+        lng: a[0] + (b[0] - a[0]) * u,
+        lat: a[1] + (b[1] - a[1]) * u,
+        angle: Math.atan2(b[1] - a[1], b[0] - a[0]),
+      }
+    }
+    target -= seg
+  }
+  const last = line[line.length - 1]
+  const prev = line[line.length - 2]
+  return { lng: last[0], lat: last[1], angle: Math.atan2(last[1] - prev[1], last[0] - prev[0]) }
+}
+
+export function drawCar(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  angle: number,
+  size: number,
+  colors: { body: string; roof: string; light: string },
+) {
+  if (size < 2.2) return
+  ctx.save()
+  ctx.translate(x, y)
+  // Screen coords: lng/lat deltas map roughly to x / -y for heading feel on the map.
+  ctx.rotate(-angle)
+  ctx.fillStyle = 'rgba(0,0,0,0.28)'
+  ctx.beginPath()
+  ctx.ellipse(0.6, 1.2, size * 0.55, size * 0.28, 0, 0, Math.PI * 2)
+  ctx.fill()
+
+  ctx.fillStyle = colors.body
+  ctx.beginPath()
+  ctx.moveTo(-size * 0.7, -size * 0.28)
+  ctx.lineTo(size * 0.55, -size * 0.28)
+  ctx.lineTo(size * 0.72, 0)
+  ctx.lineTo(size * 0.55, size * 0.28)
+  ctx.lineTo(-size * 0.7, size * 0.28)
+  ctx.closePath()
+  ctx.fill()
+
+  ctx.fillStyle = colors.roof
+  ctx.beginPath()
+  ctx.moveTo(-size * 0.28, -size * 0.2)
+  ctx.lineTo(size * 0.18, -size * 0.2)
+  ctx.lineTo(size * 0.28, 0)
+  ctx.lineTo(size * 0.18, size * 0.2)
+  ctx.lineTo(-size * 0.28, size * 0.2)
+  ctx.closePath()
+  ctx.fill()
+
+  ctx.fillStyle = colors.light
+  ctx.beginPath()
+  ctx.arc(size * 0.62, -size * 0.12, size * 0.08, 0, Math.PI * 2)
+  ctx.arc(size * 0.62, size * 0.12, size * 0.08, 0, Math.PI * 2)
+  ctx.fill()
+  ctx.restore()
 }

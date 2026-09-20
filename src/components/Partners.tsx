@@ -19,6 +19,7 @@ export function Partners({ lang }: { lang: Lang }) {
   const [ready, setReady] = useState(false)
   const [iso3d, setIso3d] = useState(false)
   const [greenery, setGreenery] = useState(false)
+  const [life, setLife] = useState(false)
 
   const compounds = useMemo(
     () => PARTNER_COMPOUNDS.filter((item) => chipInView(item, region)),
@@ -108,7 +109,7 @@ export function Partners({ lang }: { lang: Lang }) {
         </div>
       ) : null}
 
-      <div className={`partners-stage${iso3d ? ' is-iso' : ''}${greenery ? ' is-green' : ''}`}>
+      <div className={`partners-stage${iso3d ? ' is-iso' : ''}${greenery ? ' is-green' : ''}${life ? ' is-life' : ''}`}>
         {ready ? (
           <PartnersMap
             lang={lang}
@@ -116,6 +117,7 @@ export function Partners({ lang }: { lang: Lang }) {
             region={region}
             iso3d={iso3d}
             greenery={greenery}
+            life={life}
             onSelect={chooseCompound}
           />
         ) : (
@@ -163,6 +165,23 @@ export function Partners({ lang }: { lang: Lang }) {
               />
             </svg>
             {t.partnersGreenery}
+          </button>
+          <button
+            type="button"
+            className={`partners-life${life ? ' is-on' : ''}`}
+            aria-pressed={life}
+            onClick={() => {
+              haptic('light')
+              setLife((on) => !on)
+            }}
+          >
+            <svg viewBox="0 0 16 16" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M2.2 9.2h11.6c.5 0 .9.4.8.9l-.3 1.2c-.1.4-.5.7-.9.7H2.6c-.4 0-.8-.3-.9-.7L1.4 10c-.1-.5.3-.8.8-.8Zm1.1-1.6.4-1.5c.1-.5.6-.9 1.1-.9h2.2c.3 0 .6.2.7.4l.5 1.1h3.2c.4 0 .8.3.9.7l.3 1.2H2.8l.5-1Zm1.4 4.8a1.1 1.1 0 1 0 0-2.2 1.1 1.1 0 0 0 0 2.2Zm6.6 0a1.1 1.1 0 1 0 0-2.2 1.1 1.1 0 0 0 0 2.2Z"
+              />
+            </svg>
+            {t.partnersLife}
           </button>
         </div>
 
