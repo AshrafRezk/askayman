@@ -1,6 +1,7 @@
 import L from 'leaflet'
 import { useEffect, useState } from 'react'
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
+import { asset } from '../assets'
 import { CONTACT, type Lang } from '../data'
 import { haptic } from '../haptics'
 import 'leaflet/dist/leaflet.css'
@@ -9,7 +10,7 @@ const office: L.LatLngExpression = [30.0923317, 31.3229306]
 
 const pin = L.divIcon({
   className: 'brand-pin',
-  html: '<img src="/images/logo.png" alt="" />',
+  html: `<img src="${asset('images/logo.png')}" alt="" />`,
   iconSize: [58, 58],
   iconAnchor: [29, 54],
   popupAnchor: [0, -46],

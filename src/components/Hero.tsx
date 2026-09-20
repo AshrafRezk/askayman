@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { asset } from '../assets'
 import { CONTACT, copy, type Lang } from '../data'
 
 export function Hero({ lang }: { lang: Lang }) {
@@ -63,7 +64,7 @@ export function Hero({ lang }: { lang: Lang }) {
         <div className="portrait-morph">
           <div className="gold-ring" />
           <div className="portrait-frame">
-            <img src="/images/ayman.png" alt="Ayman Milad, property consultant" />
+            <img src={asset('images/ayman.png')} alt="Ayman Milad, property consultant" />
           </div>
           <motion.div
             className="years-chip"

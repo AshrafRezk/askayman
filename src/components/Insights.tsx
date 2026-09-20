@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { asset } from '../assets'
 import { copy, type Lang } from '../data'
 
 export function Insights({ lang }: { lang: Lang }) {
@@ -24,7 +25,7 @@ export function Insights({ lang }: { lang: Lang }) {
             viewport={{ once: true }}
             transition={{ delay: index * 0.08 }}
           >
-            <img src={item.image} alt={item.title} />
+            <img src={asset(item.image)} alt={item.title} />
             <div className="shade">
               <h3 className="display">{item.title}</h3>
               <p>{item.text}</p>

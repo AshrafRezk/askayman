@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { asset } from '../assets'
 import { copy, type Lang } from '../data'
 
 export function About({ lang }: { lang: Lang }) {
@@ -40,6 +41,7 @@ export function About({ lang }: { lang: Lang }) {
         </motion.div>
         <motion.div
           className="about-panel"
+          style={{ backgroundImage: `linear-gradient(180deg, rgba(6, 16, 28, 0.1), rgba(6, 16, 28, 0.55)), url('${asset('images/cover.png')}')` }}
           initial={{ opacity: 0, scale: 0.96 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}

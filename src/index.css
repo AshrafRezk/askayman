@@ -588,9 +588,8 @@ a[href^="tel:"],
 
 .about-panel {
   min-height: 420px;
-  background:
-    linear-gradient(180deg, rgba(6, 16, 28, 0.1), rgba(6, 16, 28, 0.55)),
-    url('/images/cover.png') center/cover;
+  background-position: center;
+  background-size: cover;
   border: 1px solid var(--line);
   position: relative;
   overflow: hidden;

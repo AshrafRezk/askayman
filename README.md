@@ -4,6 +4,14 @@ Cinematic landing page for **Ayman Milad — Property Consultant**.
 
 Built with Vite, React, and Framer Motion. Muted luxury-property video plays in the background, with morphing glass panels and Ayman’s portrait over the brand gold.
 
+## GitHub Pages (works in Egypt)
+
+Live now after the workflow runs:
+
+**https://ashrafrezk.github.io/askayman/**
+
+Use this URL until a custom domain is ready. Netlify stays on the repo root (`/`). GitHub Pages uses `/askayman/`.
+
 ## Local
 
 ```bash
