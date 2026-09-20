@@ -4,6 +4,7 @@ import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 import { asset } from '../assets'
 import { CONTACT, type Lang } from '../data'
 import { haptic } from '../haptics'
+import { CloudastickFootnote } from './CloudastickFootnote'
 import 'leaflet/dist/leaflet.css'
 
 const office: L.LatLngExpression = [30.0923317, 31.3229306]
@@ -31,12 +32,10 @@ export function BrandMap({ lang }: { lang: Lang }) {
       center={office}
       zoom={16}
       scrollWheelZoom={false}
-      attributionControl
+      attributionControl={false}
     >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+      <TileLayer attribution="" url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      <CloudastickFootnote />
       <Marker
         position={office}
         icon={pin}

@@ -24,7 +24,7 @@ export const VIDEOS = [
 
 export const copy = {
   en: {
-    nav: ['About', 'Services', 'Insights', 'Contact'],
+    nav: ['About', 'Services', 'Insights', 'Partners', 'Contact'],
     kicker: 'Property Consultant · Cairo',
     headline: 'Ask Ayman',
     subhead: '30 years guiding smarter investments.',
@@ -87,6 +87,15 @@ export const copy = {
         href: 'https://www.instagram.com/aymanmilad_property_consultant/p/DdCLgEbDc2g/',
       },
     ],
+    partnersTitle: 'Partner compounds',
+    partnersLead:
+      'SODIC communities Ayman works with — East Cairo, West Cairo, and the North Coast. Hop from one compound to the next.',
+    partnersAll: 'All SODIC compounds',
+    partnersHint: 'Pick a compound, or use the arrows to fly the map.',
+    partnersPrev: 'Previous compound',
+    partnersNext: 'Next compound',
+    partnersExplore: 'On the map',
+    partnersSold: 'Landmark community',
     contactTitle: 'Let’s talk about the next property.',
     contactLead: 'Need help? Call Ayman, write on WhatsApp, or visit the Heliopolis office.',
     formName: 'Your name',
@@ -100,7 +109,7 @@ export const copy = {
     footer: 'Ask Ayman · Property Consultant · Guiding smarter investments.',
   },
   ar: {
-    nav: ['عن أيمن', 'الخدمات', 'نصائح', 'تواصل'],
+    nav: ['عن أيمن', 'الخدمات', 'نصائح', 'الشركاء', 'تواصل'],
     kicker: 'مستشار عقاري · القاهرة',
     headline: 'اسأل أيمن',
     subhead: '٣٠ سنة… بنوجّه استثمارك بذكاء.',
@@ -163,6 +172,15 @@ export const copy = {
         href: 'https://www.instagram.com/aymanmilad_property_consultant/p/DdCLgEbDc2g/',
       },
     ],
+    partnersTitle: 'كمباوندات الشركاء',
+    partnersLead:
+      'مجتمعات سوديك اللي أيمن بيشتغل عليها — شرق القاهرة، غرب القاهرة، والساحل. انتقل من كمباوند للتاني على الخريطة.',
+    partnersAll: 'كل كمباوندات سوديك',
+    partnersHint: 'اختار كمباوند، أو استخدم الأسهم عشان تطير على الخريطة.',
+    partnersPrev: 'الكمباوند السابق',
+    partnersNext: 'الكمباوند التالي',
+    partnersExplore: 'ظاهر على الخريطة',
+    partnersSold: 'كمباوند معلم',
     contactTitle: 'خلينا نتكلم عن العقار الجاي.',
     contactLead: 'محتاج مساعدة؟ اتصل بأيمن، ابعت واتساب، أو زور مكتب مصر الجديدة.',
     formName: 'اسمك',

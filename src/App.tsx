@@ -8,8 +8,10 @@ import { Insights } from './components/Insights'
 import { Logo } from './components/Logo'
 import { MorphField } from './components/MorphField'
 import { Nav } from './components/Nav'
+import { Partners } from './components/Partners'
 import { Services } from './components/Services'
 import { VideoStage } from './components/VideoStage'
+import { InstallApp } from './components/InstallApp'
 import { WhatsAppFab } from './components/WhatsAppFab'
 import type { Lang } from './data'
 import { useSiteHaptics } from './haptics'
@@ -39,8 +41,10 @@ export default function App() {
       <About lang={lang} />
       <Services lang={lang} />
       <Insights lang={lang} />
+      <Partners lang={lang} />
       <Contact lang={lang} />
       <Footer lang={lang} />
+      <InstallApp lang={lang} />
       <WhatsAppFab />
       <AnimatePresence>
         {booting && (

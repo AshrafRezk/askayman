@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { copy, type Lang } from '../data'
 import { Logo } from './Logo'
 
-const ids = ['about', 'services', 'insights', 'contact']
+const ids = ['about', 'services', 'insights', 'partners', 'contact']
 
 export function Nav({ lang, setLang }: { lang: Lang; setLang: (lang: Lang) => void }) {
   const t = copy[lang]
