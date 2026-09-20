@@ -2,20 +2,37 @@ import { useEffect, useMemo, useState } from 'react'
 import { CONTACT, type Lang } from '../data'
 import {
   BUDGET_PRESETS,
+  MARKET_EQUALIZATION_APR,
   formatEgp,
   offerFor,
-  quotePlan,
+  quoteCustomPlan,
   type BudgetPresetId,
-  type PaymentPlan,
+  type PlanLoading,
+  type PlanQuote,
 } from '../data/partner-offers'
 import { haptic } from '../haptics'
 import { PARTNER_COMPOUNDS } from '../partners'
 
-function whatsappPlan(lang: Lang, compoundName: string, plan: PaymentPlan, quote: ReturnType<typeof quotePlan>) {
+const YEAR_OPTIONS = [3, 4, 5, 6, 7, 8, 9, 10, 12]
+const DP_OPTIONS = [0, 1.5, 5, 10, 15, 20, 25, 30, 40]
+const LOADING_OPTIONS: { id: PlanLoading; label: string; labelAr: string }[] = [
+  { id: 'equal', label: 'Equal', labelAr: 'متساوي' },
+  { id: 'front', label: 'Front-loaded', labelAr: 'مقدم أثقل' },
+  { id: 'back', label: 'Back-loaded', labelAr: 'تصاعدي' },
+]
+
+function loadingLabel(lang: Lang, loading: PlanLoading) {
+  const item = LOADING_OPTIONS.find((option) => option.id === loading)
+  return lang === 'ar' ? item?.labelAr : item?.label
+}
+
+function whatsappPlan(lang: Lang, compoundName: string, quote: PlanQuote) {
+  const cadence = quote.cadence === 'quarterly' ? (lang === 'ar' ? 'ربع سنة' : 'quarter') : lang === 'ar' ? 'شهر' : 'mo'
+  const load = loadingLabel(lang, quote.loading)
   const body =
     lang === 'ar'
-      ? `مرحبا أيمن، مهتم بـ ${compoundName}.\nالميزانية حوالي: ${formatEgp(quote.price, 'ar')}\nخطة مقترحة: مقدم ${plan.downPaymentPct}% (${formatEgp(quote.downPayment, 'ar')}) على ${plan.years} سنين.\nالقسط التقريبي: ${formatEgp(quote.installment, 'ar')} / ${plan.cadence === 'quarterly' ? 'ربع سنة' : 'شهر'}.\nعايز أحدث الأسعار والخطة.`
-      : `Hello Ayman, interested in ${compoundName}.\nBudget around: ${formatEgp(quote.price)}\nSuggested plan: ${plan.downPaymentPct}% down (${formatEgp(quote.downPayment)}) over ${plan.years} years.\nApprox installment: ${formatEgp(quote.installment)} / ${plan.cadence === 'quarterly' ? 'quarter' : 'month'}.\nPlease share the latest price & plan.`
+      ? `مرحبا أيمن، مهتم بـ ${compoundName}.\nالسعر الاسترشادي: ${formatEgp(quote.price, 'ar')}\nخطتي: مقدم ${quote.downPaymentPct}% (${formatEgp(quote.downPayment, 'ar')}) على ${quote.years} سنين · ${load}.\nالقسط التقريبي: ${formatEgp(quote.installment, 'ar')} / ${cadence}${quote.installmentLast !== quote.installment ? ` (آخر قسط ${formatEgp(quote.installmentLast, 'ar')})` : ''}.\nفائدة السوق التقريبية ${(quote.apr * 100).toFixed(0)}٪ · إجمالي تقريبي ${formatEgp(quote.totalPaid, 'ar')}.\nعايز أحدث الأسعار والخطة.`
+      : `Hello Ayman, interested in ${compoundName}.\nIndicative price: ${formatEgp(quote.price)}\nMy plan: ${quote.downPaymentPct}% down (${formatEgp(quote.downPayment)}) over ${quote.years} years · ${load}.\nApprox installment: ${formatEgp(quote.installment)} / ${cadence}${quote.installmentLast !== quote.installment ? ` (last ${formatEgp(quote.installmentLast)})` : ''}.\nMarket equalization ~${(quote.apr * 100).toFixed(0)}% · total ~${formatEgp(quote.totalPaid)}.\nPlease share the latest price & plan.`
   return `${CONTACT.whatsapp}?text=${encodeURIComponent(body)}`
 }
 
@@ -33,41 +50,67 @@ export function BudgetDealPanel({
   const compound = PARTNER_COMPOUNDS.find((item) => item.id === selected) ?? null
   const offer = selected ? offerFor(selected) : null
   const [planIndex, setPlanIndex] = useState(0)
+  const [years, setYears] = useState(8)
+  const [downPaymentPct, setDownPaymentPct] = useState(5)
+  const [loading, setLoading] = useState<PlanLoading>('equal')
+
+  const preset = offer?.plans[Math.min(planIndex, (offer.plans.length || 1) - 1)] ?? null
 
   useEffect(() => {
     setPlanIndex(0)
   }, [selected])
 
-  const plan = offer?.plans[Math.min(planIndex, (offer.plans.length || 1) - 1)] ?? null
+  useEffect(() => {
+    if (!preset) return
+    setYears(preset.years)
+    setDownPaymentPct(preset.downPaymentPct)
+    setLoading('equal')
+  }, [selected, planIndex, preset?.years, preset?.downPaymentPct])
+
   const quote = useMemo(() => {
-    if (!offer || !plan) return null
-    return quotePlan(offer.priceFrom, plan)
-  }, [offer, plan])
+    if (!offer || !preset) return null
+    return quoteCustomPlan(offer.priceFrom, {
+      downPaymentPct,
+      years,
+      cadence: preset.cadence,
+      loading,
+      apr: MARKET_EQUALIZATION_APR,
+    })
+  }, [offer, preset, downPaymentPct, years, loading])
 
   const name = compound ? (lang === 'ar' ? compound.nameAr : compound.name) : null
+  const cadenceLabel =
+    preset?.cadence === 'quarterly'
+      ? lang === 'ar'
+        ? 'ربع سنة'
+        : 'quarter'
+      : lang === 'ar'
+        ? 'شهر'
+        : 'mo'
+  const aprPct = Math.round(MARKET_EQUALIZATION_APR * 100)
 
   return (
     <aside className="partners-deal" aria-label={lang === 'ar' ? 'الميزانية وخطة السداد' : 'Budget & payment plan'}>
       <div className="partners-budget">
         <p className="partners-deal-kicker">{lang === 'ar' ? 'فلتر الميزانية' : 'Budget filter'}</p>
         <div className="partners-budget-rail" role="group">
-          {BUDGET_PRESETS.map((preset) => (
+          {BUDGET_PRESETS.map((item) => (
             <button
-              key={preset.id}
+              key={item.id}
               type="button"
-              className={budgetId === preset.id ? 'is-on' : undefined}
+              className={budgetId === item.id ? 'is-on' : undefined}
               onClick={() => {
                 haptic('light')
-                onBudget(preset.id)
+                onBudget(item.id)
               }}
             >
-              {lang === 'ar' ? preset.labelAr : preset.label}
+              {lang === 'ar' ? item.labelAr : item.label}
             </button>
           ))}
         </div>
       </div>
 
-      {offer && plan && quote && name ? (
+      {offer && preset && quote && name ? (
         <div className="partners-plan">
           <div className="partners-plan-head">
             <div>
@@ -114,41 +157,130 @@ export function BudgetDealPanel({
                     setPlanIndex(index)
                   }}
                 >
-                  {item.downPaymentPct}% / {item.years}y
+                  {lang === 'ar' ? 'عرض المطوّر' : 'Developer'} {item.downPaymentPct}% / {item.years}y
                 </button>
               ))}
             </div>
           ) : null}
 
+          <div className="partners-plan-controls">
+            <label className="partners-plan-field">
+              <span>{lang === 'ar' ? 'المدة (سنين)' : 'Years desired'}</span>
+              <div className="partners-plan-chips" role="group">
+                {YEAR_OPTIONS.map((value) => (
+                  <button
+                    key={value}
+                    type="button"
+                    className={years === value ? 'is-on' : undefined}
+                    onClick={() => {
+                      haptic('light')
+                      setYears(value)
+                    }}
+                  >
+                    {value}y
+                  </button>
+                ))}
+              </div>
+            </label>
+
+            <label className="partners-plan-field">
+              <span>{lang === 'ar' ? 'المقدم المطلوب' : 'Down payment desired'}</span>
+              <div className="partners-plan-chips" role="group">
+                {DP_OPTIONS.map((value) => (
+                  <button
+                    key={value}
+                    type="button"
+                    className={downPaymentPct === value ? 'is-on' : undefined}
+                    onClick={() => {
+                      haptic('light')
+                      setDownPaymentPct(value)
+                    }}
+                  >
+                    {Number.isInteger(value) ? value : value.toFixed(1)}%
+                  </button>
+                ))}
+              </div>
+            </label>
+
+            <label className="partners-plan-field">
+              <span>{lang === 'ar' ? 'شكل الأقساط' : 'Payment loading'}</span>
+              <div className="partners-plan-chips" role="group">
+                {LOADING_OPTIONS.map((option) => (
+                  <button
+                    key={option.id}
+                    type="button"
+                    className={loading === option.id ? 'is-on' : undefined}
+                    onClick={() => {
+                      haptic('light')
+                      setLoading(option.id)
+                    }}
+                  >
+                    {lang === 'ar' ? option.labelAr : option.label}
+                  </button>
+                ))}
+              </div>
+            </label>
+
+            <p className="partners-plan-rate">
+              {lang === 'ar'
+                ? `فائدة التعادل السوقية ≈ ${aprPct}٪ سنوياً (استرشادي للمطوّرين)`
+                : `Market equalization ≈ ${aprPct}% APR (indicative developer band)`}
+            </p>
+          </div>
+
           <dl className="partners-plan-grid">
             <div>
               <dt>{lang === 'ar' ? 'المقدم' : 'Down payment'}</dt>
               <dd>
-                {plan.downPaymentPct}% · {formatEgp(quote.downPayment, lang)}
+                {quote.downPaymentPct}% · {formatEgp(quote.downPayment, lang)}
               </dd>
             </div>
             <div>
-              <dt>{lang === 'ar' ? 'القسط' : 'Installment'}</dt>
+              <dt>
+                {loading === 'equal'
+                  ? lang === 'ar'
+                    ? 'القسط'
+                    : 'Installment'
+                  : lang === 'ar'
+                    ? 'أول قسط'
+                    : 'First installment'}
+              </dt>
               <dd>
                 {formatEgp(quote.installment, lang)}
-                <small> / {plan.cadence === 'quarterly' ? (lang === 'ar' ? 'ربع سنة' : 'quarter') : lang === 'ar' ? 'شهر' : 'mo'}</small>
+                <small> / {cadenceLabel}</small>
               </dd>
             </div>
+            {loading !== 'equal' ? (
+              <div>
+                <dt>{lang === 'ar' ? 'آخر قسط' : 'Last installment'}</dt>
+                <dd>
+                  {formatEgp(quote.installmentLast, lang)}
+                  <small> / {cadenceLabel}</small>
+                </dd>
+              </div>
+            ) : null}
             <div>
               <dt>{lang === 'ar' ? 'المدة' : 'Term'}</dt>
               <dd>
-                {plan.years} {lang === 'ar' ? 'سنين' : 'years'} · {quote.payments}{' '}
+                {quote.years} {lang === 'ar' ? 'سنين' : 'years'} · {quote.payments}{' '}
                 {lang === 'ar' ? 'دفعة' : 'payments'}
               </dd>
             </div>
             <div>
-              <dt>{lang === 'ar' ? 'الممول' : 'Financed'}</dt>
-              <dd>{formatEgp(quote.financed, lang)}</dd>
+              <dt>{lang === 'ar' ? 'التعادل / الفائدة' : 'Equalization'}</dt>
+              <dd>
+                {formatEgp(quote.interest, lang)}
+                <small> · {aprPct}%</small>
+              </dd>
+            </div>
+            <div>
+              <dt>{lang === 'ar' ? 'الإجمالي التقريبي' : 'Total paid'}</dt>
+              <dd>{formatEgp(quote.totalPaid, lang)}</dd>
             </div>
           </dl>
 
-          {plan.note || plan.noteAr ? (
-            <p className="partners-plan-note">{lang === 'ar' ? plan.noteAr ?? plan.note : plan.note}</p>
+          {preset.note || preset.noteAr ? (
+            <p className="partners-plan-note">{lang === 'ar' ? preset.noteAr ?? preset.note : preset.note}</p>
           ) : null}
 
           <p className="partners-plan-source">
@@ -169,7 +301,7 @@ export function BudgetDealPanel({
 
           <a
             className="btn btn-gold partners-plan-cta"
-            href={whatsappPlan(lang, name, plan, quote)}
+            href={whatsappPlan(lang, name, quote)}
             target="_blank"
             rel="noreferrer"
             onClick={() => haptic('success')}

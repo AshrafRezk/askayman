@@ -291,31 +291,122 @@ export function formatEgp(value: number, lang: 'en' | 'ar' = 'en') {
   }).format(value)
 }
 
+/** Egypt off-plan equalization band used when customizing beyond flat 0% schedules. */
+export const MARKET_EQUALIZATION_APR = 0.12
+
+export type PlanLoading = 'equal' | 'front' | 'back'
+
+export type CustomPlanInput = {
+  downPaymentPct: number
+  years: number
+  cadence: PaymentPlan['cadence']
+  loading: PlanLoading
+  /** Annual rate; defaults to market equalization. */
+  apr?: number
+}
+
 export type PlanQuote = {
   price: number
   downPayment: number
   financed: number
+  /** First / level installment (what buyers usually ask for). */
   installment: number
+  /** Last installment when schedule is weighted. */
+  installmentLast: number
   payments: number
   cadence: PaymentPlan['cadence']
   years: number
   downPaymentPct: number
+  loading: PlanLoading
+  apr: number
+  totalPaid: number
+  interest: number
 }
 
 export function quotePlan(price: number, plan: PaymentPlan): PlanQuote {
-  const downPayment = Math.round((price * plan.downPaymentPct) / 100)
+  return quoteCustomPlan(price, {
+    downPaymentPct: plan.downPaymentPct,
+    years: plan.years,
+    cadence: plan.cadence,
+    loading: 'equal',
+    apr: 0,
+  })
+}
+
+function amortizeEqual(principal: number, ratePerPeriod: number, n: number) {
+  if (n <= 0) return 0
+  if (ratePerPeriod <= 0) return principal / n
+  const growth = Math.pow(1 + ratePerPeriod, n)
+  return (principal * ratePerPeriod * growth) / (growth - 1)
+}
+
+/** Build positive weights that sum to 1 for front / equal / back schedules. */
+function scheduleWeights(n: number, loading: PlanLoading) {
+  if (n <= 1) return [1]
+  if (loading === 'equal') return Array.from({ length: n }, () => 1 / n)
+
+  // Front: heavier early cheques (~55% of the curve in the first half).
+  // Back / تصاعدي: ~8% step-up across the term (common Egypt escalating shape).
+  const shaped =
+    loading === 'front'
+      ? Array.from({ length: n }, (_, i) => 1.55 - (i / (n - 1)) * 1.1)
+      : Array.from({ length: n }, (_, i) => Math.pow(1.08, (i / (n - 1)) * Math.max(1, n / 12)))
+
+  const sum = shaped.reduce((a, b) => a + b, 0)
+  return shaped.map((w) => w / sum)
+}
+
+function scheduleAmounts(total: number, weights: number[]) {
+  const amounts = weights.map((w) => Math.round(total * w))
+  const drift = Math.round(total) - amounts.reduce((a, b) => a + b, 0)
+  amounts[amounts.length - 1] += drift
+  return amounts
+}
+
+export function quoteCustomPlan(price: number, input: CustomPlanInput): PlanQuote {
+  const downPaymentPct = Math.min(90, Math.max(0, input.downPaymentPct))
+  const years = Math.min(15, Math.max(1, input.years))
+  const cadence = input.cadence
+  const loading = input.loading
+  const apr = Math.max(0, input.apr ?? MARKET_EQUALIZATION_APR)
+
+  const downPayment = Math.round((price * downPaymentPct) / 100)
   const financed = Math.max(0, price - downPayment)
-  const perYear = plan.cadence === 'quarterly' ? 4 : 12
-  const payments = Math.max(1, Math.round(plan.years * perYear))
-  const installment = Math.round(financed / payments)
+  const perYear = cadence === 'quarterly' ? 4 : 12
+  const payments = Math.max(1, Math.round(years * perYear))
+  const ratePerPeriod = apr / perYear
+
+  const equalPmt = amortizeEqual(financed, ratePerPeriod, payments)
+  const equalTotal = equalPmt * payments
+  const amounts =
+    loading === 'equal'
+      ? Array.from({ length: payments }, () => Math.round(equalPmt))
+      : scheduleAmounts(equalTotal, scheduleWeights(payments, loading))
+
+  if (loading === 'equal') {
+    const drift = Math.round(equalTotal) - amounts.reduce((a, b) => a + b, 0)
+    amounts[amounts.length - 1] += drift
+  }
+
+  const installment = amounts[0] ?? 0
+  const installmentLast = amounts[amounts.length - 1] ?? installment
+  const totalInstallments = amounts.reduce((a, b) => a + b, 0)
+  const totalPaid = downPayment + totalInstallments
+  const interest = Math.max(0, totalPaid - price)
+
   return {
     price,
     downPayment,
     financed,
     installment,
+    installmentLast,
     payments,
-    cadence: plan.cadence,
-    years: plan.years,
-    downPaymentPct: plan.downPaymentPct,
+    cadence,
+    years,
+    downPaymentPct,
+    loading,
+    apr,
+    totalPaid,
+    interest,
   }
 }
