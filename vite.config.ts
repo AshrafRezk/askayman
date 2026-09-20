@@ -63,6 +63,15 @@ export default defineConfig({
               expiration: { maxEntries: 80, maxAgeSeconds: 60 * 60 * 24 * 14 },
             },
           },
+          {
+            urlPattern: /^https:\/\/overpass(-api\.de|\.kumi\.systems)\/api\/.*/i,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'osm-roads',
+              networkTimeoutSeconds: 8,
+              expiration: { maxEntries: 40, maxAgeSeconds: 60 * 60 * 24 * 7 },
+            },
+          },
         ],
       },
     }),

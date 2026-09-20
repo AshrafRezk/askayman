@@ -2,46 +2,20 @@ import L from 'leaflet'
 import { useEffect, useRef } from 'react'
 import { useMap } from 'react-leaflet'
 import parcels from '../data/partner-parcels.json'
-import {
-  drawCar,
-  explodedRing,
-  pointOnRoad,
-  roadLength,
-  siteForParcel,
-  type IsoSite,
-  type LngLat,
-} from '../isoMassing'
+import { drawCar, explodedRing, pointOnRoad, roadLength, type LngLat } from '../isoMassing'
+import { getOsmRoads, getOsmRoadsForIds, type OsmRoadBundle } from '../osmRoads'
 import { PARTNER_COMPOUNDS } from '../partners'
 
 type ParcelFeature = {
   type: 'Feature'
-  id?: string
   properties: {
     partnerId: string
     kind: 'compound' | 'zone' | 'outline'
     primary: boolean
   }
-  geometry: {
-    type: 'Polygon'
-    coordinates: number[][][]
-  }
 }
 
 const PARCELS = parcels as { features: ParcelFeature[] }
-const REGION = Object.fromEntries(PARTNER_COMPOUNDS.map((item) => [item.id, item.region]))
-
-function ringKey(ring: number[][]) {
-  return ring.map((pt) => `${pt[0].toFixed(4)},${pt[1].toFixed(4)}`).join('|')
-}
-
-const SITES: IsoSite[] = []
-const seenRings = new Set<string>()
-for (const feature of PARCELS.features) {
-  const key = ringKey(feature.geometry.coordinates[0] ?? [])
-  if (feature.properties.kind !== 'outline' && seenRings.has(key)) continue
-  if (feature.properties.kind !== 'outline') seenRings.add(key)
-  SITES.push(siteForParcel(feature, REGION[feature.properties.partnerId] ?? null))
-}
 
 const CAR_COLORS = [
   { body: '#1a2a3c', roof: '#f0d48a', light: '#f6f0e4' },
@@ -51,7 +25,7 @@ const CAR_COLORS = [
 ]
 
 type Actor = {
-  siteId: string
+  partnerId: string
   roadIndex: number
   t: number
   speed: number
@@ -69,20 +43,34 @@ function selectedIds(selected: string | null) {
   return ids
 }
 
-function activeSites(selected: string | null): IsoSite[] {
+function partnerIdsForLife(selected: string | null): string[] {
   if (!selected) return []
   const ids = selectedIds(selected)
   const family = PARTNER_COMPOUNDS.find((item) => item.id === selected)?.group ?? null
-  const matched = SITES.filter((site) => {
-    if (!site.roads.length) return false
-    if (ids.has(site.partnerId)) return true
-    if (family === 'taj' && site.partnerId.startsWith('taj') && site.kind === 'zone') return true
-    return false
-  })
-  if (matched.length) return matched
+  const fromParcels = PARCELS.features
+    .filter((feature) => {
+      if (ids.has(feature.properties.partnerId)) return true
+      if (family === 'taj' && feature.properties.partnerId.startsWith('taj') && feature.properties.kind === 'zone') {
+        return true
+      }
+      return false
+    })
+    .map((feature) => feature.properties.partnerId)
+
+  const unique = [...new Set(fromParcels)]
+  const withRoads = unique.filter((id) => getOsmRoads(id))
+  if (withRoads.length) {
+    // Prefer zone/compound streets over huge outline dumps when both exist.
+    const solid = withRoads.filter((id) => {
+      const kind = PARCELS.features.find((f) => f.properties.partnerId === id)?.properties.kind
+      return kind !== 'outline'
+    })
+    return solid.length ? solid : withRoads
+  }
+
   const compound = PARTNER_COMPOUNDS.find((item) => item.id === selected)
   const target = compound?.parcelId ?? selected
-  return SITES.filter((site) => site.partnerId === target && site.roads.length)
+  return getOsmRoads(target) ? [target] : []
 }
 
 function hash01(seed: string): number {
@@ -94,25 +82,25 @@ function hash01(seed: string): number {
   return (h >>> 0) / 4294967296
 }
 
-function spawnActors(sites: IsoSite[], seed: string): Actor[] {
+function spawnActors(bundles: OsmRoadBundle[], seed: string): Actor[] {
   const actors: Actor[] = []
   let salt = 0
-  for (const site of sites) {
-    const ranked = [...site.roads]
+  for (const bundle of bundles) {
+    const ranked = [...bundle.roads]
       .map((road, roadIndex) => ({ roadIndex, len: roadLength(road) }))
       .filter((item) => item.len > 0)
       .sort((a, b) => b.len - a.len)
-    const budget = Math.min(14, Math.max(4, Math.ceil(ranked.length * 0.45)))
-    for (let i = 0; i < budget && actors.length < 16; i += 1) {
+    const budget = Math.min(12, Math.max(5, Math.ceil(ranked.length * 0.35)))
+    for (let i = 0; i < budget && actors.length < 18; i += 1) {
       const pick = ranked[i % ranked.length]
       salt += 1
-      const h = hash01(`${seed}:${site.partnerId}:${salt}`)
+      const h = hash01(`${seed}:${bundle.partnerId}:${salt}`)
       actors.push({
-        siteId: site.partnerId,
+        partnerId: bundle.partnerId,
         roadIndex: pick.roadIndex,
         t: h,
-        speed: 0.018 + h * 0.028,
-        pingPong: h > 0.35,
+        speed: 0.022 + h * 0.034,
+        pingPong: h > 0.42,
         forward: h > 0.5,
         color: CAR_COLORS[Math.floor(h * CAR_COLORS.length) % CAR_COLORS.length],
       })
@@ -126,16 +114,16 @@ function project(map: L.Map, origin: L.Point, lng: number, lat: number) {
   return { x: pt.x - origin.x, y: pt.y - origin.y }
 }
 
-function siteExplode(site: IsoSite, selected: string | null, iso3d: boolean) {
+function explodeFor(partnerId: string, selected: string | null, iso3d: boolean) {
   if (!iso3d) return 0
   const ids = selectedIds(selected)
-  return 0.13 + (ids.has(site.partnerId) ? 0.05 : 0)
+  return 0.13 + (ids.has(partnerId) ? 0.05 : 0)
 }
 
 function paint(
   canvas: HTMLCanvasElement,
   map: L.Map,
-  sites: IsoSite[],
+  bundles: OsmRoadBundle[],
   actors: Actor[],
   selected: string | null,
   iso3d: boolean,
@@ -157,38 +145,36 @@ function paint(
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
   ctx.clearRect(0, 0, size.x, size.y)
 
+  const zoom = map.getZoom()
+  const carSize = Math.max(3.4, Math.min(8, zoom * 0.4))
+  const byId = new Map(bundles.map((bundle) => [bundle.partnerId, bundle]))
+
+  // Soft highlight only on OSM centerlines the cars actually use.
   ctx.lineCap = 'round'
   ctx.lineJoin = 'round'
-  const zoom = map.getZoom()
-  const carSize = Math.max(3.2, Math.min(7.5, zoom * 0.38))
-  const byId = new Map(sites.map((site) => [site.partnerId, site]))
-
-  for (const site of sites) {
-    const explode = siteExplode(site, selected, iso3d)
-    for (const road of site.roads) {
-      const moved = explodedRing(road, site.center, explode)
+  for (const bundle of bundles) {
+    const explode = explodeFor(bundle.partnerId, selected, iso3d)
+    for (const road of bundle.roads) {
+      const moved = explodedRing(road, bundle.center, explode)
       if (moved.length < 2) continue
       const pts = moved.map(([lng, lat]) => project(map, origin, lng, lat))
       ctx.beginPath()
       ctx.moveTo(pts[0].x, pts[0].y)
       for (let i = 1; i < pts.length; i += 1) ctx.lineTo(pts[i].x, pts[i].y)
-      ctx.strokeStyle = greenery ? 'rgba(155, 231, 176, 0.28)' : 'rgba(212, 177, 90, 0.26)'
-      ctx.lineWidth = Math.max(2.2, zoom * 0.22)
-      ctx.stroke()
-      ctx.strokeStyle = greenery ? 'rgba(24, 72, 48, 0.35)' : 'rgba(8, 16, 26, 0.35)'
-      ctx.lineWidth = Math.max(0.8, zoom * 0.08)
+      ctx.strokeStyle = greenery ? 'rgba(155, 231, 176, 0.14)' : 'rgba(240, 212, 138, 0.12)'
+      ctx.lineWidth = Math.max(1.4, zoom * 0.14)
       ctx.stroke()
     }
   }
 
   if (!reduced) {
     for (const actor of actors) {
-      const site = byId.get(actor.siteId)
-      if (!site) continue
-      const road = site.roads[actor.roadIndex]
+      const bundle = byId.get(actor.partnerId)
+      if (!bundle) continue
+      const road = bundle.roads[actor.roadIndex]
       if (!road) continue
       const len = Math.max(roadLength(road), 1e-6)
-      const step = (actor.speed * dt) / Math.max(len * 90, 0.35)
+      const step = (actor.speed * dt) / Math.max(len * 70, 0.28)
       if (actor.pingPong) {
         actor.t += actor.forward ? step : -step
         if (actor.t >= 1) {
@@ -205,16 +191,16 @@ function paint(
   }
 
   for (const actor of actors) {
-    const site = byId.get(actor.siteId)
-    if (!site) continue
-    const road = site.roads[actor.roadIndex]
+    const bundle = byId.get(actor.partnerId)
+    if (!bundle) continue
+    const road = bundle.roads[actor.roadIndex]
     if (!road?.length) continue
-    const explode = siteExplode(site, selected, iso3d)
+    const explode = explodeFor(bundle.partnerId, selected, iso3d)
     const pos = pointOnRoad(road, actor.t)
     const delta = actor.pingPong && !actor.forward ? -0.004 : 0.004
     const look = pointOnRoad(road, Math.max(0, Math.min(1, actor.t + delta)))
-    const moved = explodedRing([[pos.lng, pos.lat]], site.center, explode)[0] as LngLat
-    const lookMoved = explodedRing([[look.lng, look.lat]], site.center, explode)[0] as LngLat
+    const moved = explodedRing([[pos.lng, pos.lat]], bundle.center, explode)[0] as LngLat
+    const lookMoved = explodedRing([[look.lng, look.lat]], bundle.center, explode)[0] as LngLat
     const pt = project(map, origin, moved[0], moved[1])
     const angle = Math.atan2(lookMoved[1] - moved[1], lookMoved[0] - moved[0])
     const colors = greenery
@@ -241,6 +227,7 @@ export function LifeLayer({
   const greeneryRef = useRef(greenery)
   const selectedRef = useRef(selected)
   const actorsRef = useRef<Actor[]>([])
+  const bundlesRef = useRef<OsmRoadBundle[]>([])
   const flyQuietUntilRef = useRef(0)
   const lastSelectedRef = useRef(selected)
 
@@ -255,6 +242,17 @@ export function LifeLayer({
     flyQuietUntilRef.current = performance.now() + 1500
     actorsRef.current = []
   }, [selected])
+
+  useEffect(() => {
+    if (!life || !selected) {
+      bundlesRef.current = []
+      actorsRef.current = []
+      return
+    }
+    bundlesRef.current = getOsmRoadsForIds(partnerIdsForLife(selected))
+    actorsRef.current = []
+    map.fire('viewreset')
+  }, [life, map, selected])
 
   useEffect(() => {
     const canvas = L.DomUtil.create('canvas', 'partners-life-canvas')
@@ -275,12 +273,12 @@ export function LifeLayer({
         ctx.clearRect(0, 0, canvas.width, canvas.height)
       }
       canvas.style.display = 'none'
-      actorsRef.current = []
     }
 
     const tick = (now: number) => {
       if (!lifeRef.current) {
         clear()
+        actorsRef.current = []
         return
       }
 
@@ -289,9 +287,9 @@ export function LifeLayer({
       const zoom = map.getZoom()
       const selectedId = selectedRef.current
       const quiet = now < flyQuietUntilRef.current
-      const sites = selectedId && zoom >= 13.5 && !quiet ? activeSites(selectedId) : []
+      const bundles = selectedId && zoom >= 13.5 && !quiet ? bundlesRef.current : []
 
-      if (!sites.length) {
+      if (!bundles.length) {
         clear()
         raf = window.requestAnimationFrame(tick)
         return
@@ -299,13 +297,13 @@ export function LifeLayer({
 
       canvas.style.display = 'block'
       if (!actorsRef.current.length) {
-        actorsRef.current = spawnActors(sites, selectedId ?? 'life')
+        actorsRef.current = spawnActors(bundles, selectedId ?? 'life')
       }
 
       paint(
         canvas,
         map,
-        sites,
+        bundles,
         actorsRef.current,
         selectedId,
         iso3dRef.current,
@@ -343,7 +341,9 @@ export function LifeLayer({
       actorsRef.current = []
       map.fire('viewreset')
     } else {
-      const canvas = map.getPanes().overlayPane.querySelector('.partners-life-canvas') as HTMLCanvasElement | null
+      const canvas = map
+        .getPanes()
+        .overlayPane.querySelector('.partners-life-canvas') as HTMLCanvasElement | null
       if (canvas) {
         const ctx = canvas.getContext('2d')
         if (ctx) {
@@ -353,6 +353,7 @@ export function LifeLayer({
         canvas.style.display = 'none'
       }
       actorsRef.current = []
+      bundlesRef.current = []
     }
   }, [map, life, selected, iso3d, greenery])
 
