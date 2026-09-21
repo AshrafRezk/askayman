@@ -1,9 +1,12 @@
+import type { OsmFootprints } from './osmFootprints'
+
 export type LngLat = [number, number]
 
 export type IsoBuilding = {
   ring: LngLat[]
   heightM: number
   roof: 'stone' | 'gold' | 'garden'
+  tone?: number
 }
 
 export type IsoTree = {
@@ -46,9 +49,11 @@ export type IsoSite = {
   lawns: IsoLawn[]
   /** Street centerlines in the inset gaps between building footprints. */
   roads: LngLat[][]
+  /** True when massing comes from live OSM clipped to this compound. */
+  osm?: boolean
 }
 
-type ParcelLike = {
+export type ParcelLike = {
   id?: string
   properties: {
     partnerId: string
@@ -129,17 +134,6 @@ function explodeRing(ring: LngLat[], center: LngLat, amount: number): LngLat[] {
   ])
 }
 
-function cellRing(x0: number, y0: number, x1: number, y1: number, inset: number): LngLat[] {
-  const dx = (x1 - x0) * inset
-  const dy = (y1 - y0) * inset
-  return [
-    [x0 + dx, y0 + dy],
-    [x1 - dx, y0 + dy],
-    [x1 - dx, y1 - dy],
-    [x0 + dx, y1 - dy],
-  ]
-}
-
 function inAnyBuilding(pt: LngLat, buildings: IsoBuilding[]): boolean {
   for (const building of buildings) {
     if (pointInRing(pt, building.ring)) return true
@@ -154,17 +148,7 @@ function inAnyPool(pt: LngLat, pools: IsoPool[]): boolean {
   return false
 }
 
-function ovalRing(cx: number, cy: number, rx: number, ry: number, rng: () => number, sides = 8): LngLat[] {
-  const pts: LngLat[] = []
-  for (let i = 0; i < sides; i += 1) {
-    const a = (i / sides) * Math.PI * 2 - Math.PI / 2
-    const jitter = 0.86 + rng() * 0.22
-    pts.push([cx + Math.cos(a) * rx * jitter, cy + Math.sin(a) * ry * jitter])
-  }
-  return pts
-}
-
-const TREE_CAP = 120
+const TREE_CAP = 180
 
 function plantTrees(
   trees: IsoTree[],
@@ -203,97 +187,142 @@ function polylineLength(line: LngLat[]): number {
   return sum
 }
 
-/** Sample a grid edge and split into street segments that stay off buildings. */
-function clipStreetLine(
-  samples: LngLat[],
-  parcel: LngLat[],
-  buildings: IsoBuilding[],
-  minLen: number,
-): LngLat[][] {
-  const out: LngLat[][] = []
-  let current: LngLat[] = []
-  for (const pt of samples) {
-    const ok = pointInRing(pt, parcel) && !inAnyBuilding(pt, buildings)
-    if (ok) {
-      current.push(pt)
-    } else if (current.length >= 2) {
-      if (polylineLength(current) >= minLen) out.push(current)
-      current = []
-    } else {
-      current = []
-    }
-  }
-  if (current.length >= 2 && polylineLength(current) >= minLen) out.push(current)
-  return out
+export function footprintKey(feature: ParcelLike) {
+  return feature.id ?? `${feature.properties.partnerId}:${feature.properties.kind}`
 }
 
-function buildRoads(
-  ring: LngLat[],
-  buildings: IsoBuilding[],
-  minX: number,
-  minY: number,
-  cols: number,
-  rows: number,
-  stepX: number,
-  stepY: number,
-): LngLat[][] {
-  if (!buildings.length) return []
-  const roads: LngLat[][] = []
-  const minLen = Math.min(stepX, stepY) * 0.55
-  const samplesPerCell = 5
-
-  for (let row = 0; row <= rows; row += 1) {
-    const y = minY + row * stepY
-    const samples: LngLat[] = []
-    const steps = cols * samplesPerCell
-    for (let i = 0; i <= steps; i += 1) {
-      samples.push([minX + (i / steps) * cols * stepX, y])
-    }
-    roads.push(...clipStreetLine(samples, ring, buildings, minLen))
-  }
-
-  for (let col = 0; col <= cols; col += 1) {
-    const x = minX + col * stepX
-    const samples: LngLat[] = []
-    const steps = rows * samplesPerCell
-    for (let i = 0; i <= steps; i += 1) {
-      samples.push([x, minY + (i / steps) * rows * stepY])
-    }
-    roads.push(...clipStreetLine(samples, ring, buildings, minLen))
-  }
-
-  return roads
+function insetRing(ring: LngLat[], amount: number): LngLat[] {
+  const center = ringCentroid(ring)
+  return explodeRing(ring, center, -amount)
 }
 
-function layoutSite(
+function emptySite(
   feature: ParcelLike,
   region: 'east' | 'west' | 'coast' | null,
+  ring: LngLat[],
+  center: LngLat,
 ): IsoSite {
-  const ring = feature.geometry.coordinates[0] as LngLat[]
-  const center = ringCentroid(ring)
+  return {
+    partnerId: feature.properties.partnerId,
+    kind: feature.properties.kind,
+    primary: feature.properties.primary,
+    ring,
+    center,
+    region,
+    buildings: [],
+    trees: [],
+    hills: [],
+    pools: [],
+    lawns: [],
+    roads: [],
+    osm: false,
+  }
+}
+
+function layoutFromOsm(
+  feature: ParcelLike,
+  region: 'east' | 'west' | 'coast' | null,
+  ring: LngLat[],
+  center: LngLat,
+  packed: OsmFootprints,
+): IsoSite {
   const rng = rngFrom(feature.id ?? feature.properties.partnerId)
   const palm = region === 'coast'
-  const buildings: IsoBuilding[] = []
-  const trees: IsoTree[] = []
-  const hills: IsoHill[] = []
-  const pools: IsoPool[] = []
-  const lawns: IsoLawn[] = []
-
-  if (feature.properties.kind === 'outline') {
+  const buildings: IsoBuilding[] = packed.buildings.map((item) => {
+    const roofRoll = rng()
+    const roof: IsoBuilding['roof'] =
+      item.kind === 'apartments' || item.heightM > 16
+        ? roofRoll > 0.82
+          ? 'gold'
+          : 'stone'
+        : roofRoll > 0.88
+          ? 'gold'
+          : roofRoll > 0.72
+            ? 'garden'
+            : 'stone'
     return {
-      partnerId: feature.properties.partnerId,
-      kind: feature.properties.kind,
-      primary: feature.properties.primary,
-      ring,
-      center,
-      region,
-      buildings,
-      trees,
-      hills: [],
-      pools: [],
-      lawns: [],
-      roads: [],
+      ring: insetRing(item.ring, 0.04),
+      heightM: item.heightM,
+      roof,
+      tone: rng(),
     }
+  })
+
+  const lawns: IsoLawn[] = packed.lawns.map((item) => ({ ring: item.ring, tone: rng() }))
+  for (const building of packed.buildings) {
+    lawns.push({ ring: explodeRing(building.ring, ringCentroid(building.ring), 0.16), tone: 0.2 + rng() * 0.35 })
+  }
+  const pools: IsoPool[] = packed.pools.map((item) => ({ ring: item.ring, coastal: palm }))
+  const hills: IsoHill[] = []
+  const trees: IsoTree[] = []
+
+  for (const lawn of packed.lawns) {
+    const mid = ringCentroid(lawn.ring)
+    let minX = Infinity
+    let maxX = -Infinity
+    let minY = Infinity
+    let maxY = -Infinity
+    for (const [lng, lat] of lawn.ring) {
+      minX = Math.min(minX, lng)
+      maxX = Math.max(maxX, lng)
+      minY = Math.min(minY, lat)
+      maxY = Math.max(maxY, lat)
+    }
+    const rx = (maxX - minX) / 2
+    const ry = (maxY - minY) / 2
+    if (Math.max(rx, ry) > 0.00035 && rng() > 0.35) {
+      hills.push({
+        lng: mid[0],
+        lat: mid[1],
+        rx: rx * 0.72,
+        ry: ry * 0.72,
+        heightM: 8 + rng() * 10,
+      })
+    }
+    plantTrees(trees, rng, mid[0], mid[1], rx * 1.6, ry * 1.6, 6 + Math.floor(rng() * 8), palm, ring, buildings, pools)
+  }
+
+  for (const building of buildings) {
+    const core = ringCentroid(building.ring)
+    const pts = openRing(building.ring)
+    for (let i = 0; i < pts.length; i += 1) {
+      if (rng() > 0.55) continue
+      const a = pts[i]
+      const b = pts[(i + 1) % pts.length]
+      const mid: LngLat = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2]
+      const out: LngLat = [mid[0] * 1.45 - core[0] * 0.45, mid[1] * 1.45 - core[1] * 0.45]
+      if (!pointInRing(out, ring) || inAnyBuilding(out, buildings) || inAnyPool(out, pools)) continue
+      trees.push({
+        lng: out[0],
+        lat: out[1],
+        size: rng() < 0.4 ? 2.4 + rng() * 2 : 4.2 + rng() * 4.2,
+        palm: palm && rng() > 0.4,
+        bush: rng() < 0.45,
+      })
+    }
+  }
+
+  const mids = buildings.map((item) => ringCentroid(item.ring))
+  for (let i = 0; i < mids.length && trees.length < TREE_CAP; i += 1) {
+    let best = -1
+    let bestD = 1e9
+    for (let j = i + 1; j < mids.length; j += 1) {
+      const d = Math.hypot(mids[i][0] - mids[j][0], mids[i][1] - mids[j][1])
+      if (d < bestD) {
+        bestD = d
+        best = j
+      }
+    }
+    if (best < 0 || bestD > 0.0005) continue
+    const pt: LngLat = [(mids[i][0] + mids[best][0]) / 2, (mids[i][1] + mids[best][1]) / 2]
+    if (!pointInRing(pt, ring) || inAnyBuilding(pt, buildings) || inAnyPool(pt, pools)) continue
+    trees.push({
+      lng: pt[0],
+      lat: pt[1],
+      size: 3.4 + rng() * 3.6,
+      palm: palm && rng() > 0.55,
+      bush: rng() < 0.4,
+    })
   }
 
   let minX = Infinity
@@ -306,117 +335,20 @@ function layoutSite(
     minY = Math.min(minY, lat)
     maxY = Math.max(maxY, lat)
   }
-
   const spanX = maxX - minX
   const spanY = maxY - minY
-  const short = Math.min(spanX, spanY)
-  const long = Math.max(spanX, spanY)
-  const cell = Math.max(0.00018, Math.min(short / 6.2, long / 14, 0.00072))
-  const cols = Math.max(2, Math.min(14, Math.round(spanX / cell)))
-  const rows = Math.max(2, Math.min(14, Math.round(spanY / cell)))
-  const stepX = spanX / cols
-  const stepY = spanY / rows
-
-  const poolChance = palm ? 0.12 : 0.07
-  const hillChance = palm ? 0.05 : 0.09
-  const parkChance = palm ? 0.22 : 0.2
-
-  for (let row = 0; row < rows; row += 1) {
-    for (let col = 0; col < cols; col += 1) {
-      const x0 = minX + col * stepX
-      const y0 = minY + row * stepY
-      const x1 = x0 + stepX
-      const y1 = y0 + stepY
-      const mid: LngLat = [(x0 + x1) / 2, (y0 + y1) / 2]
-      if (!pointInRing(mid, ring)) continue
-
-      const edge =
-        !pointInRing([x0 + stepX * 0.28, y0 + stepY * 0.28], ring) ||
-        !pointInRing([x1 - stepX * 0.28, y1 - stepY * 0.28], ring)
-      const lawnRing = cellRing(x0, y0, x1, y1, 0.08)
-      const openLand = () => {
-        lawns.push({ ring: lawnRing.every((pt) => pointInRing(pt, ring)) ? lawnRing : ovalRing(mid[0], mid[1], stepX * 0.36, stepY * 0.36, rng, 6), tone: rng() })
-        plantTrees(trees, rng, mid[0], mid[1], stepX * 0.7, stepY * 0.7, 3 + Math.floor(rng() * 4), palm, ring, buildings, pools)
-      }
-
-      if (edge) {
-        openLand()
-        continue
-      }
-
-      const use = rng()
-      if (use < poolChance) {
-        const pool = ovalRing(mid[0], mid[1], stepX * (0.28 + rng() * 0.1), stepY * (0.22 + rng() * 0.1), rng, palm ? 8 : 7)
-        if (pool.every((pt) => pointInRing(pt, ring))) {
-          pools.push({ ring: pool, coastal: palm })
-          plantTrees(trees, rng, mid[0], mid[1], stepX * 0.95, stepY * 0.95, 2, palm, ring, buildings, pools)
-          continue
-        }
-      } else if (use < poolChance + hillChance) {
-        hills.push({
-          lng: mid[0],
-          lat: mid[1],
-          rx: stepX * (0.62 + rng() * 0.28),
-          ry: stepY * (0.52 + rng() * 0.26),
-          heightM: 16 + rng() * 18,
-        })
-        lawns.push({ ring: lawnRing, tone: 0.2 + rng() * 0.3 })
-        plantTrees(trees, rng, mid[0], mid[1], stepX * 1.35, stepY * 1.35, 4 + Math.floor(rng() * 3), palm, ring, buildings, pools)
-        continue
-      } else if (use < poolChance + hillChance + parkChance) {
-        openLand()
-        continue
-      }
-
-      if (buildings.length >= 52) {
-        openLand()
-        continue
-      }
-
-      const inset = 0.18 + rng() * 0.12
-      const footprint = cellRing(x0, y0, x1, y1, inset)
-      if (!footprint.every((pt) => pointInRing(pt, ring))) {
-        openLand()
-        continue
-      }
-
-      const roll = rng()
-      let heightM = 8 + rng() * 7
-      if (palm) heightM = 4.5 + rng() * 6.5
-      else if (roll > 0.9) heightM = 28 + rng() * 20
-      else if (roll > 0.58) heightM = 13 + rng() * 11
-
-      const roofRoll = rng()
-      const roof: IsoBuilding['roof'] = roofRoll > 0.9 ? 'gold' : roofRoll > 0.62 ? 'garden' : 'stone'
-      buildings.push({ ring: footprint, heightM, roof })
-    }
-  }
-
-  const pts = openRing(ring)
-  const hedgeEvery = Math.max(1, Math.floor(pts.length / 14))
-  for (let i = 0; i < pts.length; i += hedgeEvery) {
-    const a = pts[i]
-    const b = pts[(i + 1) % pts.length]
-    const t = 0.28 + rng() * 0.44
-    const lng = a[0] + (b[0] - a[0]) * t
-    const lat = a[1] + (b[1] - a[1]) * t
-    const inset: LngLat = [lng + (center[0] - lng) * 0.06, lat + (center[1] - lat) * 0.06]
-    if (pointInRing(inset, ring) && !inAnyBuilding(inset, buildings) && !inAnyPool(inset, pools)) {
-      trees.push({ lng: inset[0], lat: inset[1], size: 4.2 + rng() * 3.8, palm, bush: rng() < 0.35 })
-    }
-  }
-
-  let fillTries = 0
-  while (trees.length < Math.min(TREE_CAP, 36 + lawns.length * 2) && fillTries < 280) {
-    fillTries += 1
+  let tries = 0
+  const target = Math.min(TREE_CAP, 36 + buildings.length * 0.45 + packed.lawns.length * 4)
+  while (trees.length < target && tries < 360) {
+    tries += 1
     const pt: LngLat = [minX + rng() * spanX, minY + rng() * spanY]
     if (!pointInRing(pt, ring) || inAnyBuilding(pt, buildings) || inAnyPool(pt, pools)) continue
-    const bush = rng() < 0.42
+    const bush = rng() < 0.38
     trees.push({
       lng: pt[0],
       lat: pt[1],
-      size: bush ? 2.2 + rng() * 2 : 4.4 + rng() * 5.2,
-      palm: !bush && palm && rng() > 0.28,
+      size: bush ? 2.2 + rng() * 2 : 4.6 + rng() * 5,
+      palm: !bush && palm && rng() > 0.3,
       bush,
     })
   }
@@ -431,8 +363,6 @@ function layoutSite(
     return true
   })
 
-  const roads = buildRoads(ring, buildings, minX, minY, cols, rows, stepX, stepY)
-
   return {
     partnerId: feature.properties.partnerId,
     kind: feature.properties.kind,
@@ -441,26 +371,25 @@ function layoutSite(
     center,
     region,
     buildings,
-    trees: keptTrees,
+    trees: keptTrees.slice(0, TREE_CAP),
     hills,
     pools,
     lawns,
-    roads,
+    roads: [],
+    osm: true,
   }
 }
-
-const siteCache = new Map<string, IsoSite>()
 
 export function siteForParcel(
   feature: ParcelLike,
   region: 'east' | 'west' | 'coast' | null,
+  packed?: OsmFootprints | null,
 ): IsoSite {
-  const key = `${feature.id ?? `${feature.properties.partnerId}:${feature.properties.kind}`}:green3`
-  const hit = siteCache.get(key)
-  if (hit) return hit
-  const site = layoutSite(feature, region)
-  siteCache.set(key, site)
-  return site
+  const ring = feature.geometry.coordinates[0] as LngLat[]
+  const center = ringCentroid(ring)
+  if (feature.properties.kind === 'outline') return emptySite(feature, region, ring, center)
+  if (packed) return layoutFromOsm(feature, region, ring, center, packed)
+  return emptySite(feature, region, ring, center)
 }
 
 export function explodedRing(ring: LngLat[], center: LngLat, explode: number): LngLat[] {

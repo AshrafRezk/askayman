@@ -8,11 +8,13 @@ import {
   drawPrism,
   drawTree,
   explodedRing,
+  footprintKey,
   heightToPx,
   siteForParcel,
   type IsoSite,
   type LngLat,
 } from '../isoMassing'
+import { loadOsmFootprints, peekOsmFootprints, ringBBox } from '../osmFootprints'
 import { PARTNER_COMPOUNDS } from '../partners'
 
 type ParcelFeature = {
@@ -32,17 +34,28 @@ type ParcelFeature = {
 const PARCELS = parcels as { features: ParcelFeature[] }
 const REGION = Object.fromEntries(PARTNER_COMPOUNDS.map((item) => [item.id, item.region]))
 
-function ringKey(ring: number[][]) {
+function ringHash(ring: number[][]) {
   return ring.map((pt) => `${pt[0].toFixed(4)},${pt[1].toFixed(4)}`).join('|')
 }
 
-const SITES: IsoSite[] = []
+const FEATURES = new Map<string, ParcelFeature>()
+const SITES = new Map<string, IsoSite>()
 const seenRings = new Set<string>()
 for (const feature of PARCELS.features) {
-  const key = ringKey(feature.geometry.coordinates[0] ?? [])
-  if (feature.properties.kind !== 'outline' && seenRings.has(key)) continue
-  if (feature.properties.kind !== 'outline') seenRings.add(key)
-  SITES.push(siteForParcel(feature, REGION[feature.properties.partnerId] ?? null))
+  const hash = ringHash(feature.geometry.coordinates[0] ?? [])
+  if (feature.properties.kind !== 'outline' && seenRings.has(hash)) continue
+  if (feature.properties.kind !== 'outline') seenRings.add(hash)
+  const key = footprintKey(feature)
+  FEATURES.set(key, feature)
+  SITES.set(
+    key,
+    siteForParcel(feature, REGION[feature.properties.partnerId] ?? null, peekOsmFootprints(key)),
+  )
+}
+
+function parcelVisible(ring: LngLat[], bounds: L.LatLngBounds) {
+  const [west, south, east, north] = ringBBox(ring, 0)
+  return bounds.getWest() <= east && bounds.getEast() >= west && bounds.getSouth() <= north && bounds.getNorth() >= south
 }
 
 function selectedIds(selected: string | null) {
@@ -105,18 +118,18 @@ function paint(canvas: HTMLCanvasElement, map: L.Map, opts: DrawOpts) {
 
   const drawables: { sort: number; draw: () => void }[] = []
 
-  for (const site of SITES) {
+  for (const site of SITES.values()) {
     const active = activeIds.has(site.partnerId)
     const related = Boolean(family && site.partnerId.startsWith(family === 'taj' ? 'taj' : family))
-    const amount = explode + (active ? 0.05 * opts.progress : 0)
+    const amount = (site.osm ? 0.02 : explode) + (active && !site.osm ? 0.05 * opts.progress : 0)
     const ground = explodedRing(site.ring, site.center, amount * 0.4)
     const groundPts = toRing(ground)
     if (!groundPts.length) continue
 
     const groundFill = opts.greenery
       ? active
-        ? 'rgba(42, 118, 64, 0.9)'
-        : 'rgba(22, 78, 44, 0.84)'
+        ? 'rgba(36, 96, 52, 0.28)'
+        : 'rgba(18, 58, 34, 0.18)'
       : active
         ? 'rgba(42, 34, 18, 0.45)'
         : 'rgba(10, 18, 28, 0.38)'
@@ -141,7 +154,7 @@ function paint(canvas: HTMLCanvasElement, map: L.Map, opts: DrawOpts) {
         ctx.moveTo(pts[0].x, pts[0].y)
         for (let i = 1; i < pts.length; i += 1) ctx.lineTo(pts[i].x, pts[i].y)
         ctx.closePath()
-        ctx.fillStyle = `rgba(${36 + tone * 22}, ${122 + tone * 46}, ${54 + tone * 24}, 0.55)`
+        ctx.fillStyle = `rgba(${28 + tone * 18}, ${118 + tone * 40}, ${46 + tone * 18}, 0.78)`
         ctx.fill()
       }
       for (const pool of site.pools) {
@@ -193,17 +206,12 @@ function paint(canvas: HTMLCanvasElement, map: L.Map, opts: DrawOpts) {
       const cy = pts.reduce((sum, p) => sum + p.y, 0) / pts.length
       const cx = pts.reduce((sum, p) => sum + p.x, 0) / pts.length
       if (!onScreen(cx, cy, 140)) continue
-      const roof = opts.greenery
-        ? building.roof === 'gold'
-          ? 'gold'
-          : 'garden'
-        : building.roof === 'garden'
-          ? 'stone'
-          : building.roof
-      const height = heightToPx(site.center[1], building.heightM + (active ? 6 : 0), zoom, opts.progress)
+      const roof = building.roof
+      const height = heightToPx(site.center[1], building.heightM + (active ? 4 : 0), zoom, opts.progress)
+      const tone = building.tone ?? 0.45
       drawables.push({
         sort: cy + cx * 0.12,
-        draw: () => drawPrism(ctx, pts, height, wallColors(active, opts.greenery, roof)),
+        draw: () => drawPrism(ctx, pts, height, wallColors(active, opts.greenery, roof, tone)),
       })
     }
 
@@ -247,20 +255,25 @@ function drawPolygonGround(
   ctx.setLineDash([])
 }
 
-function wallColors(active: boolean, greenery: boolean, roof: 'stone' | 'gold' | 'garden') {
+function wallColors(active: boolean, greenery: boolean, roof: 'stone' | 'gold' | 'garden', tone = 0.45) {
+  const t = Math.max(0, Math.min(1, tone))
   const top =
     roof === 'garden'
       ? active
         ? '#7dcea0'
-        : '#3d8a58'
+        : greenery
+          ? '#4e9a62'
+          : '#3d8a58'
       : roof === 'gold' || active
         ? '#f0d48a'
-        : '#c4a46a'
+        : greenery
+          ? `rgb(${198 + t * 22}, ${142 + t * 16}, ${104 + t * 8})`
+          : `rgb(${188 + t * 18}, ${158 + t * 12}, ${98 + t * 10})`
   return {
-    left: active ? '#3a2e16' : '#121c28',
-    right: active ? '#8a7040' : greenery ? '#24382e' : '#2a3d52',
+    left: active ? '#3a2e16' : greenery ? `rgb(${52 + t * 18}, ${44 + t * 10}, ${32})` : `rgb(${16}, ${26 + t * 8}, ${38})`,
+    right: active ? '#8a7040' : greenery ? `rgb(${186 + t * 24}, ${168 + t * 18}, ${132 + t * 12})` : `rgb(${48 + t * 16}, ${66 + t * 18}, ${88})`,
     top,
-    stroke: active ? '#f0d48a' : greenery ? 'rgba(125, 206, 160, 0.55)' : 'rgba(212, 177, 90, 0.55)',
+    stroke: active ? '#f0d48a' : greenery ? 'rgba(90, 70, 48, 0.45)' : 'rgba(212, 177, 90, 0.55)',
   }
 }
 
@@ -326,6 +339,48 @@ export function IsoMassingLayer({
       canvas.remove()
     }
   }, [map])
+
+  useEffect(() => {
+    if (!iso3d) return
+    let cancelled = false
+    const wanted = selectedIds(selected)
+
+    const sync = () => {
+      if (cancelled) return
+      const zoom = map.getZoom()
+      const bounds = map.getBounds().pad(0.18)
+      const jobs: ParcelFeature[] = []
+      for (const feature of FEATURES.values()) {
+        if (feature.properties.kind === 'outline') continue
+        const ring = feature.geometry.coordinates[0] as LngLat[]
+        const on = wanted.has(feature.properties.partnerId)
+        if (!on && !parcelVisible(ring, bounds)) continue
+        if (zoom < 12.8 && !on) continue
+        const key = footprintKey(feature)
+        if (peekOsmFootprints(key) && SITES.get(key)?.osm) continue
+        jobs.push(feature)
+      }
+      jobs.sort(
+        (a, b) => Number(wanted.has(b.properties.partnerId)) - Number(wanted.has(a.properties.partnerId)),
+      )
+      for (const feature of jobs) {
+        const key = footprintKey(feature)
+        const ring = feature.geometry.coordinates[0] as LngLat[]
+        void loadOsmFootprints(key, ring).then((packed) => {
+          if (cancelled || !packed) return
+          SITES.set(key, siteForParcel(feature, REGION[feature.properties.partnerId] ?? null, packed))
+          redrawRef.current()
+        })
+      }
+    }
+
+    sync()
+    map.on('moveend zoomend', sync)
+    return () => {
+      cancelled = true
+      map.off('moveend zoomend', sync)
+    }
+  }, [iso3d, map, selected])
 
   useEffect(() => {
     const el = map.getContainer()

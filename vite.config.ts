@@ -68,8 +68,17 @@ export default defineConfig({
             handler: 'NetworkFirst',
             options: {
               cacheName: 'osm-roads',
-              networkTimeoutSeconds: 8,
+              networkTimeoutSeconds: 20,
               expiration: { maxEntries: 40, maxAgeSeconds: 60 * 60 * 24 * 7 },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/api\.openstreetmap\.org\/api\/0\.6\/map.*/i,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'osm-map',
+              networkTimeoutSeconds: 16,
+              expiration: { maxEntries: 30, maxAgeSeconds: 60 * 60 * 24 * 7 },
             },
           },
         ],
