@@ -1226,8 +1226,8 @@ a[href^="tel:"],
 }
 
 .partners-stage.is-iso {
-  perspective: 1600px;
-  perspective-origin: 50% 58%;
+  perspective: 1800px;
+  perspective-origin: 50% 50%;
   background: radial-gradient(ellipse at 50% 72%, #163024 0%, #070d14 62%);
 }
 
@@ -1249,10 +1249,21 @@ a[href^="tel:"],
   height: min(68vh, 640px);
 }
 
-.partners-stage.is-iso .partners-map.leaflet-container {
-  transform: rotateX(40deg) rotateZ(-16deg) scale(1.12);
-  transform-origin: 50% 52%;
+.partners-stage .partners-map.leaflet-container {
+  overflow: hidden;
+  transform: rotateX(0deg) rotateZ(0deg) scale(1);
+  transform-origin: 50% 50%;
   transition: transform 0.8s var(--ease);
+}
+
+.partners-stage.is-iso .partners-map.leaflet-container {
+  overflow: visible;
+  transform: rotateX(32deg) rotateZ(-12deg) scale(1.48);
+}
+
+.partners-stage.is-iso .leaflet-map-pane,
+.partners-stage.is-iso .leaflet-overlay-pane {
+  overflow: visible;
 }
 
 .partners-iso-canvas {
@@ -1269,7 +1280,7 @@ a[href^="tel:"],
 }
 
 .partners-map.is-iso.is-green .leaflet-tile-pane {
-  opacity: 0.55;
+  opacity: 0.22;
 }
 
 .partners-map.is-iso .partner-pin {
@@ -1870,6 +1881,10 @@ a[href^="tel:"],
   .partners-green,
   .partners-life {
     padding: 7px 10px;
+  }
+
+  .partners-stage.is-iso .partners-map.leaflet-container {
+    transform: rotateX(26deg) rotateZ(-10deg) scale(1.38);
   }
 }
 

@@ -194,28 +194,28 @@ function MapCamera({
   useEffect(() => {
     const fly = () => {
       map.invalidateSize()
-      const pad = iso3d ? 56 : 32
+      const pad = iso3d ? 120 : 32
       if (selected) {
         const bounds = boundsForPartner(selected)
         if (bounds?.isValid()) {
-          map.flyToBounds(bounds, { padding: [pad, pad], duration: 0.85, maxZoom: iso3d ? 16.2 : 16 })
+          map.flyToBounds(bounds, { padding: [pad, pad], duration: 0.85, maxZoom: iso3d ? 15.6 : 16 })
           return
         }
         const compound = PARTNER_COMPOUNDS.find((item) => item.id === selected)
-        if (compound) map.flyTo([compound.lat, compound.lng], compound.zoom, { duration: 0.85 })
+        if (compound) map.flyTo([compound.lat, compound.lng], Math.max(compound.zoom - (iso3d ? 0.6 : 0), 12), { duration: 0.85 })
         return
       }
       const bounds = boundsForRegion(region)
       const view = PARTNER_REGIONS.find((item) => item.id === region) ?? PARTNER_REGIONS[0]
       if (region !== 'all' && bounds?.isValid()) {
         map.flyToBounds(bounds, {
-          padding: [iso3d ? 64 : 40, iso3d ? 64 : 40],
+          padding: [iso3d ? 132 : 40, iso3d ? 132 : 40],
           duration: 0.8,
-          maxZoom: region === 'taj' ? 15 : 13,
+          maxZoom: region === 'taj' ? (iso3d ? 14.4 : 15) : iso3d ? 12.4 : 13,
         })
         return
       }
-      map.flyTo([view.lat, view.lng], view.zoom, { duration: 0.75 })
+      map.flyTo([view.lat, view.lng], view.zoom - (iso3d ? 0.35 : 0), { duration: 0.75 })
     }
     const id = window.setTimeout(fly, 40)
     return () => window.clearTimeout(id)

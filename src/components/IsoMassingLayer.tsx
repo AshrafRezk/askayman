@@ -3,6 +3,8 @@ import { useEffect, useRef } from 'react'
 import { useMap } from 'react-leaflet'
 import parcels from '../data/partner-parcels.json'
 import {
+  drawHill,
+  drawPool,
   drawPrism,
   drawTree,
   explodedRing,
@@ -67,25 +69,33 @@ function project(map: L.Map, origin: L.Point, lng: number, lat: number) {
   return { x: pt.x - origin.x, y: pt.y - origin.y }
 }
 
-function projectRing(map: L.Map, origin: L.Point, ring: LngLat[]) {
-  return ring.map(([lng, lat]) => project(map, origin, lng, lat))
-}
-
 function paint(canvas: HTMLCanvasElement, map: L.Map, opts: DrawOpts) {
   const ctx = canvas.getContext('2d')
   if (!ctx) return
 
   const size = map.getSize()
+  const pad = 120
   const dpr = Math.min(window.devicePixelRatio || 1, 2)
   const origin = map.containerPointToLayerPoint([0, 0])
-  L.DomUtil.setPosition(canvas, origin)
-  canvas.width = Math.round(size.x * dpr)
-  canvas.height = Math.round(size.y * dpr)
-  canvas.style.width = `${size.x}px`
-  canvas.style.height = `${size.y}px`
+  L.DomUtil.setPosition(canvas, origin.subtract([pad, pad]))
+  canvas.width = Math.round((size.x + pad * 2) * dpr)
+  canvas.height = Math.round((size.y + pad * 2) * dpr)
+  canvas.style.width = `${size.x + pad * 2}px`
+  canvas.style.height = `${size.y + pad * 2}px`
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-  ctx.clearRect(0, 0, size.x, size.y)
+  ctx.clearRect(0, 0, size.x + pad * 2, size.y + pad * 2)
   if (opts.progress < 0.02) return
+
+  const viewW = size.x + pad * 2
+  const viewH = size.y + pad * 2
+  const onScreen = (x: number, y: number, extra = 80) =>
+    x > -extra && y > -extra && x < viewW + extra && y < viewH + extra
+
+  const toPt = (lng: number, lat: number) => {
+    const pt = project(map, origin, lng, lat)
+    return { x: pt.x + pad, y: pt.y + pad }
+  }
+  const toRing = (ring: LngLat[]) => ring.map(([lng, lat]) => toPt(lng, lat))
 
   const zoom = map.getZoom()
   const explode = 0.13 * opts.progress
@@ -100,13 +110,13 @@ function paint(canvas: HTMLCanvasElement, map: L.Map, opts: DrawOpts) {
     const related = Boolean(family && site.partnerId.startsWith(family === 'taj' ? 'taj' : family))
     const amount = explode + (active ? 0.05 * opts.progress : 0)
     const ground = explodedRing(site.ring, site.center, amount * 0.4)
-    const groundPts = projectRing(map, origin, ground)
+    const groundPts = toRing(ground)
     if (!groundPts.length) continue
 
     const groundFill = opts.greenery
       ? active
-        ? 'rgba(46, 122, 74, 0.46)'
-        : 'rgba(24, 72, 48, 0.34)'
+        ? 'rgba(42, 118, 64, 0.9)'
+        : 'rgba(22, 78, 44, 0.84)'
       : active
         ? 'rgba(42, 34, 18, 0.45)'
         : 'rgba(10, 18, 28, 0.38)'
@@ -121,9 +131,48 @@ function paint(canvas: HTMLCanvasElement, map: L.Map, opts: DrawOpts) {
 
     if (site.kind === 'outline') continue
 
+    if (opts.greenery && detailed) {
+      for (const lawn of site.lawns) {
+        const ring = explodedRing(lawn.ring, site.center, amount)
+        const pts = toRing(ring)
+        if (pts.length < 3) continue
+        const tone = lawn.tone
+        ctx.beginPath()
+        ctx.moveTo(pts[0].x, pts[0].y)
+        for (let i = 1; i < pts.length; i += 1) ctx.lineTo(pts[i].x, pts[i].y)
+        ctx.closePath()
+        ctx.fillStyle = `rgba(${36 + tone * 22}, ${122 + tone * 46}, ${54 + tone * 24}, 0.55)`
+        ctx.fill()
+      }
+      for (const pool of site.pools) {
+        const ring = explodedRing(pool.ring, site.center, amount)
+        const pts = toRing(ring)
+        const cy = pts.reduce((sum, p) => sum + p.y, 0) / pts.length
+        const cx = pts.reduce((sum, p) => sum + p.x, 0) / pts.length
+        const height = heightToPx(site.center[1], 2.4, zoom, opts.progress)
+        drawables.push({
+          sort: cy + cx * 0.12 - 40,
+          draw: () => drawPool(ctx, pts, height, pool.coastal, opts.progress),
+        })
+      }
+      for (const hill of site.hills) {
+        const moved = explodedRing([[hill.lng, hill.lat]], site.center, amount)[0]
+        const pt = toPt(moved[0], moved[1])
+        const east = toPt(moved[0] + hill.rx, moved[1])
+        const north = toPt(moved[0], moved[1] + hill.ry)
+        const rx = Math.max(10, Math.abs(east.x - pt.x))
+        const ry = Math.max(8, Math.abs(north.y - pt.y))
+        const height = heightToPx(site.center[1], hill.heightM, zoom, opts.progress)
+        drawables.push({
+          sort: pt.y + pt.x * 0.12 - height * 0.2,
+          draw: () => drawHill(ctx, pt.x, pt.y, rx, ry, height, opts.progress),
+        })
+      }
+    }
+
     if (!detailed) {
       const mass = explodedRing(site.ring, site.center, amount)
-      const pts = projectRing(map, origin, mass)
+      const pts = toRing(mass)
       const minX = Math.min(...pts.map((p) => p.x))
       const maxX = Math.max(...pts.map((p) => p.x))
       const minY = Math.min(...pts.map((p) => p.y))
@@ -140,9 +189,10 @@ function paint(canvas: HTMLCanvasElement, map: L.Map, opts: DrawOpts) {
 
     for (const building of site.buildings) {
       const ring = explodedRing(building.ring, site.center, amount)
-      const pts = projectRing(map, origin, ring)
+      const pts = toRing(ring)
       const cy = pts.reduce((sum, p) => sum + p.y, 0) / pts.length
       const cx = pts.reduce((sum, p) => sum + p.x, 0) / pts.length
+      if (!onScreen(cx, cy, 140)) continue
       const roof = opts.greenery
         ? building.roof === 'gold'
           ? 'gold'
@@ -160,10 +210,13 @@ function paint(canvas: HTMLCanvasElement, map: L.Map, opts: DrawOpts) {
     if (opts.greenery) {
       for (const tree of site.trees) {
         const moved = explodedRing([[tree.lng, tree.lat]], site.center, amount)[0]
-        const pt = project(map, origin, moved[0], moved[1])
+        const pt = toPt(moved[0], moved[1])
+        if (!onScreen(pt.x, pt.y, 60)) continue
+        const scale = tree.bush ? 1.05 : 1.28
+        const size = Math.max(tree.bush ? 4.5 : 6, tree.size * (zoom / 13) * scale)
         drawables.push({
-          sort: pt.y + pt.x * 0.12 + 6,
-          draw: () => drawTree(ctx, pt.x, pt.y, Math.max(8, tree.size * (zoom / 13) * 1.65), tree.palm, opts.progress),
+          sort: pt.y + pt.x * 0.12 + (tree.bush ? 2 : 8),
+          draw: () => drawTree(ctx, pt.x, pt.y, size, tree.palm, opts.progress, tree.bush),
         })
       }
     }
