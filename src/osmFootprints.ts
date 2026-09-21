@@ -25,10 +25,10 @@ export type OsmFootprints = {
 const MEMORY = new Map<string, OsmFootprints>()
 const INFLIGHT = new Map<string, Promise<OsmFootprints | null>>()
 const FAILED_AT = new Map<string, number>()
-const SESSION_PREFIX = 'osm-fp:v1:'
+const SESSION_PREFIX = 'osm-fp:v2:'
 const RETRY_MS = 12_000
-const BUILDING_CAP = 260
-const LAWN_CAP = 40
+const BUILDING_CAP = 1400
+const LAWN_CAP = 48
 const POOL_CAP = 16
 
 const GREEN_LEISURE = new Set(['park', 'garden', 'pitch', 'playground', 'golf_course', 'recreation_ground'])
@@ -117,6 +117,11 @@ function simplify(ring: LngLat[], maxPts = 16): LngLat[] {
   return Array.from({ length: maxPts }, (_, i) => pts[Math.min(pts.length - 1, Math.floor(i * step))])
 }
 
+function insetTowardCenter(ring: LngLat[], amount: number): LngLat[] {
+  const mid = centroid(ring)
+  return ring.map(([lng, lat]) => [mid[0] + (lng - mid[0]) * (1 - amount), mid[1] + (lat - mid[1]) * (1 - amount)])
+}
+
 function villaRing(lng: number, lat: number, w = 0.000085, h = 0.00007): LngLat[] {
   return [
     [lng - w, lat - h],
@@ -126,14 +131,14 @@ function villaRing(lng: number, lat: number, w = 0.000085, h = 0.00007): LngLat[
   ]
 }
 
-function nearAny(pt: LngLat, rings: LngLat[][], thresh = 0.0002): boolean {
+function nearAny(pt: LngLat, rings: LngLat[][], thresh = 0.00007): boolean {
   const t2 = thresh * thresh
   for (const ring of rings) {
+    if (pointInRing(pt, ring)) return true
     const mid = centroid(ring)
     const dx = pt[0] - mid[0]
     const dy = pt[1] - mid[1]
     if (dx * dx + dy * dy < t2) return true
-    if (pointInRing(pt, ring)) return true
   }
   return false
 }
@@ -158,9 +163,14 @@ function heightFor(tags: Record<string, string>, area: number): number {
   return 9.2
 }
 
-function classify(tags: Record<string, string>): 'building' | 'pool' | 'lawn' | null {
+function isBuildingTags(tags: Record<string, string>): boolean {
   const building = tags.building
-  if (building && building !== 'no' && building !== 'roof') return 'building'
+  return Boolean(building && building !== 'no' && building !== 'roof')
+}
+
+function classify(tags: Record<string, string>, ring: LngLat[]): 'building' | 'pool' | 'lawn' | null {
+  if (isBuildingTags(tags)) return 'building'
+  if (tags['addr:housenumber'] && openRing(ring).length >= 4 && !tags.highway && !tags.barrier) return 'building'
   if (WATER_LEISURE.has(tags.leisure) || WATER_NATURAL.has(tags.natural) || WATER_LANDUSE.has(tags.landuse)) return 'pool'
   if (GREEN_LEISURE.has(tags.leisure) || GREEN_LANDUSE.has(tags.landuse) || GREEN_NATURAL.has(tags.natural)) return 'lawn'
   return null
@@ -168,13 +178,63 @@ function classify(tags: Record<string, string>): 'building' | 'pool' | 'lawn' | 
 
 function capBuildings(buildings: OsmPackedBuilding[], limit = BUILDING_CAP): OsmPackedBuilding[] {
   if (buildings.length <= limit) return buildings
-  return [...buildings]
-    .sort((a, b) => {
-      const numbered = Number(Boolean(b.numbered)) - Number(Boolean(a.numbered))
-      if (numbered) return numbered
-      return ringAreaM2(b.ring) - ringAreaM2(a.ring)
-    })
-    .slice(0, limit)
+  const scored = buildings.map((item) => ({
+    item,
+    numbered: item.numbered ? 1 : 0,
+    area: ringAreaM2(item.ring),
+    mid: centroid(item.ring),
+  }))
+  let minX = Infinity
+  let maxX = -Infinity
+  let minY = Infinity
+  let maxY = -Infinity
+  for (const row of scored) {
+    minX = Math.min(minX, row.mid[0])
+    maxX = Math.max(maxX, row.mid[0])
+    minY = Math.min(minY, row.mid[1])
+    maxY = Math.max(maxY, row.mid[1])
+  }
+  const cols = Math.max(10, Math.ceil(Math.sqrt(limit)))
+  const cells = new Map<string, typeof scored>()
+  for (const row of scored) {
+    const c = Math.min(cols - 1, Math.max(0, Math.floor(((row.mid[0] - minX) / (maxX - minX + 1e-12)) * cols)))
+    const r = Math.min(cols - 1, Math.max(0, Math.floor(((row.mid[1] - minY) / (maxY - minY + 1e-12)) * cols)))
+    const key = `${c}:${r}`
+    const list = cells.get(key)
+    if (list) list.push(row)
+    else cells.set(key, [row])
+  }
+  const keep: OsmPackedBuilding[] = []
+  const seen = new Set<OsmPackedBuilding>()
+  const per = Math.max(1, Math.floor(limit / Math.max(1, cells.size)))
+  for (const list of cells.values()) {
+    list.sort((a, b) => b.numbered - a.numbered || b.area - a.area)
+    for (const row of list.slice(0, per)) {
+      keep.push(row.item)
+      seen.add(row.item)
+      if (keep.length >= limit) return keep
+    }
+  }
+  scored.sort((a, b) => b.numbered - a.numbered || b.area - a.area)
+  for (const row of scored) {
+    if (seen.has(row.item)) continue
+    keep.push(row.item)
+    if (keep.length >= limit) break
+  }
+  return keep
+}
+
+function dedupeBuildings(buildings: OsmPackedBuilding[]): OsmPackedBuilding[] {
+  const seen = new Set<string>()
+  const out: OsmPackedBuilding[] = []
+  for (const item of buildings) {
+    const mid = centroid(item.ring)
+    const key = `${mid[0].toFixed(6)},${mid[1].toFixed(6)}`
+    if (seen.has(key)) continue
+    seen.add(key)
+    out.push(item)
+  }
+  return out
 }
 
 function tagsFromEl(el: { tags?: Record<string, string> } | Element): Record<string, string> {
@@ -200,12 +260,14 @@ function collect(items: Array<{ ring: LngLat[]; tags: Record<string, string>; nu
     const mid = centroid(ring)
     if (!pointInRing(mid, parcel)) continue
     if (item.numberedNode) continue
-    const kind = classify(item.tags)
+    const kind = classify(item.tags, ring)
     if (kind === 'building') {
-      const area = ringAreaM2(ring)
+      const plotOnly = !isBuildingTags(item.tags) && Boolean(item.tags['addr:housenumber'])
+      const used = plotOnly ? insetTowardCenter(ring, 0.2) : ring
+      const area = ringAreaM2(used)
       buildings.push({
-        ring,
-        heightM: Math.round(heightFor(item.tags, area) * 10) / 10,
+        ring: used,
+        heightM: Math.round(heightFor(plotOnly ? { ...item.tags, building: 'house' } : item.tags, area) * 10) / 10,
         kind: item.tags.building ?? 'house',
         numbered: Boolean(item.tags['addr:housenumber'] || item.tags.name || item.numberedNode),
       })
@@ -227,7 +289,7 @@ function collect(items: Array<{ ring: LngLat[]; tags: Record<string, string>; nu
   }
 
   return {
-    buildings: capBuildings(buildings),
+    buildings: capBuildings(dedupeBuildings(buildings)),
     lawns: lawns.slice(0, LAWN_CAP),
     pools: pools.slice(0, POOL_CAP),
   }
@@ -239,6 +301,7 @@ type OverpassEl = {
   lon?: number
   tags?: Record<string, string>
   geometry?: { lat: number; lon: number }[]
+  members?: { role?: string; geometry?: { lat: number; lon: number }[] }[]
 }
 
 function parseOverpass(elements: OverpassEl[], parcel: LngLat[]): OsmFootprints {
@@ -250,6 +313,14 @@ function parseOverpass(elements: OverpassEl[], parcel: LngLat[]): OsmFootprints 
         ring: el.geometry.map((pt) => [pt.lon, pt.lat] as LngLat),
         tags,
       })
+    } else if (el.type === 'relation' && isBuildingTags(tags) && el.members) {
+      for (const member of el.members) {
+        if ((member.role ?? 'outer') !== 'outer' || !member.geometry || member.geometry.length < 3) continue
+        items.push({
+          ring: member.geometry.map((pt) => [pt.lon, pt.lat] as LngLat),
+          tags,
+        })
+      }
     } else if (el.type === 'node' && tags['addr:housenumber'] && el.lat != null && el.lon != null) {
       items.push({
         ring: villaRing(el.lon, el.lat),
@@ -272,6 +343,7 @@ function parseOsmXml(xml: string, parcel: LngLat[]): OsmFootprints | null {
     if (id && lon && lat) nodes.set(id, [Number(lon), Number(lat)])
   }
   const items: Array<{ ring: LngLat[]; tags: Record<string, string>; numberedNode?: boolean }> = []
+  const wayById = new Map<string, { ring: LngLat[]; tags: Record<string, string> }>()
   for (const way of doc.querySelectorAll('way')) {
     const tags = tagsFromEl(way)
     const ring: LngLat[] = []
@@ -280,7 +352,24 @@ function parseOsmXml(xml: string, parcel: LngLat[]): OsmFootprints | null {
       const pt = ref ? nodes.get(ref) : undefined
       if (pt) ring.push(pt)
     }
-    if (ring.length >= 3) items.push({ ring, tags })
+    const id = way.getAttribute('id')
+    if (ring.length >= 3) {
+      items.push({ ring, tags })
+      if (id) wayById.set(id, { ring, tags })
+    }
+  }
+  for (const rel of doc.querySelectorAll('relation')) {
+    const tags = tagsFromEl(rel)
+    if (!isBuildingTags(tags)) continue
+    for (const member of rel.querySelectorAll('member')) {
+      if (member.getAttribute('type') !== 'way') continue
+      const role = member.getAttribute('role') ?? 'outer'
+      if (role !== 'outer') continue
+      const ref = member.getAttribute('ref')
+      const way = ref ? wayById.get(ref) : undefined
+      if (!way || way.ring.length < 3) continue
+      items.push({ ring: way.ring, tags: { ...way.tags, ...tags } })
+    }
   }
   for (const node of doc.querySelectorAll('node')) {
     const tags = tagsFromEl(node)
@@ -302,6 +391,8 @@ function overpassQuery(west: number, south: number, east: number, north: number)
   return `[out:json][timeout:25];
 (
   way["building"](${bbox});
+  way["addr:housenumber"](${bbox});
+  relation["building"](${bbox});
   way["leisure"~"^(park|garden|pitch|playground|golf_course|recreation_ground)$"](${bbox});
   way["landuse"~"^(grass|forest|meadow|recreation_ground|village_green|orchard)$"](${bbox});
   way["natural"~"^(wood|scrub|grassland|water)$"](${bbox});
@@ -354,17 +445,59 @@ async function fetchOverpass(ring: LngLat[]): Promise<OsmFootprints | null> {
   return null
 }
 
-async function fetchOsmApi(ring: LngLat[]): Promise<OsmFootprints | null> {
-  const [west, south, east, north] = ringBBox(ring)
+async function fetchOsmBox(
+  west: number,
+  south: number,
+  east: number,
+  north: number,
+  parcel: LngLat[],
+  depth: number,
+): Promise<OsmFootprints | null> {
   const url = `https://api.openstreetmap.org/api/0.6/map?bbox=${west.toFixed(6)},${south.toFixed(6)},${east.toFixed(6)},${north.toFixed(6)}`
   try {
     const res = await fetchWithTimeout(url, {}, 18_000)
+    if (res.status === 400 && depth < 2) {
+      const mx = (west + east) / 2
+      const my = (south + north) / 2
+      const parts = await Promise.all([
+        fetchOsmBox(west, south, mx, my, parcel, depth + 1),
+        fetchOsmBox(mx, south, east, my, parcel, depth + 1),
+        fetchOsmBox(west, my, mx, north, parcel, depth + 1),
+        fetchOsmBox(mx, my, east, north, parcel, depth + 1),
+      ])
+      return mergePacked(parts)
+    }
     if (!res.ok) return null
     const xml = await res.text()
-    return parseOsmXml(xml, ring)
+    return parseOsmXml(xml, parcel)
   } catch {
     return null
   }
+}
+
+function mergePacked(parts: Array<OsmFootprints | null>): OsmFootprints | null {
+  const buildings: OsmPackedBuilding[] = []
+  const lawns: OsmPackedLawn[] = []
+  const pools: OsmPackedPool[] = []
+  let any = false
+  for (const part of parts) {
+    if (!part) continue
+    any = true
+    buildings.push(...part.buildings)
+    lawns.push(...part.lawns)
+    pools.push(...part.pools)
+  }
+  if (!any) return null
+  return {
+    buildings: capBuildings(dedupeBuildings(buildings)),
+    lawns: lawns.slice(0, LAWN_CAP),
+    pools: pools.slice(0, POOL_CAP),
+  }
+}
+
+async function fetchOsmApi(ring: LngLat[]): Promise<OsmFootprints | null> {
+  const [west, south, east, north] = ringBBox(ring)
+  return fetchOsmBox(west, south, east, north, ring, 0)
 }
 
 function readSession(key: string): OsmFootprints | null {

@@ -249,8 +249,10 @@ function layoutFromOsm(
   })
 
   const lawns: IsoLawn[] = packed.lawns.map((item) => ({ ring: item.ring, tone: rng() }))
-  for (const building of packed.buildings) {
-    lawns.push({ ring: explodeRing(building.ring, ringCentroid(building.ring), 0.16), tone: 0.2 + rng() * 0.35 })
+  if (packed.buildings.length < 90) {
+    for (const building of packed.buildings) {
+      lawns.push({ ring: explodeRing(building.ring, ringCentroid(building.ring), 0.16), tone: 0.2 + rng() * 0.35 })
+    }
   }
   const pools: IsoPool[] = packed.pools.map((item) => ({ ring: item.ring, coastal: palm }))
   const hills: IsoHill[] = []
