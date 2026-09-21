@@ -1,9 +1,13 @@
 import { motion } from 'framer-motion'
+import { useState } from 'react'
 import { asset } from '../assets'
 import { copy, type Lang } from '../data'
+import { DESTINATIONS, NAWY, type DestinationId } from '../destinations'
 
 export function About({ lang }: { lang: Lang }) {
   const t = copy[lang]
+  const [active, setActive] = useState<DestinationId>('egypt')
+  const country = DESTINATIONS.find((item) => item.id === active) ?? DESTINATIONS[0]
 
   return (
     <section className="section" id="about">
@@ -38,6 +42,49 @@ export function About({ lang }: { lang: Lang }) {
               <li key={point}>{point}</li>
             ))}
           </ul>
+
+          <div className="destinations-panel">
+            <p className="destinations-title">{t.destinationsTitle}</p>
+            <p className="destinations-lead">{t.destinationsLead}</p>
+            <div className="destination-tabs" role="tablist" aria-label={t.destinationsTitle}>
+              {DESTINATIONS.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={active === item.id}
+                  className={active === item.id ? 'is-on' : undefined}
+                  onClick={() => setActive(item.id)}
+                >
+                  {lang === 'ar' ? item.nameAr : item.name}
+                </button>
+              ))}
+            </div>
+            <div className="destination-panel-body" role="tabpanel">
+              {country.subs?.length ? (
+                <div className="destination-subs" role="list">
+                  {country.subs.map((sub) => (
+                    <div key={sub.id} className="destination-sub" role="listitem">
+                      <span>{lang === 'ar' ? sub.nameAr : sub.name}</span>
+                      {sub.note || sub.noteAr ? (
+                        <small>{lang === 'ar' ? sub.noteAr : sub.note}</small>
+                      ) : null}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="destination-hint">{lang === 'ar' ? country.hintAr : country.hint}</p>
+              )}
+            </div>
+          </div>
+
+          <a className="nawy-partner" href={NAWY.href} target="_blank" rel="noreferrer">
+            <img src={asset(NAWY.logo)} alt="Nawy" />
+            <span>
+              <strong>{t.nawyPartnerTitle}</strong>
+              <em>{t.nawyPartnerText}</em>
+            </span>
+          </a>
         </motion.div>
         <motion.div
           className="about-panel"

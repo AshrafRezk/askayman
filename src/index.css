@@ -341,6 +341,47 @@ textarea {
   margin-top: 32px;
 }
 
+.hero-destinations {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  margin-top: 22px;
+}
+
+.hero-destinations-label {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.destination-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.destination-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(8, 17, 28, 0.72);
+  color: var(--ivory);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  transition: border-color 0.25s var(--ease), color 0.25s var(--ease), background 0.25s var(--ease);
+}
+
+.destination-chip:hover {
+  border-color: var(--gold);
+  color: var(--gold-2);
+  background: rgba(212, 177, 90, 0.12);
+}
+
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -461,6 +502,77 @@ a[href^="tel:"],
   text-transform: uppercase;
   color: var(--mist);
 }
+
+.cred-chip {
+  position: absolute;
+  padding: 12px 14px;
+  border-radius: 20px;
+  background: rgba(8, 16, 26, 0.72);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
+  z-index: 2;
+}
+
+.cred-chip-license {
+  left: 0;
+  bottom: 18%;
+  max-width: 148px;
+}
+
+.cred-chip-license b {
+  display: block;
+  font-size: 13px;
+  line-height: 1.25;
+  color: var(--gold-2);
+  font-weight: 600;
+}
+
+.cred-chip-license span {
+  display: block;
+  margin-top: 4px;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+
+.cred-chip-nawy {
+  right: 2%;
+  bottom: 8%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 190px;
+  color: inherit;
+}
+
+.cred-chip-nawy img {
+  width: 52px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.cred-chip-nawy span {
+  display: grid;
+  gap: 2px;
+}
+
+.cred-chip-nawy b {
+  font-size: 12px;
+  line-height: 1.2;
+  color: var(--ivory);
+  font-weight: 600;
+}
+
+.cred-chip-nawy em {
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
 
 .section {
   position: relative;
@@ -585,6 +697,131 @@ a[href^="tel:"],
   background: var(--gold);
   box-shadow: 0 0 12px var(--gold);
 }
+
+.destinations-panel {
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.destinations-title {
+  margin: 0 !important;
+  color: var(--gold-2) !important;
+  font-size: 15px !important;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.destinations-lead {
+  margin-top: 8px !important;
+  font-size: 14px !important;
+  line-height: 1.55 !important;
+}
+
+.destination-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.destination-tabs button {
+  border: 1px solid var(--line);
+  background: rgba(8, 17, 28, 0.72);
+  color: var(--ivory);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.destination-tabs button.is-on {
+  border-color: var(--gold);
+  color: var(--gold-2);
+  background: rgba(212, 177, 90, 0.12);
+}
+
+.destination-panel-body {
+  margin-top: 14px;
+}
+
+.destination-subs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.destination-sub {
+  display: grid;
+  gap: 2px;
+  padding: 10px 14px;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: rgba(212, 177, 90, 0.06);
+  min-width: 0;
+}
+
+.destination-sub span {
+  font-size: 13px;
+  color: var(--ivory);
+  font-weight: 500;
+}
+
+.destination-sub small {
+  font-size: 11px;
+  color: var(--mist);
+  letter-spacing: 0.02em;
+}
+
+.destination-hint {
+  margin: 0 !important;
+  font-size: 15px !important;
+  color: var(--mist) !important;
+}
+
+.nawy-partner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 22px;
+  padding: 14px 16px;
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  background: rgba(8, 17, 28, 0.55);
+  transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
+}
+
+.nawy-partner:hover {
+  border-color: var(--gold);
+  background: rgba(212, 177, 90, 0.08);
+}
+
+.nawy-partner img {
+  width: 72px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.nawy-partner span {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.nawy-partner strong {
+  font-size: 14px;
+  color: var(--gold-2);
+  font-weight: 600;
+}
+
+.nawy-partner em {
+  font-style: normal;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--mist);
+}
+
 
 .about-panel {
   min-height: 420px;
@@ -864,7 +1101,37 @@ a[href^="tel:"],
   display: flex;
   align-items: center;
   gap: 16px;
+  flex-wrap: wrap;
 }
+
+.partners-nawy {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px 6px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(8, 17, 28, 0.55);
+  transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
+}
+
+.partners-nawy:hover {
+  border-color: var(--gold);
+  background: rgba(212, 177, 90, 0.1);
+}
+
+.partners-nawy img {
+  height: 22px;
+  width: auto;
+}
+
+.partners-nawy span {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--mist);
+  white-space: nowrap;
+}
+
 
 .partners-taj {
   height: 28px;
@@ -1497,6 +1764,17 @@ a[href^="tel:"],
   left: 4%;
 }
 
+.site[dir='rtl'] .cred-chip-license {
+  left: auto;
+  right: 0;
+}
+
+.site[dir='rtl'] .cred-chip-nawy {
+  right: auto;
+  left: 2%;
+}
+
+
 @media (max-width: 1100px) {
   .nav .btn-gold {
     display: none;
@@ -1539,6 +1817,29 @@ a[href^="tel:"],
 
   .portrait-morph {
     width: min(360px, 92%);
+  }
+
+  .cred-chip-license {
+    max-width: 128px;
+    padding: 10px 12px;
+    bottom: 14%;
+  }
+
+  .cred-chip-license b {
+    font-size: 12px;
+  }
+
+  .cred-chip-nawy {
+    max-width: 168px;
+    padding: 10px 12px;
+  }
+
+  .cred-chip-nawy img {
+    width: 44px;
+  }
+
+  .partners-nawy span {
+    display: none;
   }
 
   .insights .insight:first-child {

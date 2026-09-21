@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { asset } from '../assets'
 import { copy, type Lang } from '../data'
+import { NAWY } from '../destinations'
 import {
   BUDGET_PRESETS,
   offerFor,
@@ -96,6 +97,10 @@ export function Partners({ lang }: { lang: Lang }) {
         <div className="partners-brands">
           <img className="partners-sodic" src={asset('images/partners/sodic.png')} alt="SODIC" />
           <img className="partners-taj" src={asset('images/partners/taj-city.jpg')} alt="Taj City" />
+          <a className="partners-nawy" href={NAWY.href} target="_blank" rel="noreferrer">
+            <img src={asset(NAWY.logo)} alt="Nawy" />
+            <span>{t.nawyPartnerCta}</span>
+          </a>
         </div>
         <div className="partner-regions" role="tablist" aria-label={t.partnersTitle}>
           {PARTNER_REGIONS.map((item) => (

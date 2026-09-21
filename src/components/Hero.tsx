@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { asset } from '../assets'
 import { CONTACT, copy, type Lang } from '../data'
+import { DESTINATIONS, NAWY } from '../destinations'
 
 export function Hero({ lang }: { lang: Lang }) {
   const t = copy[lang]
@@ -41,6 +42,22 @@ export function Hero({ lang }: { lang: Lang }) {
           {t.lead}
         </motion.p>
         <motion.div
+          className="hero-destinations"
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1 }}
+          aria-label={t.destinationsLabel}
+        >
+          <span className="hero-destinations-label">{t.destinationsLabel}</span>
+          <div className="destination-chips">
+            {DESTINATIONS.map((country) => (
+              <a key={country.id} className="destination-chip" href="#about">
+                {lang === 'ar' ? country.nameAr : country.name}
+              </a>
+            ))}
+          </div>
+        </motion.div>
+        <motion.div
           className="cta-row"
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
@@ -64,7 +81,7 @@ export function Hero({ lang }: { lang: Lang }) {
         <div className="portrait-morph">
           <div className="gold-ring" />
           <div className="portrait-frame">
-            <img src={asset('images/ayman.png')} alt="Ayman Milad, property consultant" />
+            <img src={asset('images/ayman.png')} alt="Ayman Milad, licensed real estate broker" />
           </div>
           <motion.div
             className="years-chip"
@@ -74,6 +91,28 @@ export function Hero({ lang }: { lang: Lang }) {
             <b>30</b>
             <span>{lang === 'ar' ? 'سنة' : 'Years'}</span>
           </motion.div>
+          <motion.div
+            className="cred-chip cred-chip-license"
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 6.2, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <b>{t.licenseBadge}</b>
+            <span>{t.licenseBadgeSub}</span>
+          </motion.div>
+          <motion.a
+            className="cred-chip cred-chip-nawy"
+            href={NAWY.href}
+            target="_blank"
+            rel="noreferrer"
+            animate={{ y: [0, -5, 0] }}
+            transition={{ duration: 5.8, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }}
+          >
+            <img src={asset(NAWY.logo)} alt="Nawy" />
+            <span>
+              <b>{t.nawyBadge}</b>
+              <em>{t.nawyBadgeSub}</em>
+            </span>
+          </motion.a>
         </div>
       </motion.div>
     </section>
