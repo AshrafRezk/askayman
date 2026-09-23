@@ -86,13 +86,27 @@ export function About({ lang }: { lang: Lang }) {
             </span>
           </a>
         </motion.div>
-        <motion.div
-          className="about-panel"
-          style={{ backgroundImage: `linear-gradient(180deg, rgba(6, 16, 28, 0.1), rgba(6, 16, 28, 0.55)), url('${asset('images/cover.png')}')` }}
-          initial={{ opacity: 0, scale: 0.96 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+        <motion.aside
+          className="about-panel timing-card"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-        />
+        >
+          <p className="kicker">{lang === 'ar' ? 'مع العميل' : 'With the client'}</p>
+          <h3 className="display">{t.aboutTimingTitle}</h3>
+          <p>{t.aboutTimingBody}</p>
+          <ol className="timing-steps">
+            {t.aboutTimingSteps.map((step, index) => (
+              <li key={step.label}>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <div>
+                  <strong>{step.label}</strong>
+                  <em>{step.text}</em>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </motion.aside>
       </div>
     </section>
   )

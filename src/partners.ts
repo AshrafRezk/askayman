@@ -1,6 +1,6 @@
-export type PartnerRegion = 'east' | 'west' | 'coast'
+export type PartnerRegion = 'east' | 'west' | 'coast' | 'greece' | 'uae'
 export type PartnerView = PartnerRegion | 'all' | 'taj'
-export type PartnerGroup = 'sodic' | 'taj' | 'sarai'
+export type PartnerGroup = 'sodic' | 'taj' | 'sarai' | 'greece' | 'uae'
 
 export type PartnerCompound = {
   id: string
@@ -35,6 +35,8 @@ export const PARTNER_REGIONS: {
   { id: 'east', name: 'East Cairo', nameAr: 'شرق القاهرة', lat: 30.07, lng: 31.577, zoom: 11.2 },
   { id: 'west', name: 'West Cairo', nameAr: 'غرب القاهرة', lat: 30.051, lng: 30.913, zoom: 11.6 },
   { id: 'coast', name: 'North Coast', nameAr: 'الساحل الشمالي', lat: 31.13, lng: 28.045, zoom: 11.4 },
+  { id: 'greece', name: 'Greece', nameAr: 'اليونان', lat: 37.55, lng: 23.15, zoom: 6.6 },
+  { id: 'uae', name: 'UAE', nameAr: 'الإمارات', lat: 25.08, lng: 55.2, zoom: 8.6 },
 ]
 
 export function compoundInView(item: PartnerCompound, view: PartnerView) {
@@ -56,7 +58,33 @@ export function isTajMapZone(item: PartnerCompound) {
 
 export function chipInView(item: PartnerCompound, view: PartnerView) {
   if (isTajZone(item)) return false
+  if (view === 'all') return isFlagship(item)
   return compoundInView(item, view)
+}
+
+/** World / all-markets view: highest-budget and marquee names only. */
+export const FLAGSHIP_IDS = new Set([
+  'taj-city',
+  'villette',
+  'the-estates',
+  'caesar',
+  'june',
+  'eastown',
+  'sarai',
+  'costa-navarino',
+  'ellinikon',
+  'downtown-dubai',
+  'palm-jumeirah',
+  'dubai-hills',
+  'saadiyat',
+])
+
+export function isFlagship(item: PartnerCompound) {
+  return FLAGSHIP_IDS.has(item.id)
+}
+
+export function isIntl(item: PartnerCompound) {
+  return item.group === 'greece' || item.group === 'uae'
 }
 
 export function zonesForSelection(selected: string | null) {
@@ -437,5 +465,89 @@ export const PARTNER_COMPOUNDS: PartnerCompound[] = [
     status: 'explore',
     detail: 'SODIC · North Coast.',
     detailAr: 'سوديك · الساحل الشمالي.',
+  },
+  {
+    id: 'costa-navarino',
+    name: 'Costa Navarino',
+    nameAr: 'كوستا نافارينو',
+    region: 'greece',
+    group: 'greece',
+    lat: 36.9897,
+    lng: 21.6947,
+    zoom: 13.4,
+    logo: '',
+    status: 'explore',
+    detail: 'Messinia · Greece’s flagship resort destination. Ask Ayman about the Greek market.',
+    detailAr: 'ميسينا · الوجهة الأبرز في اليونان. اسأل أيمن عن السوق اليوناني.',
+  },
+  {
+    id: 'ellinikon',
+    name: 'The Ellinikon',
+    nameAr: 'الألينكون',
+    region: 'greece',
+    group: 'greece',
+    lat: 37.886,
+    lng: 23.737,
+    zoom: 13.6,
+    logo: '',
+    status: 'explore',
+    detail: 'Athens Riviera · Lamda Development. Ask Ayman about the Greek market.',
+    detailAr: 'ريفييرا أثينا · لامدا. اسأل أيمن عن السوق اليوناني.',
+  },
+  {
+    id: 'downtown-dubai',
+    name: 'Downtown Dubai',
+    nameAr: 'داون تاون دبي',
+    region: 'uae',
+    group: 'uae',
+    lat: 25.1972,
+    lng: 55.2744,
+    zoom: 14.4,
+    logo: '',
+    status: 'explore',
+    detail: 'Emaar · Burj Khalifa district. Ask Ayman about the UAE market.',
+    detailAr: 'إعمار · منطقة برج خليفة. اسأل أيمن عن سوق الإمارات.',
+  },
+  {
+    id: 'palm-jumeirah',
+    name: 'Palm Jumeirah',
+    nameAr: 'نخلة جميرا',
+    region: 'uae',
+    group: 'uae',
+    lat: 25.1124,
+    lng: 55.139,
+    zoom: 13.8,
+    logo: '',
+    status: 'explore',
+    detail: 'Iconic palm · villas and branded residences. Ask Ayman about the UAE market.',
+    detailAr: 'النخلة · فيلات ووحدات بعلامات عالمية. اسأل أيمن عن سوق الإمارات.',
+  },
+  {
+    id: 'dubai-hills',
+    name: 'Dubai Hills',
+    nameAr: 'دبي هيلز',
+    region: 'uae',
+    group: 'uae',
+    lat: 25.109,
+    lng: 55.244,
+    zoom: 13.6,
+    logo: '',
+    status: 'explore',
+    detail: 'Emaar · golf community. Ask Ayman about the UAE market.',
+    detailAr: 'إعمار · مجتمع الجولف. اسأل أيمن عن سوق الإمارات.',
+  },
+  {
+    id: 'saadiyat',
+    name: 'Saadiyat Island',
+    nameAr: 'جزيرة السعديات',
+    region: 'uae',
+    group: 'uae',
+    lat: 24.533,
+    lng: 54.436,
+    zoom: 13.2,
+    logo: '',
+    status: 'explore',
+    detail: 'Abu Dhabi cultural district · luxury residences. Ask Ayman about the UAE market.',
+    detailAr: 'أبوظبي · الحي الثقافي والإقامة الفاخرة. اسأل أيمن عن سوق الإمارات.',
   },
 ]

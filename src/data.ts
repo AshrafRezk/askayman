@@ -24,7 +24,7 @@ export const VIDEOS = [
 
 export const copy = {
   en: {
-    nav: ['About', 'Services', 'Insights', 'Partners', 'Contact'],
+    nav: ['About', 'Services', 'Insights', 'Partners', 'Listings', 'Reviews', 'Contact'],
     kicker: 'Licensed Real Estate Broker · Egypt',
     headline: 'Ask Ayman',
     subhead: '30 years guiding smarter investments.',
@@ -51,9 +51,18 @@ export const copy = {
     aboutTitle: 'Honesty in every transaction.',
     aboutBody:
       'Ayman Milad is a Heliopolis-based licensed real-estate broker under Egyptian brokerage law, with more than 30 years in multinational sales and customer service. He does not sell hype. He tells you the truth before you buy — because not every expensive property is a successful investment.',
+    aboutTimingTitle: 'Updates, so you move at the right moment.',
+    aboutTimingBody:
+      'Ayman stays with the unit after the first conversation. He shares what changed on your shortlist — availability, payment plans, and price moves — so you can buy or sell when the timing is actually in your favor.',
+    aboutTimingSteps: [
+      { label: 'Your units', text: 'Status on the homes and resales you are watching.' },
+      { label: 'Price changes', text: 'When a number moves up, down, or a plan gets better.' },
+      { label: 'The call', text: 'A clear yes, wait, or sell — before the window closes.' },
+    ],
     aboutPoints: [
       'Licensed real-estate brokerage in Egypt',
       'Nawy verified agent',
+      'Unit and price updates for buy and sell timing',
       'Trusted across Egypt, UAE & Greece',
     ],
     servicesTitle: 'Where Ayman guides you',
@@ -100,7 +109,7 @@ export const copy = {
     ],
     partnersTitle: 'Partner compounds',
     partnersLead:
-      'SODIC land, Taj City phases on the Suez Road, and Sarai beside Madinaty — filter by budget, then fly the map.',
+      'SODIC and Taj City in Egypt, plus flagship names in Greece and the UAE — filter by budget, then fly the map.',
     partnersAll: 'All SODIC compounds',
     partnersHint: 'Pick a compound, or use the arrows to fly the map.',
     partnersPrev: 'Previous compound',
@@ -123,9 +132,45 @@ export const copy = {
     visit: 'Visit',
     follow: 'Follow the conversation',
     footer: 'Ask Ayman · Licensed Real Estate Broker · Egypt · Nawy verified agent.',
+    listingsTitle: 'Listings',
+    listingsLead:
+      'Indicative starting prices from partner compounds. Ayman confirms the live number, the unit, and whether now is the moment to buy or sell.',
+    listingsFrom: 'From',
+    listingsAsk: 'Ask about this',
+    listingsNote: 'Published ranges, not a live quote. Updated with Ayman before you decide.',
+    listingsCards: 'Cards',
+    listingsMap: 'Map',
+    listingsPrev: 'Previous',
+    listingsNext: 'Next',
+    listingsPage: 'Page',
+    listingsAreaNote: 'Areas only — the pin is offset on purpose, not the compound gate.',
+    reviewsTitle: 'Happy customers',
+    reviewsLead: 'What clients say after Ayman stayed with the unit — and the price — until the timing was right.',
+    reviews: [
+      {
+        name: 'Mariam',
+        place: 'New Cairo',
+        text: 'He kept sending the real price moves, not a brochure. We bought when the plan actually improved, not when the sales office was loudest.',
+      },
+      {
+        name: 'Karim',
+        place: 'Heliopolis',
+        text: 'I was ready to overpay on a resale. Ayman showed me the last two closes and told me to wait a week. That week saved the deal.',
+      },
+      {
+        name: 'Nour',
+        place: 'North Coast',
+        text: 'I wanted a chalet for the family and a number that still made sense in winter. He tracked availability until the right unit opened.',
+      },
+      {
+        name: 'Hany',
+        place: 'Sheikh Zayed',
+        text: 'Selling was the hard part. He told us when demand picked up and we listed then — not six months earlier at a weaker price.',
+      },
+    ],
   },
   ar: {
-    nav: ['عن أيمن', 'الخدمات', 'نصائح', 'الشركاء', 'تواصل'],
+    nav: ['عن أيمن', 'الخدمات', 'نصائح', 'الشركاء', 'العروض', 'آراء العملاء', 'تواصل'],
     kicker: 'وسيط عقاري مرخص · مصر',
     headline: 'اسأل أيمن',
     subhead: '٣٠ سنة… بنوجّه استثمارك بذكاء.',
@@ -151,9 +196,18 @@ export const copy = {
     aboutTitle: 'أمانة وخبرة في كل صفقة.',
     aboutBody:
       'أيمن ميلاد وسيط عقاري مرخص بموجب قانون الوساطة العقارية في مصر، من مصر الجديدة، بخبرة أكتر من ٣٠ سنة في المبيعات وخدمة العملاء على مستوى شركات عالمية. مش بيبيع ضجيج. بيقولك الحقيقة قبل ما تشتري — لأن مش كل عقار غالي يبقى استثمار ناجح.',
+    aboutTimingTitle: 'تحديثات عشان تتحرك في الوقت الصح.',
+    aboutTimingBody:
+      'أيمن بيفضل مع الوحدة بعد أول مكالمة. بيشاركك اللي اتغير على قائمتك — التوافر، أنظمة السداد، وتحركات السعر — عشان تشتري أو تبيع لما التوقيت فعلاً يكون في صالحك.',
+    aboutTimingSteps: [
+      { label: 'وحداتكم', text: 'حالة البيوت والريسيل اللي بتتابعوها.' },
+      { label: 'تغير الأسعار', text: 'لما الرقم يزيد أو ينزل، أو الخطة تتحسن.' },
+      { label: 'القرار', text: 'اشتري، استنى، أو بيع — قبل ما الفرصة تقفل.' },
+    ],
     aboutPoints: [
       'وسيط عقاري مرخص في مصر',
       'وكيل نوي المعتمد',
+      'تحديثات الوحدات والأسعار لتوقيت الشراء والبيع',
       'ثقة في مصر والإمارات واليونان',
     ],
     servicesTitle: 'فين أيمن يقدر يساعدك',
@@ -200,7 +254,7 @@ export const copy = {
     ],
     partnersTitle: 'كمباوندات الشركاء',
     partnersLead:
-      'أراضي سوديك، مراحل تاج سيتي على طريق السويس، وسرايا جنب مدينتي — فلتر بالميزانية وبعدين طير على الخريطة.',
+      'سوديك وتاج سيتي في مصر، وأسماء كبيرة في اليونان والإمارات — فلتر بالميزانية وبعدين طير على الخريطة.',
     partnersAll: 'كل كمباوندات سوديك',
     partnersHint: 'اختار كمباوند، أو استخدم الأسهم عشان تطير على الخريطة.',
     partnersPrev: 'الكمباوند السابق',
@@ -223,5 +277,41 @@ export const copy = {
     visit: 'المكتب',
     follow: 'تابع الحوار',
     footer: 'اسأل أيمن · وسيط عقاري مرخص · مصر · وكيل نوي المعتمد.',
+    listingsTitle: 'العروض',
+    listingsLead:
+      'أسعار استرشادية تبدأ من كمباوندات الشركاء. أيمن بيأكد الرقم الحالي والوحدة، وهل الوقت مناسب للشراء أو البيع.',
+    listingsFrom: 'يبدأ من',
+    listingsAsk: 'اسأل عن العرض',
+    listingsNote: 'نطاقات منشورة، مش تسعير لحظي. اتأكد مع أيمن قبل القرار.',
+    listingsCards: 'بطاقات',
+    listingsMap: 'خريطة',
+    listingsPrev: 'السابق',
+    listingsNext: 'التالي',
+    listingsPage: 'صفحة',
+    listingsAreaNote: 'مناطق تقريبية — الدبوس متعمد إنه مش على بوابة الكمباوند.',
+    reviewsTitle: 'آراء العملاء',
+    reviewsLead: 'كلام العملاء بعد ما أيمن فضل متابع الوحدة والسعر لحد ما التوقيت يبقى مناسب.',
+    reviews: [
+      {
+        name: 'مريم',
+        place: 'القاهرة الجديدة',
+        text: 'كان بيبعت تحركات السعر الحقيقية، مش بروشور. اشترينا لما الخطة فعلاً اتحسنت، مش لما مكتب المبيعات كان أعلى صوت.',
+      },
+      {
+        name: 'كريم',
+        place: 'مصر الجديدة',
+        text: 'كنت هدفع زيادة في ريسيل. أيمن ورّاني آخر صفقتين وقال استنى أسبوع. الأسبوع ده وفّر الصفقة.',
+      },
+      {
+        name: 'نور',
+        place: 'الساحل الشمالي',
+        text: 'عايزة شاليه للعائلة برقم لسه منطقي في الشتا. فضل متابع التوافر لحد ما الوحدة المناسبة اتفتحت.',
+      },
+      {
+        name: 'هاني',
+        place: 'الشيخ زايد',
+        text: 'البيع كان الأصعب. قالنا امتى الطلب زاد ونزلنا الإعلان ساعتها — مش قبلها بستة شهور بسعر أضعف.',
+      },
+    ],
   },
 }

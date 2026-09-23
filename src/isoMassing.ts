@@ -1,4 +1,5 @@
 import type { OsmFootprints } from './osmFootprints'
+import type { PartnerRegion } from './partners'
 
 export type LngLat = [number, number]
 
@@ -41,7 +42,7 @@ export type IsoSite = {
   primary: boolean
   ring: LngLat[]
   center: LngLat
-  region: 'east' | 'west' | 'coast' | null
+  region: PartnerRegion | null
   buildings: IsoBuilding[]
   trees: IsoTree[]
   hills: IsoHill[]
@@ -198,7 +199,7 @@ function insetRing(ring: LngLat[], amount: number): LngLat[] {
 
 function emptySite(
   feature: ParcelLike,
-  region: 'east' | 'west' | 'coast' | null,
+  region: PartnerRegion | null,
   ring: LngLat[],
   center: LngLat,
 ): IsoSite {
@@ -221,7 +222,7 @@ function emptySite(
 
 function layoutFromOsm(
   feature: ParcelLike,
-  region: 'east' | 'west' | 'coast' | null,
+  region: PartnerRegion | null,
   ring: LngLat[],
   center: LngLat,
   packed: OsmFootprints,
@@ -384,7 +385,7 @@ function layoutFromOsm(
 
 export function siteForParcel(
   feature: ParcelLike,
-  region: 'east' | 'west' | 'coast' | null,
+  region: PartnerRegion | null,
   packed?: OsmFootprints | null,
 ): IsoSite {
   const ring = feature.geometry.coordinates[0] as LngLat[]

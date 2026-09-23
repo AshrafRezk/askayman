@@ -1,5 +1,5 @@
 import L from 'leaflet'
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { GeoJSON as ParcelGeoJSON, MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
 import { asset } from '../assets'
 import parcels from '../data/partner-parcels.json'
@@ -9,6 +9,8 @@ import {
   PARTNER_REGIONS,
   TAJ_MAP_ZONE_IDS,
   compoundInView,
+  isFlagship,
+  isIntl,
   isTajMapZone,
   type PartnerCompound,
   type PartnerGroup,
@@ -49,13 +51,15 @@ function pin(compound: PartnerCompound, active: boolean) {
   })
 }
 
-function namePin(label: string, active: boolean) {
+function namePin(label: string, active: boolean, intl = false) {
   const safe = label.replace(/</g, '&lt;')
+  const width = Math.min(170, Math.max(active ? 120 : 104, Math.round(label.length * 7.6 + (active ? 28 : 22))))
+  const height = active ? 28 : 24
   return L.divIcon({
-    className: `partner-name-pin${active ? ' is-on' : ''}`,
+    className: `partner-name-pin${active ? ' is-on' : ''}${intl ? ' is-intl' : ''}`,
     html: `<span class="partner-name-label">${safe}</span>`,
-    iconSize: active ? [120, 28] : [104, 24],
-    iconAnchor: active ? [60, 14] : [52, 12],
+    iconSize: [width, height],
+    iconAnchor: [width / 2, height / 2],
     popupAnchor: [0, -14],
   })
 }
@@ -166,7 +170,12 @@ function boundsForRegion(region: PartnerView) {
   )
 }
 
-function showMarker(compound: PartnerCompound, selected: string | null) {
+function showMarker(compound: PartnerCompound, selected: string | null, zoom: number, region: PartnerView) {
+  if (compound.id === selected) return true
+  if (zoom < 8.6) {
+    if (!isFlagship(compound)) return false
+    return region === 'all' || compoundInView(compound, region)
+  }
   if (compound.group === 'taj') {
     if (isTajMapZone(compound)) return true
     if (compound.id === 'taj-city') {
@@ -176,7 +185,7 @@ function showMarker(compound: PartnerCompound, selected: string | null) {
     return false
   }
   if (compound.id === selected) return true
-  if (compound.group === 'sodic' || compound.group === 'sarai') return true
+  if (compound.group === 'sodic' || compound.group === 'sarai' || isIntl(compound)) return true
   return false
 }
 
@@ -207,6 +216,16 @@ function MapCamera({
       }
       const bounds = boundsForRegion(region)
       const view = PARTNER_REGIONS.find((item) => item.id === region) ?? PARTNER_REGIONS[0]
+      if (region === 'all') {
+        const featured = PARTNER_COMPOUNDS.filter(isFlagship)
+        if (featured.length) {
+          const box = L.latLngBounds(featured.map((item) => [item.lat, item.lng] as [number, number]))
+          if (box.isValid()) {
+            map.flyToBounds(box, { padding: [52, 52], maxZoom: 5.3, duration: 0.85 })
+            return
+          }
+        }
+      }
       if (region !== 'all' && bounds?.isValid()) {
         map.flyToBounds(bounds, {
           padding: [iso3d ? 132 : 40, iso3d ? 132 : 40],
@@ -221,6 +240,21 @@ function MapCamera({
     return () => window.clearTimeout(id)
   }, [iso3d, map, region, selected])
 
+  return null
+}
+
+function ZoomTracker({ onZoom }: { onZoom: (zoom: number) => void }) {
+  const map = useMap()
+  const onZoomRef = useRef(onZoom)
+  onZoomRef.current = onZoom
+  useEffect(() => {
+    const report = () => onZoomRef.current(map.getZoom())
+    report()
+    map.on('zoom zoomend moveend', report)
+    return () => {
+      map.off('zoom zoomend moveend', report)
+    }
+  }, [map])
   return null
 }
 
@@ -328,17 +362,19 @@ export function PartnersMap({
     return Object.fromEntries(
       PARTNER_COMPOUNDS.map((item) => {
         const active = item.id === selected
-        if (item.group === 'taj') {
+        if (item.group === 'taj' || isIntl(item)) {
           const label = lang === 'ar' ? item.nameAr : item.name
-          return [item.id, namePin(label, active)]
+          return [item.id, namePin(label, active, isIntl(item))]
         }
         return [item.id, pin(item, active)]
       }),
     )
   }, [lang, selected])
 
+  const [zoom, setZoom] = useState(6.4)
+
   const markers = PARTNER_COMPOUNDS.filter((compound) => {
-    if (!showMarker(compound, selected)) return false
+    if (!showMarker(compound, selected, zoom, region)) return false
     if (!budgetAllowed) return true
     return budgetAllowed.has(compound.id)
   })
@@ -361,16 +397,19 @@ export function PartnersMap({
         keepBuffer={1}
       />
       <MapCamera selected={selected} region={region} iso3d={iso3d} />
+      <ZoomTracker onZoom={setZoom} />
       <WheelOnHover />
-      <ParcelLayer
-        selected={selected}
-        greenery={greenery}
-        iso3d={iso3d}
-        budgetAllowed={budgetAllowed}
-        onSelect={onSelect}
-      />
-      {life ? <LifeLayer selected={selected} life={life} iso3d={iso3d} greenery={greenery} /> : null}
-      {iso3d ? <IsoMassingLayer selected={selected} iso3d={iso3d} greenery={greenery} /> : null}
+      {zoom >= 9.4 ? (
+        <ParcelLayer
+          selected={selected}
+          greenery={greenery}
+          iso3d={iso3d}
+          budgetAllowed={budgetAllowed}
+          onSelect={onSelect}
+        />
+      ) : null}
+      {life && zoom >= 10 ? <LifeLayer selected={selected} life={life} iso3d={iso3d} greenery={greenery} /> : null}
+      {iso3d && zoom >= 10 ? <IsoMassingLayer selected={selected} iso3d={iso3d} greenery={greenery} /> : null}
       {markers.map((compound) => (
         <Marker
           key={compound.id}

@@ -97,7 +97,9 @@ function paint(canvas: HTMLCanvasElement, map: L.Map, opts: DrawOpts) {
   canvas.style.height = `${size.y + pad * 2}px`
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
   ctx.clearRect(0, 0, size.x + pad * 2, size.y + pad * 2)
+  const zoom = map.getZoom()
   if (opts.progress < 0.02) return
+  if (zoom < 9.8) return
 
   const viewW = size.x + pad * 2
   const viewH = size.y + pad * 2
@@ -110,7 +112,6 @@ function paint(canvas: HTMLCanvasElement, map: L.Map, opts: DrawOpts) {
   }
   const toRing = (ring: LngLat[]) => ring.map(([lng, lat]) => toPt(lng, lat))
 
-  const zoom = map.getZoom()
   const explode = 0.13 * opts.progress
   const detailed = zoom >= 13.1
   const activeIds = selectedIds(opts.selected)

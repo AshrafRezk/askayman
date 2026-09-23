@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
-import { asset } from '../assets'
 import { CONTACT, copy, type Lang } from '../data'
-import { DESTINATIONS, NAWY } from '../destinations'
+import { DESTINATIONS } from '../destinations'
 
 export function Hero({ lang }: { lang: Lang }) {
   const t = copy[lang]
@@ -71,50 +70,6 @@ export function Hero({ lang }: { lang: Lang }) {
           </a>
         </motion.div>
       </div>
-
-      <motion.div
-        className="portrait-wrap"
-        initial={{ opacity: 0, scale: 0.92, filter: 'blur(16px)' }}
-        animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-        transition={{ duration: 1.1, delay: 0.5 }}
-      >
-        <div className="portrait-morph">
-          <div className="gold-ring" />
-          <div className="portrait-frame">
-            <img src={asset('images/ayman.png')} alt="Ayman Milad, licensed real estate broker" />
-          </div>
-          <motion.div
-            className="years-chip"
-            animate={{ y: [0, -8, 0] }}
-            transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
-          >
-            <b>30</b>
-            <span>{lang === 'ar' ? 'سنة' : 'Years'}</span>
-          </motion.div>
-          <motion.div
-            className="cred-chip cred-chip-license"
-            animate={{ y: [0, 6, 0] }}
-            transition={{ duration: 6.2, repeat: Infinity, ease: 'easeInOut' }}
-          >
-            <b>{t.licenseBadge}</b>
-            <span>{t.licenseBadgeSub}</span>
-          </motion.div>
-          <motion.a
-            className="cred-chip cred-chip-nawy"
-            href={NAWY.href}
-            target="_blank"
-            rel="noreferrer"
-            animate={{ y: [0, -5, 0] }}
-            transition={{ duration: 5.8, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }}
-          >
-            <img src={asset(NAWY.logo)} alt="Nawy" />
-            <span>
-              <b>{t.nawyBadge}</b>
-              <em>{t.nawyBadgeSub}</em>
-            </span>
-          </motion.a>
-        </div>
-      </motion.div>
     </section>
   )
 }

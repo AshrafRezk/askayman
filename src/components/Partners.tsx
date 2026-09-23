@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, type CSSProperties } from 'react'
 import { asset } from '../assets'
 import { copy, type Lang } from '../data'
 import { NAWY } from '../destinations'
@@ -79,6 +79,8 @@ export function Partners({ lang }: { lang: Lang }) {
     haptic('medium')
     if (region === 'taj' && compound.group !== 'taj') {
       setRegion(compound.region)
+    } else if (compound.region === 'greece' || compound.region === 'uae') {
+      setRegion(compound.region)
     } else if (region !== 'all' && region !== 'taj' && compound.region !== region) {
       setRegion(compound.region)
     }
@@ -118,18 +120,30 @@ export function Partners({ lang }: { lang: Lang }) {
         </div>
       </div>
 
-      <div className="partner-rail" role="list">
-        {compounds.map((compound) => (
-          <button
-            key={compound.id}
-            type="button"
-            className={`partner-chip${compound.id === selected || compound.id === parentOn ? ' is-on' : ''}${compound.group === 'taj' || compound.group === 'sarai' ? ' is-taj' : ''}`}
-            onClick={() => chooseCompound(compound.id)}
-          >
-            <img src={asset(compound.logo)} alt="" />
-            <span>{lang === 'ar' ? compound.nameAr : compound.name}</span>
-          </button>
-        ))}
+      <div
+        className={`partner-rail${compounds.length > 3 ? ' is-marquee' : ''}`}
+        role="list"
+        style={{ '--rail-seconds': `${Math.max(26, Math.round(compounds.length * 3.4))}s` } as CSSProperties}
+      >
+        <div className="partner-rail-track">
+          {(compounds.length > 3 ? [...compounds, ...compounds] : compounds).map((compound, index) => {
+            const clone = compounds.length > 3 && index >= compounds.length
+            return (
+              <button
+                key={`${compound.id}:${index}`}
+                type="button"
+                role="listitem"
+                tabIndex={clone ? -1 : 0}
+                aria-hidden={clone || undefined}
+                className={`partner-chip${compound.id === selected || compound.id === parentOn ? ' is-on' : ''}${compound.group === 'taj' || compound.group === 'sarai' ? ' is-taj' : ''}${compound.group === 'greece' || compound.group === 'uae' ? ' is-intl' : ''}`}
+                onClick={() => chooseCompound(compound.id)}
+              >
+                {compound.logo ? <img src={asset(compound.logo)} alt="" /> : <span className="partner-chip-mark">{compound.group === 'uae' ? 'AE' : compound.group === 'greece' ? 'GR' : ''}</span>}
+                <span>{lang === 'ar' ? compound.nameAr : compound.name}</span>
+              </button>
+            )
+          })}
+        </div>
       </div>
 
       {zones.length ? (
