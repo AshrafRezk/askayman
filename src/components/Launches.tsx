@@ -100,9 +100,6 @@ export function Launches({ lang }: { lang: Lang }) {
                   >
                     {t.launchesAsk}
                   </a>
-                  <a className="btn launch-nawy" href={launch.href} target="_blank" rel="noreferrer">
-                    {t.launchesOnNawy}
-                  </a>
                 </div>
               </motion.article>
             )

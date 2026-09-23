@@ -1,8 +1,7 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import { asset } from '../assets'
 import { copy, type Lang } from '../data'
-import { DESTINATIONS, NAWY, type DestinationId } from '../destinations'
+import { DESTINATIONS, type DestinationId } from '../destinations'
 
 export function About({ lang }: { lang: Lang }) {
   const t = copy[lang]
@@ -77,14 +76,6 @@ export function About({ lang }: { lang: Lang }) {
               )}
             </div>
           </div>
-
-          <a className="nawy-partner" href={NAWY.href} target="_blank" rel="noreferrer">
-            <img src={asset(NAWY.logo)} alt="Nawy" />
-            <span>
-              <strong>{t.nawyPartnerTitle}</strong>
-              <em>{t.nawyPartnerText}</em>
-            </span>
-          </a>
         </motion.div>
         <motion.aside
           className="about-panel timing-card"

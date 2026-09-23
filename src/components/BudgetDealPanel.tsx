@@ -297,9 +297,13 @@ export function BudgetDealPanel({
             {offer.sources.map((source, index) => (
               <span key={source.url}>
                 {index ? ' · ' : null}
-                <a href={source.url} target="_blank" rel="noreferrer">
-                  {source.name}
-                </a>
+                {/nawy\.com/i.test(source.url) ? (
+                  source.name
+                ) : (
+                  <a href={source.url} target="_blank" rel="noreferrer">
+                    {source.name}
+                  </a>
+                )}
               </span>
             ))}
             <span>
