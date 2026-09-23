@@ -6,7 +6,7 @@ export function Reviews({ lang }: { lang: Lang }) {
 
   return (
     <section className="section page-view" id="reviews">
-      <p className="kicker">{t.nav[5]}</p>
+      <p className="kicker">{t.nav[6]}</p>
       <h1 className="display page-title">{t.reviewsTitle}</h1>
       <p className="page-lead">{t.reviewsLead}</p>
       <div className="review-grid">

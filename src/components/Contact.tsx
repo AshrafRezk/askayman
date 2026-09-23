@@ -32,7 +32,7 @@ export function Contact({ lang }: { lang: Lang }) {
   return (
     <section className="section" id="contact">
       <div className="section-head">
-        <p className="kicker">{t.nav[4]}</p>
+        <p className="kicker">{t.nav[7]}</p>
         <h2 className="display">{t.contactTitle}</h2>
         <p>{t.contactLead}</p>
       </div>

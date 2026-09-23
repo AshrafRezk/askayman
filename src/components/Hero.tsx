@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { asset } from '../assets'
 import { CONTACT, copy, type Lang } from '../data'
 import { DESTINATIONS } from '../destinations'
 
@@ -70,6 +71,19 @@ export function Hero({ lang }: { lang: Lang }) {
           </a>
         </motion.div>
       </div>
+      <motion.div
+        className="portrait-wrap"
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, delay: 0.4 }}
+      >
+        <div className="portrait-morph">
+          <div className="gold-ring" aria-hidden="true" />
+          <div className="portrait-frame">
+            <img src={asset('images/ask-ayman.png')} alt="Ayman Milad" />
+          </div>
+        </div>
+      </motion.div>
     </section>
   )
 }

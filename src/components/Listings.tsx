@@ -42,7 +42,7 @@ export function Listings({ lang }: { lang: Lang }) {
 
   return (
     <section className="section page-view" id="listings">
-      <p className="kicker">{t.nav[4]}</p>
+      <p className="kicker">{t.nav[5]}</p>
       <h1 className="display page-title">{t.listingsTitle}</h1>
       <p className="page-lead">{t.listingsLead}</p>
 

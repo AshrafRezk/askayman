@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "fetch:launches": "node scripts/fetch-nawy-launches.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.23.12",

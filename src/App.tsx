@@ -5,6 +5,7 @@ import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
 import { Hero } from './components/Hero'
 import { Insights } from './components/Insights'
+import { Launches } from './components/Launches'
 import { Listings } from './components/Listings'
 import { Reviews } from './components/Reviews'
 import { Logo } from './components/Logo'
@@ -18,11 +19,11 @@ import { WhatsAppFab } from './components/WhatsAppFab'
 import type { Lang } from './data'
 import { useSiteHaptics } from './haptics'
 
-type Page = 'home' | 'listings' | 'reviews'
+type Page = 'home' | 'launches' | 'listings' | 'reviews'
 
 function pageFromHash(): Page {
   const hash = window.location.hash.replace('#', '')
-  if (hash === 'listings' || hash === 'reviews') return hash
+  if (hash === 'launches' || hash === 'listings' || hash === 'reviews') return hash
   return 'home'
 }
 
@@ -69,7 +70,9 @@ export default function App() {
       <div className="grain" />
       <div className="vignette" />
       <Nav lang={lang} setLang={setLang} />
-      {page === 'listings' ? (
+      {page === 'launches' ? (
+        <Launches lang={lang} />
+      ) : page === 'listings' ? (
         <Listings lang={lang} />
       ) : page === 'reviews' ? (
         <Reviews lang={lang} />

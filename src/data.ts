@@ -24,7 +24,7 @@ export const VIDEOS = [
 
 export const copy = {
   en: {
-    nav: ['About', 'Services', 'Insights', 'Partners', 'Listings', 'Reviews', 'Contact'],
+    nav: ['About', 'Services', 'Insights', 'Partners', 'Launches', 'Listings', 'Reviews', 'Contact'],
     kicker: 'Licensed Real Estate Broker · Egypt',
     headline: 'Ask Ayman',
     subhead: '30 years guiding smarter investments.',
@@ -132,6 +132,14 @@ export const copy = {
     visit: 'Visit',
     follow: 'Follow the conversation',
     footer: 'Ask Ayman · Licensed Real Estate Broker · Egypt · Nawy verified agent.',
+    launchesTitle: 'New launches',
+    launchesLead:
+      'Fresh compounds from Nawy’s new launches, refreshed once a day. Ayman checks the plan, the developer, and whether the timing fits you.',
+    launchesFrom: 'From',
+    launchesAsk: 'Ask Ayman',
+    launchesOnNawy: 'On Nawy',
+    launchesUpdated: 'Updated',
+    launchesEmpty: 'Launches will show here after the next daily refresh.',
     listingsTitle: 'Listings',
     listingsLead:
       'Indicative starting prices from partner compounds. Ayman confirms the live number, the unit, and whether now is the moment to buy or sell.',
@@ -170,7 +178,7 @@ export const copy = {
     ],
   },
   ar: {
-    nav: ['عن أيمن', 'الخدمات', 'نصائح', 'الشركاء', 'العروض', 'آراء العملاء', 'تواصل'],
+    nav: ['عن أيمن', 'الخدمات', 'نصائح', 'الشركاء', 'إطلاقات', 'العروض', 'آراء العملاء', 'تواصل'],
     kicker: 'وسيط عقاري مرخص · مصر',
     headline: 'اسأل أيمن',
     subhead: '٣٠ سنة… بنوجّه استثمارك بذكاء.',
@@ -277,6 +285,14 @@ export const copy = {
     visit: 'المكتب',
     follow: 'تابع الحوار',
     footer: 'اسأل أيمن · وسيط عقاري مرخص · مصر · وكيل نوي المعتمد.',
+    launchesTitle: 'إطلاقات جديدة',
+    launchesLead:
+      'كمباوندات جديدة من قسم الإطلاقات على نوي، بتتحدث مرة كل يوم. أيمن بيراجع الخطة والمطور وهل التوقيت مناسب ليك.',
+    launchesFrom: 'يبدأ من',
+    launchesAsk: 'اسأل أيمن',
+    launchesOnNawy: 'على نوي',
+    launchesUpdated: 'آخر تحديث',
+    launchesEmpty: 'الإطلاقات هتظهر هنا بعد التحديث اليومي الجاي.',
     listingsTitle: 'العروض',
     listingsLead:
       'أسعار استرشادية تبدأ من كمباوندات الشركاء. أيمن بيأكد الرقم الحالي والوحدة، وهل الوقت مناسب للشراء أو البيع.',
