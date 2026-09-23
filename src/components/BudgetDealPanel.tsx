@@ -12,6 +12,7 @@ import {
 } from '../data/partner-offers'
 import { haptic } from '../haptics'
 import { PARTNER_COMPOUNDS } from '../partners'
+import { InvestCompare } from './InvestCompare'
 
 const YEAR_OPTIONS = [3, 4, 5, 6, 7, 8, 9, 10, 12]
 const DP_OPTIONS = [0, 1.5, 5, 10, 15, 20, 25, 30, 40]
@@ -279,6 +280,14 @@ export function BudgetDealPanel({
             </div>
           </dl>
 
+          <InvestCompare
+            lang={lang}
+            budgetId={budgetId}
+            years={quote.years}
+            projectPrice={offer.priceFrom}
+            projectName={name}
+          />
+
           {preset.note || preset.noteAr ? (
             <p className="partners-plan-note">{lang === 'ar' ? preset.noteAr ?? preset.note : preset.note}</p>
           ) : null}
@@ -310,11 +319,14 @@ export function BudgetDealPanel({
           </a>
         </div>
       ) : (
-        <p className="partners-plan-empty">
-          {lang === 'ar'
-            ? 'اختار كمباوند على الخريطة عشان تشوف السعر التقديري وخطة السداد.'
-            : 'Pick a compound on the map to see indicative pricing and a payment plan.'}
-        </p>
+        <>
+          <InvestCompare lang={lang} budgetId={budgetId} years={8} projectPrice={null} projectName={null} />
+          <p className="partners-plan-empty">
+            {lang === 'ar'
+              ? 'اختار كمباوند على الخريطة عشان المنحنى الذهبي يبقى باسم المشروع وخطة السداد.'
+              : 'Pick a compound on the map so the gold curve takes the project name and the payment plan.'}
+          </p>
+        </>
       )}
     </aside>
   )
