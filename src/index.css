@@ -1029,12 +1029,18 @@ a[href^="tel:"],
   font-size: 13px;
 }
 
+.launch-card {
+  padding-top: 0;
+  overflow: hidden;
+}
+
 .launch-photo {
   width: calc(100% + 44px);
+  max-width: none;
   height: 168px;
-  margin: -22px -22px 16px;
+  margin: 0 -22px 16px;
   object-fit: cover;
-  border-radius: 28px 28px 0 0;
+  object-position: center;
 }
 
 .launch-actions {
