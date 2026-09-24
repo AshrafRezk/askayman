@@ -1,6 +1,6 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-09-23T11:43:35.986Z",
+  "fetchedAt": "2026-09-24T08:59:32.641Z",
   "launches": [
     {
       "id": 2714,
@@ -11,7 +11,7 @@
       "developer": "The Waterway Developments",
       "developerAr": "ذا واترواي ديفلوبمنتس",
       "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2714/gallery/Waterway%20west/high.webp",
-      "minPrice": 9570000,
+      "minPrice": 10000000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2714-waterway-west"
     },
@@ -154,7 +154,7 @@
       "developer": "Tatweer Misr",
       "developerAr": "تطوير مصر",
       "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2748/cover-images/Scenes%20New%20Phase/high.webp",
-      "minPrice": 0,
+      "minPrice": 9803950,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2748-scenes-new-phase"
     },
