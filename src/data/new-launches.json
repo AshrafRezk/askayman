@@ -1,6 +1,6 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-09-27T09:48:16.402Z",
+  "fetchedAt": "2026-09-28T10:33:00.340Z",
   "launches": [
     {
       "id": 2714,
@@ -107,17 +107,30 @@
       "href": "https://www.nawy.com/compound/2269-haptown-commercial"
     },
     {
-      "id": 2693,
-      "name": "Indigo",
-      "nameAr": "انديجو",
-      "area": "Ras El Hekma",
-      "areaAr": "رأس الحكمة",
-      "developer": "Mountain View",
-      "developerAr": "ماونتن فيو",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2693/cover-images/Indigo/high.webp",
-      "minPrice": 15000000,
+      "id": 2760,
+      "name": "Befit living",
+      "nameAr": "بيفت ليفنج",
+      "area": "Mostakbal City",
+      "areaAr": "مدينة المستقبل",
+      "developer": "Paragon Adeer",
+      "developerAr": "باراجون أدير",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2760/cover-images/Befit%20living/high.webp",
+      "minPrice": 0,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2693-indigo"
+      "href": "https://www.nawy.com/compound/2760-befit-living"
+    },
+    {
+      "id": 73,
+      "name": "Amwaj",
+      "nameAr": "أمواج",
+      "area": "Sidi Abdel Rahman",
+      "areaAr": "سيدي عبد الرحمن",
+      "developer": "Al Ahly Sabbour Developments",
+      "developerAr": "الأهلي صبور للتطوير العقاري",
+      "imageUrl": "https://prod-images.nawy.com/processed/compound_image/image/433/high.webp",
+      "minPrice": 0,
+      "currency": "",
+      "href": "https://www.nawy.com/compound/73-amwaj"
     },
     {
       "id": 2729,
@@ -172,19 +185,6 @@
       "href": "https://www.nawy.com/compound/2746-solana-eastlane"
     },
     {
-      "id": 2509,
-      "name": "Swissotel Residences - Naia Bay",
-      "nameAr": "سويس أوتيل ريزيدنس نايا باى",
-      "area": "Ras El Hekma",
-      "areaAr": "رأس الحكمة",
-      "developer": "Naia Developments",
-      "developerAr": "نايا للتطوير العقاري",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2509/cover-images/ChatGPT%20Image%20Jul%208%202026%2012_20_56%20PM/high.webp",
-      "minPrice": 12750000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2509-swissotel-residences-naia-bay"
-    },
-    {
       "id": 1638,
       "name": "Luma - The Med",
       "nameAr": "لوما - ذا ميد",
@@ -218,23 +218,36 @@
       "areaAr": "هيليوبوليس الجديدة",
       "developer": "SODIC",
       "developerAr": "سوديك",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2726/cover-images/SODIC/high.webp",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2726/gallery/The%20Lake/high.webp",
       "minPrice": 6700000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2726-sodic-east-new-phase"
     },
     {
-      "id": 73,
-      "name": "Amwaj",
-      "nameAr": "أمواج",
-      "area": "Sidi Abdel Rahman",
-      "areaAr": "سيدي عبد الرحمن",
-      "developer": "Al Ahly Sabbour Developments",
-      "developerAr": "الأهلي صبور للتطوير العقاري",
-      "imageUrl": "https://prod-images.nawy.com/processed/compound_image/image/433/high.webp",
+      "id": 2693,
+      "name": "Indigo",
+      "nameAr": "انديجو",
+      "area": "Ras El Hekma",
+      "areaAr": "رأس الحكمة",
+      "developer": "Mountain View",
+      "developerAr": "ماونتن فيو",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2693/cover-images/Indigo/high.webp",
+      "minPrice": 15000000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2693-indigo"
+    },
+    {
+      "id": 2757,
+      "name": "ZAYED YARD",
+      "nameAr": "زايد يارد",
+      "area": "El Sheikh Zayed",
+      "areaAr": "الشيخ زايد",
+      "developer": "Madinet Masr",
+      "developerAr": "مدينة مصر",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2757/cover-images/Zayed%20Yards/high.webp",
       "minPrice": 0,
-      "currency": "",
-      "href": "https://www.nawy.com/compound/73-amwaj"
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2757-zayed-yard"
     },
     {
       "id": 2728,
