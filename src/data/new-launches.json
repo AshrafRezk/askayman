@@ -1,6 +1,6 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-09-28T10:33:00.340Z",
+  "fetchedAt": "2026-09-29T10:23:57.517Z",
   "launches": [
     {
       "id": 2714,
@@ -144,32 +144,6 @@
       "minPrice": 0,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2729-sumou-boulevard-phase-2"
-    },
-    {
-      "id": 2200,
-      "name": "Branded Apartments - Menorca",
-      "nameAr": "شقق فندقية - مينوركا",
-      "area": "El Sheikh Zayed",
-      "areaAr": "الشيخ زايد",
-      "developer": "MARDEV",
-      "developerAr": "مارديف",
-      "imageUrl": "https://prod-images.nawy.com/processed/brandedapartmentsmenorca/files/cover-images/high.webp",
-      "minPrice": 0,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2200-branded-apartments---menorca"
-    },
-    {
-      "id": 2748,
-      "name": "SCENES New Phase",
-      "nameAr": "المرحلة الجديدة في سينز",
-      "area": "Mostakbal City",
-      "areaAr": "مدينة المستقبل",
-      "developer": "Tatweer Misr",
-      "developerAr": "تطوير مصر",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2748/cover-images/Scenes%20New%20Phase/high.webp",
-      "minPrice": 9803950,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2748-scenes-new-phase"
     },
     {
       "id": 2746,
@@ -339,32 +313,6 @@
       "minPrice": 6900000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2391-swissotel-residences"
-    },
-    {
-      "id": 2343,
-      "name": "CommonHaus",
-      "nameAr": "كومن هاوس",
-      "area": "El Sheikh Zayed",
-      "areaAr": "الشيخ زايد",
-      "developer": "Upwyde Developments",
-      "developerAr": "ابوايد للتطوير العقاري",
-      "imageUrl": "https://prod-images.nawy.com/processed/commonhaus/files/cover-images/high.webp",
-      "minPrice": 6800000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2343-commonhaus"
-    },
-    {
-      "id": 2087,
-      "name": "Commons",
-      "nameAr": "كومنز",
-      "area": "El Sheikh Zayed",
-      "areaAr": "الشيخ زايد",
-      "developer": "Melee Development",
-      "developerAr": "ميلي للتطوير العقاري",
-      "imageUrl": "https://prod-images.nawy.com/processed/commons/files/cover-images/high.webp",
-      "minPrice": 0,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2087-commons"
     },
     {
       "id": 1116,
