@@ -1,6 +1,6 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-10-04T10:23:42.593Z",
+  "fetchedAt": "2026-10-05T11:10:18.142Z",
   "launches": [
     {
       "id": 2714,
@@ -14,19 +14,6 @@
       "minPrice": 10000000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2714-waterway-west"
-    },
-    {
-      "id": 2703,
-      "name": "Mountain View 1.1-Phase 2",
-      "nameAr": "ماونتن فيو 1.1 المرحلة الثانية",
-      "area": "North Investors",
-      "areaAr": "المستثمرين الشمالية",
-      "developer": "Mountain View",
-      "developerAr": "ماونتن فيو",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2703/gallery/Screenshot%202026-09-16%20155214/high.webp",
-      "minPrice": 14500000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2703-mountain-view-11-phase-2"
     },
     {
       "id": 2711,
@@ -235,19 +222,6 @@
       "minPrice": 0,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2641-marsa"
-    },
-    {
-      "id": 2640,
-      "name": "Nasa mall",
-      "nameAr": "مول ناسا",
-      "area": "6th of October City",
-      "areaAr": "مدينة السادس من أكتوبر",
-      "developer": "Kayan Real Estate",
-      "developerAr": "شركة كيان للتطوير العقاري",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2640/cover-images/NASA/high.webp",
-      "minPrice": 3600000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2640-nasa-mall"
     },
     {
       "id": 2555,
