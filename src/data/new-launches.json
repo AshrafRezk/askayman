@@ -1,6 +1,6 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-10-05T11:10:18.142Z",
+  "fetchedAt": "2026-10-06T11:00:01.870Z",
   "launches": [
     {
       "id": 2714,
@@ -120,19 +120,6 @@
       "href": "https://www.nawy.com/compound/2746-solana-eastlane"
     },
     {
-      "id": 1638,
-      "name": "Luma - The Med",
-      "nameAr": "لوما - ذا ميد",
-      "area": "Ras El Hekma",
-      "areaAr": "رأس الحكمة",
-      "developer": "People & Places",
-      "developerAr": "بيبول اند بلاسيز",
-      "imageUrl": "https://prod-images.nawy.com/processed/compound/cover_image/1638/high.webp",
-      "minPrice": 39601000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/1638-luma-the-med"
-    },
-    {
       "id": 2726,
       "name": "The Lakes Sodic East",
       "nameAr": "ذا ليكس سوديك ايست",
@@ -170,19 +157,6 @@
       "minPrice": 0,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2757-zayed-yard"
-    },
-    {
-      "id": 2728,
-      "name": "Jeel Plaza",
-      "nameAr": "مول جيل بلازا",
-      "area": "New Cairo",
-      "areaAr": "القاهرة الجديدة",
-      "developer": "Arabco Developments",
-      "developerAr": "ارابكو ديفلوبمنتس",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2728/cover-images/Jeel%20Plaza/high.webp",
-      "minPrice": 0,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2728-jeel-plaza"
     },
     {
       "id": 2725,
