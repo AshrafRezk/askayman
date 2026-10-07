@@ -1,6 +1,6 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-10-06T11:00:01.870Z",
+  "fetchedAt": "2026-10-07T10:50:24.314Z",
   "launches": [
     {
       "id": 2714,
@@ -159,19 +159,6 @@
       "href": "https://www.nawy.com/compound/2757-zayed-yard"
     },
     {
-      "id": 2725,
-      "name": "Villagio Gray",
-      "nameAr": "فيلاجيو جراي",
-      "area": "6th of October City",
-      "areaAr": "مدينة السادس من أكتوبر",
-      "developer": "Modon Egypt",
-      "developerAr": " مدن مصر للتطوير العقاري",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2725/cover-images/ChatGPT%20Image%20Sep%2010%202026%2003_52_04%20PM/high.webp",
-      "minPrice": 4900000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2725-villagio-gray"
-    },
-    {
       "id": 2704,
       "name": "Patterns West",
       "nameAr": "مول باترنز ويست",
@@ -183,6 +170,19 @@
       "minPrice": 3220000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2704-patterns-west"
+    },
+    {
+      "id": 2684,
+      "name": "Ink",
+      "nameAr": "مشروع INK",
+      "area": "6th of October City",
+      "areaAr": "مدينة السادس من أكتوبر",
+      "developer": "Delta Capital Development",
+      "developerAr": "دلتا كابيتال للتطوير العقاري",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2684/gallery/INK/high.webp",
+      "minPrice": 0,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2684-ink"
     },
     {
       "id": 2641,
