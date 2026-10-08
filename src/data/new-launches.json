@@ -1,19 +1,19 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-10-07T10:50:24.314Z",
+  "fetchedAt": "2026-10-08T11:08:05.406Z",
   "launches": [
     {
-      "id": 2714,
-      "name": "Waterway West",
-      "nameAr": "ووتر واي ويست",
-      "area": "El Sheikh Zayed",
-      "areaAr": "الشيخ زايد",
-      "developer": "The Waterway Developments",
-      "developerAr": "ذا واترواي ديفلوبمنتس",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2714/gallery/Waterway%20west/high.webp",
-      "minPrice": 10000000,
+      "id": 2726,
+      "name": "The Lakes Sodic East",
+      "nameAr": "ذا ليكس سوديك ايست",
+      "area": "New Heliopolis",
+      "areaAr": "هيليوبوليس الجديدة",
+      "developer": "SODIC",
+      "developerAr": "سوديك",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2726/gallery/The%20Lake/high.webp",
+      "minPrice": 6700000,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2714-waterway-west"
+      "href": "https://www.nawy.com/compound/2726-the-lakes-sodic"
     },
     {
       "id": 2711,
@@ -27,6 +27,19 @@
       "minPrice": 3900000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2711-collage-ivoire-east"
+    },
+    {
+      "id": 2760,
+      "name": "Befit living",
+      "nameAr": "بيفت ليفنج",
+      "area": "Mostakbal City",
+      "areaAr": "مدينة المستقبل",
+      "developer": "Paragon Adeer",
+      "developerAr": "باراجون أدير",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2760/cover-images/Befit%20living/high.webp",
+      "minPrice": 0,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2760-befit-living"
     },
     {
       "id": 2691,
@@ -55,6 +68,19 @@
       "href": "https://www.nawy.com/compound/2688-marina-waterfront-residences"
     },
     {
+      "id": 2714,
+      "name": "Waterway West",
+      "nameAr": "ووتر واي ويست",
+      "area": "El Sheikh Zayed",
+      "areaAr": "الشيخ زايد",
+      "developer": "The Waterway Developments",
+      "developerAr": "ذا واترواي ديفلوبمنتس",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2714/gallery/Waterway%20west/high.webp",
+      "minPrice": 10000000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2714-waterway-west"
+    },
+    {
       "id": 2269,
       "name": "Xchange Hap Town",
       "nameAr": "اكس تشينج هاب تاون",
@@ -68,30 +94,30 @@
       "href": "https://www.nawy.com/compound/2269-haptown-commercial"
     },
     {
-      "id": 2693,
-      "name": "Indigo",
-      "nameAr": "انديجو",
-      "area": "Ras El Hekma",
-      "areaAr": "رأس الحكمة",
-      "developer": "Mountain View",
-      "developerAr": "ماونتن فيو",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2693/cover-images/Indigo/high.webp",
-      "minPrice": 15000000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2693-indigo"
-    },
-    {
-      "id": 2760,
-      "name": "Befit living",
-      "nameAr": "بيفت ليفنج",
-      "area": "Mostakbal City",
-      "areaAr": "مدينة المستقبل",
-      "developer": "Paragon Adeer",
-      "developerAr": "باراجون أدير",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2760/cover-images/Befit%20living/high.webp",
+      "id": 2783,
+      "name": "Elm Tree Commercial Park phase 2",
+      "nameAr": "إيلم تري كوميرشال بارك المرحلة الثانية",
+      "area": "6th of October City",
+      "areaAr": "مدينة السادس من أكتوبر",
+      "developer": "ELM Developments",
+      "developerAr": "ايلم للتطويرالعقاري",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2783/cover-images/Elm%20treecover/high.webp",
       "minPrice": 0,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2760-befit-living"
+      "href": "https://www.nawy.com/compound/2783-elm-tree-commercial-park-phase-2"
+    },
+    {
+      "id": 73,
+      "name": "Amwaj",
+      "nameAr": "أمواج",
+      "area": "Sidi Abdel Rahman",
+      "areaAr": "سيدي عبد الرحمن",
+      "developer": "Al Ahly Sabbour Developments",
+      "developerAr": "الأهلي صبور للتطوير العقاري",
+      "imageUrl": "https://prod-images.nawy.com/processed/compound_image/image/433/high.webp",
+      "minPrice": 0,
+      "currency": "",
+      "href": "https://www.nawy.com/compound/73-amwaj"
     },
     {
       "id": 2729,
@@ -107,43 +133,69 @@
       "href": "https://www.nawy.com/compound/2729-sumou-boulevard-phase-2"
     },
     {
-      "id": 2746,
-      "name": "SOLANA EASTLANE",
-      "nameAr": "سولانا ايست لان",
+      "id": 1868,
+      "name": "Wadi East - Ras El Hekma",
+      "nameAr": "وادى ايست - راس الحكمة",
+      "area": "Ras El Hekma",
+      "areaAr": "رأس الحكمة",
+      "developer": "Modon ",
+      "developerAr": " مدن",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/1868/gallery/Screenshot%202026-05-14%20194420/high.webp",
+      "minPrice": 37600000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/1868-wadi-east-ras-el-hekma"
+    },
+    {
+      "id": 1822,
+      "name": "Yemm Boulevard - Ras El Hekma",
+      "nameAr": "يم بوليفارد - رأس الحكمة",
+      "area": "Ras El Hekma",
+      "areaAr": "رأس الحكمة",
+      "developer": "Modon ",
+      "developerAr": " مدن",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/1822/gallery/WhatsApp%20Image%202026-04-01%20at%203.55.12%20PM/high.webp",
+      "minPrice": 15000000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/1822-yemm-boulevard-ras-el-hekma"
+    },
+    {
+      "id": 1663,
+      "name": "Wadi Yemm",
+      "nameAr": "وادي يم",
+      "area": "Ras El Hekma",
+      "areaAr": "رأس الحكمة",
+      "developer": "Modon ",
+      "developerAr": " مدن",
+      "imageUrl": "https://prod-images.nawy.com/processed/compound_image/image/12062/high.webp",
+      "minPrice": 0,
+      "currency": "",
+      "href": "https://www.nawy.com/compound/1663-wadi-yemm"
+    },
+    {
+      "id": 2785,
+      "name": "Gardinn Solana East",
+      "nameAr": "جارد ان سولانا ايست",
       "area": "New Cairo",
       "areaAr": "القاهرة الجديدة",
       "developer": "Ora Developers",
       "developerAr": "اورا للتطوير العقاري",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2746/cover-images/Solana%20East%20Lane/high.webp",
-      "minPrice": 14000000,
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2785/cover-images/Gardinn/high.webp",
+      "minPrice": 8975000,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2746-solana-eastlane"
+      "href": "https://www.nawy.com/compound/2785-gardinn-solana-east"
     },
     {
-      "id": 2726,
-      "name": "The Lakes Sodic East",
-      "nameAr": "ذا ليكس سوديك ايست",
-      "area": "New Heliopolis",
-      "areaAr": "هيليوبوليس الجديدة",
-      "developer": "SODIC",
-      "developerAr": "سوديك",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2726/gallery/The%20Lake/high.webp",
-      "minPrice": 6700000,
+      "id": 2693,
+      "name": "Indigo",
+      "nameAr": "انديجو",
+      "area": "Ras El Hekma",
+      "areaAr": "رأس الحكمة",
+      "developer": "Mountain View",
+      "developerAr": "ماونتن فيو",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2693/cover-images/Indigo/high.webp",
+      "minPrice": 15000000,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2726-the-lakes-sodic"
-    },
-    {
-      "id": 73,
-      "name": "Amwaj",
-      "nameAr": "أمواج",
-      "area": "Sidi Abdel Rahman",
-      "areaAr": "سيدي عبد الرحمن",
-      "developer": "Al Ahly Sabbour Developments",
-      "developerAr": "الأهلي صبور للتطوير العقاري",
-      "imageUrl": "https://prod-images.nawy.com/processed/compound_image/image/433/high.webp",
-      "minPrice": 0,
-      "currency": "",
-      "href": "https://www.nawy.com/compound/73-amwaj"
+      "href": "https://www.nawy.com/compound/2693-indigo"
     },
     {
       "id": 2757,
@@ -180,7 +232,7 @@
       "developer": "Delta Capital Development",
       "developerAr": "دلتا كابيتال للتطوير العقاري",
       "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2684/gallery/INK/high.webp",
-      "minPrice": 0,
+      "minPrice": 4290000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2684-ink"
     },
@@ -222,19 +274,6 @@
       "minPrice": 6900000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2391-swissotel-residences"
-    },
-    {
-      "id": 1116,
-      "name": "Avelin",
-      "nameAr": "افلين",
-      "area": "North Investors",
-      "areaAr": "المستثمرين الشمالية",
-      "developer": "Times Developments",
-      "developerAr": "تايمز ديفلوبمنتس",
-      "imageUrl": "https://prod-images.nawy.com/processed/compound_image/image/10464/high.webp",
-      "minPrice": 3400000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/1116-avelin"
     }
   ]
 }
