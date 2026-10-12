@@ -1,6 +1,6 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-10-11T10:36:02.238Z",
+  "fetchedAt": "2026-10-12T11:38:54.949Z",
   "launches": [
     {
       "id": 2726,
@@ -235,19 +235,6 @@
       "minPrice": 4290000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2684-ink"
-    },
-    {
-      "id": 2641,
-      "name": "MARSA",
-      "nameAr": "مرسى",
-      "area": "North Coast-Sahel",
-      "areaAr": "الساحل الشمالي",
-      "developer": "Mercon Developments",
-      "developerAr": "ميركون للتطوير العقاري",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2641/cover-images/MARSA/high.webp",
-      "minPrice": 0,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2641-marsa"
     },
     {
       "id": 2555,
