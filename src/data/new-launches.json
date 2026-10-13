@@ -1,6 +1,6 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-10-12T11:38:54.949Z",
+  "fetchedAt": "2026-10-13T11:24:20.337Z",
   "launches": [
     {
       "id": 2726,
@@ -14,19 +14,6 @@
       "minPrice": 6700000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2726-the-lakes-sodic"
-    },
-    {
-      "id": 2711,
-      "name": "COLLAGE-Ivoire East",
-      "nameAr": "كولاج ايفوري",
-      "area": "New Cairo",
-      "areaAr": "القاهرة الجديدة",
-      "developer": "PRE Group",
-      "developerAr": "بي أر إي للتطوير العقاري",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2711/cover-images/WhatsApp%20Image%202026-09-07%20at%201.52.56%20PM/high.webp",
-      "minPrice": 3900000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2711-collage-ivoire-east"
     },
     {
       "id": 2760,
@@ -198,6 +185,19 @@
       "href": "https://www.nawy.com/compound/2693-indigo"
     },
     {
+      "id": 2791,
+      "name": "ORB Towers",
+      "nameAr": "أبراج اورب",
+      "area": "El Sheikh Zayed",
+      "areaAr": "الشيخ زايد",
+      "developer": "Nations Of Sky",
+      "developerAr": "نيشنز أوف سكاي للتطوير العقاري",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2791/cover-images/Black_colour/high.webp",
+      "minPrice": 0,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2791-orb-towers"
+    },
+    {
       "id": 2757,
       "name": "ZAYED YARD",
       "nameAr": "زايد يارد",
@@ -261,6 +261,19 @@
       "minPrice": 6900000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2391-swissotel-residences"
+    },
+    {
+      "id": 1116,
+      "name": "Avelin",
+      "nameAr": "افلين",
+      "area": "North Investors",
+      "areaAr": "المستثمرين الشمالية",
+      "developer": "Times Developments",
+      "developerAr": "تايمز ديفلوبمنتس",
+      "imageUrl": "https://prod-images.nawy.com/processed/compound_image/image/10464/high.webp",
+      "minPrice": 3400000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/1116-avelin"
     }
   ]
 }
