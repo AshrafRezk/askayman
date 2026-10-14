@@ -1,6 +1,6 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-10-13T11:24:20.337Z",
+  "fetchedAt": "2026-10-14T09:16:46.876Z",
   "launches": [
     {
       "id": 2726,
@@ -172,6 +172,19 @@
       "href": "https://www.nawy.com/compound/2785-gardinn-solana-east"
     },
     {
+      "id": 2792,
+      "name": "Orchard villas",
+      "nameAr": "اورتشارد فيلاز",
+      "area": "El Shorouk",
+      "areaAr": "الشروق",
+      "developer": "Imkan Misr",
+      "developerAr": "امكان مصر للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ace39624b52fbba2a66e5f0/Orchard_16x9.jpg",
+      "minPrice": 11900000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2792-orchard-villas-alburouj"
+    },
+    {
       "id": 2693,
       "name": "Indigo",
       "nameAr": "انديجو",
@@ -192,8 +205,8 @@
       "areaAr": "الشيخ زايد",
       "developer": "Nations Of Sky",
       "developerAr": "نيشنز أوف سكاي للتطوير العقاري",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2791/cover-images/Black_colour/high.webp",
-      "minPrice": 0,
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2791/gallery/Luxury%20Blue-Gray%20Ribbed%20ORB%20Branding/high.webp",
+      "minPrice": 8500000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2791-orb-towers"
     },
@@ -235,19 +248,6 @@
       "minPrice": 4290000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2684-ink"
-    },
-    {
-      "id": 2555,
-      "name": "GIZA DOWN TOWN",
-      "nameAr": "جيزة داون تاون",
-      "area": "Giza",
-      "areaAr": "الجيزة",
-      "developer": "Nouvara Developments",
-      "developerAr": "نوفارا للتطوير العقاري",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2555/cover-images/GIZA%20DOWN%20TOWN/high.webp",
-      "minPrice": 9500000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2555-giza-down-town"
     },
     {
       "id": 2391,
