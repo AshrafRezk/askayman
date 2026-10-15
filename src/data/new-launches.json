@@ -1,6 +1,6 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-10-14T09:16:46.876Z",
+  "fetchedAt": "2026-10-15T08:50:28.218Z",
   "launches": [
     {
       "id": 2726,
@@ -37,22 +37,9 @@
       "developer": "Modon ",
       "developerAr": " مدن",
       "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2691/cover-images/Yemm%20Views/high.webp",
-      "minPrice": 165500000,
+      "minPrice": 0,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2691-yemm-views"
-    },
-    {
-      "id": 2688,
-      "name": "Marina waterfront residences",
-      "nameAr": "مارينا ووتر فرونت ريزيدنس",
-      "area": "Ras El Hekma",
-      "areaAr": "رأس الحكمة",
-      "developer": "Modon ",
-      "developerAr": " مدن",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2688/cover-images/water%20front/high.webp",
-      "minPrice": 18500000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2688-marina-waterfront-residences"
     },
     {
       "id": 2714,
@@ -128,7 +115,7 @@
       "developer": "Modon ",
       "developerAr": " مدن",
       "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/1868/gallery/Screenshot%202026-05-14%20194420/high.webp",
-      "minPrice": 37600000,
+      "minPrice": 47200000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/1868-wadi-east-ras-el-hekma"
     },
@@ -141,22 +128,9 @@
       "developer": "Modon ",
       "developerAr": " مدن",
       "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/1822/gallery/WhatsApp%20Image%202026-04-01%20at%203.55.12%20PM/high.webp",
-      "minPrice": 15000000,
+      "minPrice": 15700000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/1822-yemm-boulevard-ras-el-hekma"
-    },
-    {
-      "id": 1663,
-      "name": "Wadi Yemm",
-      "nameAr": "وادي يم",
-      "area": "Ras El Hekma",
-      "areaAr": "رأس الحكمة",
-      "developer": "Modon ",
-      "developerAr": " مدن",
-      "imageUrl": "https://prod-images.nawy.com/processed/compound_image/image/12062/high.webp",
-      "minPrice": 0,
-      "currency": "",
-      "href": "https://www.nawy.com/compound/1663-wadi-yemm"
     },
     {
       "id": 2785,
@@ -183,19 +157,6 @@
       "minPrice": 11900000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2792-orchard-villas-alburouj"
-    },
-    {
-      "id": 2693,
-      "name": "Indigo",
-      "nameAr": "انديجو",
-      "area": "Ras El Hekma",
-      "areaAr": "رأس الحكمة",
-      "developer": "Mountain View",
-      "developerAr": "ماونتن فيو",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2693/cover-images/Indigo/high.webp",
-      "minPrice": 15000000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2693-indigo"
     },
     {
       "id": 2791,
