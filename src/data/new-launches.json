@@ -1,6 +1,6 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-10-15T08:50:28.218Z",
+  "fetchedAt": "2026-10-16T08:44:32.048Z",
   "launches": [
     {
       "id": 2726,
@@ -24,7 +24,7 @@
       "developer": "Paragon Adeer",
       "developerAr": "باراجون أدير",
       "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2760/cover-images/Befit%20living/high.webp",
-      "minPrice": 0,
+      "minPrice": 3600000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2760-befit-living"
     },
@@ -37,9 +37,22 @@
       "developer": "Modon ",
       "developerAr": " مدن",
       "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2691/cover-images/Yemm%20Views/high.webp",
-      "minPrice": 0,
+      "minPrice": 165500000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2691-yemm-views"
+    },
+    {
+      "id": 2688,
+      "name": "Marina waterfront residences",
+      "nameAr": "مارينا ووتر فرونت ريزيدنس",
+      "area": "Ras El Hekma",
+      "areaAr": "رأس الحكمة",
+      "developer": "Modon ",
+      "developerAr": " مدن",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2688/cover-images/water%20front/high.webp",
+      "minPrice": 18500000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2688-marina-waterfront-residences"
     },
     {
       "id": 2714,
@@ -128,7 +141,7 @@
       "developer": "Modon ",
       "developerAr": " مدن",
       "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/1822/gallery/WhatsApp%20Image%202026-04-01%20at%203.55.12%20PM/high.webp",
-      "minPrice": 15700000,
+      "minPrice": 15900000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/1822-yemm-boulevard-ras-el-hekma"
     },
@@ -146,6 +159,19 @@
       "href": "https://www.nawy.com/compound/2785-gardinn-solana-east"
     },
     {
+      "id": 2801,
+      "name": "Trophy Office Collection",
+      "nameAr": "تروفي اوفيس كوليكشن",
+      "area": "New Capital City",
+      "areaAr": "العاصمة الإدارية الجديدة",
+      "developer": "Nile Developments",
+      "developerAr": "النيل للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad0e1a0193ebfddc199b4c3/Cover.png",
+      "minPrice": 0,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2801-trophy-office-collection"
+    },
+    {
       "id": 2792,
       "name": "Orchard villas",
       "nameAr": "اورتشارد فيلاز",
@@ -157,6 +183,19 @@
       "minPrice": 11900000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2792-orchard-villas-alburouj"
+    },
+    {
+      "id": 2796,
+      "name": "La Verde Signature",
+      "nameAr": "لافيردي سيجنتشر",
+      "area": "New Capital City",
+      "areaAr": "العاصمة الإدارية الجديدة",
+      "developer": "La Verde Developments",
+      "developerAr": "لا فيردي للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad0986f193ebfddc1993597/Laverd%20Signature%20Luxury%20Resort%20Complex.png",
+      "minPrice": 4680000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2796-la-verde-signature"
     },
     {
       "id": 2791,
