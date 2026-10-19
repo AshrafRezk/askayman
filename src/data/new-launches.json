@@ -1,6 +1,6 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-10-18T08:32:31.235Z",
+  "fetchedAt": "2026-10-19T09:34:55.611Z",
   "launches": [
     {
       "id": 2726,
@@ -27,32 +27,6 @@
       "minPrice": 3600000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2760-befit-living"
-    },
-    {
-      "id": 2691,
-      "name": "Yemm Views",
-      "nameAr": "يم فيوز",
-      "area": "Ras El Hekma",
-      "areaAr": "رأس الحكمة",
-      "developer": "Modon ",
-      "developerAr": " مدن",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2691/cover-images/Yemm%20Views/high.webp",
-      "minPrice": 165500000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2691-yemm-views"
-    },
-    {
-      "id": 2688,
-      "name": "Marina waterfront residences",
-      "nameAr": "مارينا ووتر فرونت ريزيدنس",
-      "area": "Ras El Hekma",
-      "areaAr": "رأس الحكمة",
-      "developer": "Modon ",
-      "developerAr": " مدن",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2688/cover-images/water%20front/high.webp",
-      "minPrice": 18500000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2688-marina-waterfront-residences"
     },
     {
       "id": 2714,
@@ -118,6 +92,19 @@
       "minPrice": 0,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2729-sumou-boulevard-phase-2"
+    },
+    {
+      "id": 2807,
+      "name": "Junction Business Park",
+      "nameAr": "جنكشن بيزنس بارك",
+      "area": "6th of October City",
+      "areaAr": "مدينة السادس من أكتوبر",
+      "developer": "Majid Al Futtaim",
+      "developerAr": "ماجد الفطيم",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad4e8c5116ba9a54e6447bd/JUNCTION.jpg",
+      "minPrice": 0,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2807-junction-business-park"
     },
     {
       "id": 1868,
@@ -224,19 +211,6 @@
       "href": "https://www.nawy.com/compound/2757-zayed-yard"
     },
     {
-      "id": 2704,
-      "name": "Patterns West",
-      "nameAr": "مول باترنز ويست",
-      "area": "El Sheikh Zayed",
-      "areaAr": "الشيخ زايد",
-      "developer": "Kulture Developments",
-      "developerAr": "كالتشر للتطوير العقاري",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2704/cover-images/WhatsApp%20Image%202026-09-06%20at%2012.52.51%20PM/high.webp",
-      "minPrice": 3220000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2704-patterns-west"
-    },
-    {
       "id": 2684,
       "name": "Ink",
       "nameAr": "مشروع INK",
@@ -263,17 +237,17 @@
       "href": "https://www.nawy.com/compound/2391-swissotel-residences"
     },
     {
-      "id": 1116,
-      "name": "Avelin",
-      "nameAr": "افلين",
-      "area": "North Investors",
-      "areaAr": "المستثمرين الشمالية",
-      "developer": "Times Developments",
-      "developerAr": "تايمز ديفلوبمنتس",
-      "imageUrl": "https://prod-images.nawy.com/processed/compound_image/image/10464/high.webp",
-      "minPrice": 3400000,
+      "id": 1095,
+      "name": "Ranches",
+      "nameAr": "رانشز",
+      "area": "6th of October City",
+      "areaAr": "مدينة السادس من أكتوبر",
+      "developer": "Dorra Group",
+      "developerAr": "دره جروب",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad4dd1e116ba9a54e643409/Dorra%20Ranches.png",
+      "minPrice": 0,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/1116-avelin"
+      "href": "https://www.nawy.com/compound/1095-ranches"
     }
   ]
 }
