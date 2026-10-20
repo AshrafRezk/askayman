@@ -1,6 +1,6 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-10-19T09:34:55.611Z",
+  "fetchedAt": "2026-10-20T09:06:39.656Z",
   "launches": [
     {
       "id": 2726,
@@ -55,6 +55,19 @@
       "href": "https://www.nawy.com/compound/2269-haptown-commercial"
     },
     {
+      "id": 2792,
+      "name": "Orchard villas",
+      "nameAr": "اورتشارد فيلاز",
+      "area": "El Shorouk",
+      "areaAr": "الشروق",
+      "developer": "Imkan Misr",
+      "developerAr": "امكان مصر للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ace39624b52fbba2a66e5f0/Orchard_16x9.jpg",
+      "minPrice": 11900000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2792-orchard-villas-alburouj"
+    },
+    {
       "id": 2783,
       "name": "Elm Tree Commercial Park phase 2",
       "nameAr": "إيلم تري كوميرشال بارك المرحلة الثانية",
@@ -63,22 +76,9 @@
       "developer": "ELM Developments",
       "developerAr": "ايلم للتطويرالعقاري",
       "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2783/cover-images/Elm%20treecover/high.webp",
-      "minPrice": 0,
+      "minPrice": 2250000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2783-elm-tree-commercial-park-phase-2"
-    },
-    {
-      "id": 73,
-      "name": "Amwaj",
-      "nameAr": "أمواج",
-      "area": "Sidi Abdel Rahman",
-      "areaAr": "سيدي عبد الرحمن",
-      "developer": "Al Ahly Sabbour Developments",
-      "developerAr": "الأهلي صبور للتطوير العقاري",
-      "imageUrl": "https://prod-images.nawy.com/processed/compound_image/image/433/high.webp",
-      "minPrice": 0,
-      "currency": "",
-      "href": "https://www.nawy.com/compound/73-amwaj"
     },
     {
       "id": 2729,
@@ -146,6 +146,19 @@
       "href": "https://www.nawy.com/compound/2785-gardinn-solana-east"
     },
     {
+      "id": 1359,
+      "name": "Pine Lanes",
+      "nameAr": "باين لاينز",
+      "area": "New Zayed",
+      "areaAr": "الشيخ زايد الجديدة",
+      "developer": "People & Places",
+      "developerAr": "بيبول اند بلاسيز",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad60485116ba9a54e66978a/Pine%20Lanes.png",
+      "minPrice": 13858000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/1359-pine-lanes"
+    },
+    {
       "id": 2801,
       "name": "Trophy Office Collection",
       "nameAr": "تروفي اوفيس كوليكشن",
@@ -159,17 +172,30 @@
       "href": "https://www.nawy.com/compound/2801-trophy-office-collection"
     },
     {
-      "id": 2792,
-      "name": "Orchard villas",
-      "nameAr": "اورتشارد فيلاز",
-      "area": "El Shorouk",
-      "areaAr": "الشروق",
-      "developer": "Imkan Misr",
-      "developerAr": "امكان مصر للتطوير العقاري",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ace39624b52fbba2a66e5f0/Orchard_16x9.jpg",
-      "minPrice": 11900000,
+      "id": 2808,
+      "name": "O Riva",
+      "nameAr": "أو ريفا",
+      "area": "October Gardens",
+      "areaAr": "حدائق اكتوبر",
+      "developer": "Orascom Development Egypt",
+      "developerAr": "أوراسكوم مصر للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad5df44116ba9a54e664b6b/Minimalist%20WEST%20Marble%20Emblem.png",
+      "minPrice": 0,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2792-orchard-villas-alburouj"
+      "href": "https://www.nawy.com/compound/2808-o-riva"
+    },
+    {
+      "id": 73,
+      "name": "Amwaj",
+      "nameAr": "أمواج",
+      "area": "Sidi Abdel Rahman",
+      "areaAr": "سيدي عبد الرحمن",
+      "developer": "Al Ahly Sabbour Developments",
+      "developerAr": "الأهلي صبور للتطوير العقاري",
+      "imageUrl": "https://prod-images.nawy.com/processed/compound_image/image/433/high.webp",
+      "minPrice": 0,
+      "currency": "",
+      "href": "https://www.nawy.com/compound/73-amwaj"
     },
     {
       "id": 2796,
@@ -235,6 +261,19 @@
       "minPrice": 6900000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2391-swissotel-residences"
+    },
+    {
+      "id": 1378,
+      "name": "Q Hills",
+      "nameAr": "كيو هيلز",
+      "area": "New Zayed",
+      "areaAr": "الشيخ زايد الجديدة",
+      "developer": "Q Developments",
+      "developerAr": "كيو للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad5e766116ba9a54e665979/Minimal%20Hills%20New%20Zayed%20Logo.png",
+      "minPrice": 4800000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/1378-q-hills"
     },
     {
       "id": 1095,
