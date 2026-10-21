@@ -1,6 +1,6 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-10-20T09:06:39.656Z",
+  "fetchedAt": "2026-10-21T09:06:40.907Z",
   "launches": [
     {
       "id": 2726,
@@ -159,6 +159,19 @@
       "href": "https://www.nawy.com/compound/1359-pine-lanes"
     },
     {
+      "id": 2815,
+      "name": "Island 3 Azha Sokhna",
+      "nameAr": "ايلاند 3 أزها السخنة",
+      "area": "Ras El Hekma",
+      "areaAr": "رأس الحكمة",
+      "developer": "Madaar Development",
+      "developerAr": "مدار للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad8754f7358d722b641bb86/Azha%20Sokhna%20Lagoon%20Resort.png",
+      "minPrice": 0,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2815-island-3-azha-sokhna"
+    },
+    {
       "id": 2801,
       "name": "Trophy Office Collection",
       "nameAr": "تروفي اوفيس كوليكشن",
@@ -179,8 +192,8 @@
       "areaAr": "حدائق اكتوبر",
       "developer": "Orascom Development Egypt",
       "developerAr": "أوراسكوم مصر للتطوير العقاري",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad5df44116ba9a54e664b6b/Minimalist%20WEST%20Marble%20Emblem.png",
-      "minPrice": 0,
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2808/gallery/O%20RIVA/high.webp",
+      "minPrice": 8200000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2808-o-riva"
     },
