@@ -1,7 +1,20 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-10-21T09:06:40.907Z",
+  "fetchedAt": "2026-10-22T09:09:06.001Z",
   "launches": [
+    {
+      "id": 2138,
+      "name": "Vallis",
+      "nameAr": "فاليس",
+      "area": "6th settlement",
+      "areaAr": "التجمع السادس",
+      "developer": "Sky AD Developments",
+      "developerAr": "سكاي ابو ظبي للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad9b1287358d722b6446912/Villas.png",
+      "minPrice": 3641000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2138-vallis"
+    },
     {
       "id": 2726,
       "name": "The Lakes Sodic East",
@@ -92,6 +105,19 @@
       "minPrice": 0,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2729-sumou-boulevard-phase-2"
+    },
+    {
+      "id": 2816,
+      "name": "Club walk",
+      "nameAr": "كلوب ووك",
+      "area": "New Sphinx",
+      "areaAr": "سفنكس الجديدة",
+      "developer": "AlKarma Developments",
+      "developerAr": "الكارمه للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad8c65d7358d722b6426c22/La%20Manga%20Luxury%20Homecoming.png",
+      "minPrice": 3500000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2816-club-walk"
     },
     {
       "id": 2807,
@@ -274,6 +300,19 @@
       "minPrice": 6900000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2391-swissotel-residences"
+    },
+    {
+      "id": 2343,
+      "name": "CommonHaus",
+      "nameAr": "كومن هاوس",
+      "area": "El Sheikh Zayed",
+      "areaAr": "الشيخ زايد",
+      "developer": "Upwyde Developments",
+      "developerAr": "ابوايد للتطوير العقاري",
+      "imageUrl": "https://prod-images.nawy.com/processed/commonhaus/files/cover-images/high.webp",
+      "minPrice": 6800000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2343-commonhaus"
     },
     {
       "id": 1378,
