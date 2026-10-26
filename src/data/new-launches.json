@@ -1,6 +1,6 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-10-25T08:56:29.800Z",
+  "fetchedAt": "2026-10-26T09:41:17.661Z",
   "launches": [
     {
       "id": 2138,
@@ -235,6 +235,19 @@
       "minPrice": 0,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2815-island-3-azha-sokhna"
+    },
+    {
+      "id": 2824,
+      "name": "NAVY 26",
+      "nameAr": "نيفي 26",
+      "area": "El Sheikh Zayed",
+      "areaAr": "الشيخ زايد",
+      "developer": "Housing and Development Properties HDP",
+      "developerAr": "الاسكان و التعمير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6addda2eed41140720ecacaf/Minimalist%20NNVY%2026%20Branding%20Poster.png",
+      "minPrice": 1986000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2824-navy-26-mall"
     },
     {
       "id": 2796,
