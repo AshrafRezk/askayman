@@ -1,20 +1,7 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-10-26T09:41:17.661Z",
+  "fetchedAt": "2026-10-27T09:35:26.545Z",
   "launches": [
-    {
-      "id": 2138,
-      "name": "Vallis",
-      "nameAr": "فاليس",
-      "area": "6th settlement",
-      "areaAr": "التجمع السادس",
-      "developer": "Sky AD Developments",
-      "developerAr": "سكاي ابو ظبي للتطوير العقاري",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad9b1287358d722b6446912/Villas.png",
-      "minPrice": 3641000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2138-vallis"
-    },
     {
       "id": 2726,
       "name": "The Lakes Sodic East",
@@ -68,6 +55,19 @@
       "href": "https://www.nawy.com/compound/2269-haptown-commercial"
     },
     {
+      "id": 2792,
+      "name": "Orchard villas",
+      "nameAr": "اورتشارد فيلاز",
+      "area": "El Shorouk",
+      "areaAr": "الشروق",
+      "developer": "Imkan Misr",
+      "developerAr": "امكان مصر للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ace39624b52fbba2a66e5f0/Orchard_16x9.jpg",
+      "minPrice": 11900000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2792-orchard-villas-alburouj"
+    },
+    {
       "id": 2783,
       "name": "Elm Tree Commercial Park phase 2",
       "nameAr": "إيلم تري كوميرشال بارك المرحلة الثانية",
@@ -79,19 +79,6 @@
       "minPrice": 2250000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2783-elm-tree-commercial-park-phase-2"
-    },
-    {
-      "id": 1095,
-      "name": "Ranches",
-      "nameAr": "رانشز",
-      "area": "6th of October City",
-      "areaAr": "مدينة السادس من أكتوبر",
-      "developer": "Dorra Group",
-      "developerAr": "دره جروب",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad4dd1e116ba9a54e643409/Dorra%20Ranches.png",
-      "minPrice": 0,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/1095-ranches"
     },
     {
       "id": 2729,
@@ -159,6 +146,19 @@
       "href": "https://www.nawy.com/compound/1822-yemm-boulevard-ras-el-hekma"
     },
     {
+      "id": 2828,
+      "name": "MOTION COLLECTION",
+      "nameAr": "موشن كولكشن",
+      "area": "Mostakbal City",
+      "areaAr": "مدينة المستقبل",
+      "developer": "Biography Developments",
+      "developerAr": "بيوجرافي للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6adf4813ed41140720efc733/Motion%20Collection%20Resort%20at%20Sunset.png",
+      "minPrice": 2500000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2828-motion-collection"
+    },
+    {
       "id": 2785,
       "name": "Gardinn Solana East",
       "nameAr": "جارد ان سولانا ايست",
@@ -211,17 +211,17 @@
       "href": "https://www.nawy.com/compound/2808-o-riva"
     },
     {
-      "id": 2792,
-      "name": "Orchard villas",
-      "nameAr": "اورتشارد فيلاز",
-      "area": "El Shorouk",
-      "areaAr": "الشروق",
-      "developer": "Imkan Misr",
-      "developerAr": "امكان مصر للتطوير العقاري",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ace39624b52fbba2a66e5f0/Orchard_16x9.jpg",
-      "minPrice": 11900000,
+      "id": 1095,
+      "name": "Ranches",
+      "nameAr": "رانشز",
+      "area": "6th of October City",
+      "areaAr": "مدينة السادس من أكتوبر",
+      "developer": "Dorra Group",
+      "developerAr": "دره جروب",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad4dd1e116ba9a54e643409/Dorra%20Ranches.png",
+      "minPrice": 0,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2792-orchard-villas-alburouj"
+      "href": "https://www.nawy.com/compound/1095-ranches"
     },
     {
       "id": 2815,
@@ -235,6 +235,19 @@
       "minPrice": 0,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2815-island-3-azha-sokhna"
+    },
+    {
+      "id": 2827,
+      "name": "Katameya 40",
+      "nameAr": "قطامية 40",
+      "area": "New Cairo",
+      "areaAr": "القاهرة الجديدة",
+      "developer": "Katameya Group",
+      "developerAr": "قطامية جروب",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6adf276eed41140720ef7fa6/Katameya%2040.jpg",
+      "minPrice": 0,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2827-katameya-40"
     },
     {
       "id": 2824,
@@ -300,19 +313,6 @@
       "minPrice": 4290000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2684-ink"
-    },
-    {
-      "id": 2391,
-      "name": "Swissotel Residences",
-      "nameAr": "سويس اوتيل ريزيدنس",
-      "area": "6th of October City",
-      "areaAr": "مدينة السادس من أكتوبر",
-      "developer": "Saoud Urban Development",
-      "developerAr": "سعود اوربن للتطوير العقاري",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2391/gallery/Swisstotel_16x9/high.webp",
-      "minPrice": 6900000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2391-swissotel-residences"
     },
     {
       "id": 2343,
