@@ -1,7 +1,20 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-10-27T09:35:26.545Z",
+  "fetchedAt": "2026-10-28T10:20:45.607Z",
   "launches": [
+    {
+      "id": 2138,
+      "name": "Vallis",
+      "nameAr": "فاليس",
+      "area": "6th settlement",
+      "areaAr": "التجمع السادس",
+      "developer": "Sky AD Developments",
+      "developerAr": "سكاي ابو ظبي للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad9b1287358d722b6446912/Villas.png",
+      "minPrice": 3641000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2138-vallis"
+    },
     {
       "id": 2726,
       "name": "The Lakes Sodic East",
@@ -55,19 +68,6 @@
       "href": "https://www.nawy.com/compound/2269-haptown-commercial"
     },
     {
-      "id": 2792,
-      "name": "Orchard villas",
-      "nameAr": "اورتشارد فيلاز",
-      "area": "El Shorouk",
-      "areaAr": "الشروق",
-      "developer": "Imkan Misr",
-      "developerAr": "امكان مصر للتطوير العقاري",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ace39624b52fbba2a66e5f0/Orchard_16x9.jpg",
-      "minPrice": 11900000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2792-orchard-villas-alburouj"
-    },
-    {
       "id": 2783,
       "name": "Elm Tree Commercial Park phase 2",
       "nameAr": "إيلم تري كوميرشال بارك المرحلة الثانية",
@@ -79,6 +79,19 @@
       "minPrice": 2250000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2783-elm-tree-commercial-park-phase-2"
+    },
+    {
+      "id": 1095,
+      "name": "Ranches",
+      "nameAr": "رانشز",
+      "area": "6th of October City",
+      "areaAr": "مدينة السادس من أكتوبر",
+      "developer": "Dorra Group",
+      "developerAr": "دره جروب",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad4dd1e116ba9a54e643409/Dorra%20Ranches.png",
+      "minPrice": 0,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/1095-ranches"
     },
     {
       "id": 2729,
@@ -128,7 +141,7 @@
       "developer": "Modon ",
       "developerAr": " مدن",
       "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/1868/gallery/Screenshot%202026-05-14%20194420/high.webp",
-      "minPrice": 47200000,
+      "minPrice": 37700000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/1868-wadi-east-ras-el-hekma"
     },
@@ -141,7 +154,7 @@
       "developer": "Modon ",
       "developerAr": " مدن",
       "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/1822/gallery/WhatsApp%20Image%202026-04-01%20at%203.55.12%20PM/high.webp",
-      "minPrice": 15900000,
+      "minPrice": 22700000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/1822-yemm-boulevard-ras-el-hekma"
     },
@@ -211,17 +224,30 @@
       "href": "https://www.nawy.com/compound/2808-o-riva"
     },
     {
-      "id": 1095,
-      "name": "Ranches",
-      "nameAr": "رانشز",
-      "area": "6th of October City",
-      "areaAr": "مدينة السادس من أكتوبر",
-      "developer": "Dorra Group",
-      "developerAr": "دره جروب",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad4dd1e116ba9a54e643409/Dorra%20Ranches.png",
-      "minPrice": 0,
+      "id": 2792,
+      "name": "Orchard villas",
+      "nameAr": "اورتشارد فيلاز",
+      "area": "El Shorouk",
+      "areaAr": "الشروق",
+      "developer": "Imkan Misr",
+      "developerAr": "امكان مصر للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ace39624b52fbba2a66e5f0/Orchard_16x9.jpg",
+      "minPrice": 11900000,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/1095-ranches"
+      "href": "https://www.nawy.com/compound/2792-orchard-villas-alburouj"
+    },
+    {
+      "id": 2700,
+      "name": "Etaje Taj city",
+      "nameAr": "ايتاج تاج سيتي",
+      "area": "New Cairo",
+      "areaAr": "القاهرة الجديدة",
+      "developer": "Madinet Masr",
+      "developerAr": "مدينة مصر",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad9c6217358d722b6449715/Cinematic%20Nighttime%20Urban%20Masterplan.png",
+      "minPrice": 5425000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2700-etaje-madinet-misr"
     },
     {
       "id": 2815,
