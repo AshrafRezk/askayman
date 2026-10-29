@@ -1,6 +1,6 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-10-28T10:20:45.607Z",
+  "fetchedAt": "2026-10-29T10:42:26.453Z",
   "launches": [
     {
       "id": 2138,
@@ -68,6 +68,19 @@
       "href": "https://www.nawy.com/compound/2269-haptown-commercial"
     },
     {
+      "id": 2700,
+      "name": "Etaje Taj city",
+      "nameAr": "ايتاج تاج سيتي",
+      "area": "New Cairo",
+      "areaAr": "القاهرة الجديدة",
+      "developer": "Madinet Masr",
+      "developerAr": "مدينة مصر",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad9c6217358d722b6449715/Cinematic%20Nighttime%20Urban%20Masterplan.png",
+      "minPrice": 5425000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2700-etaje-madinet-misr"
+    },
+    {
       "id": 2783,
       "name": "Elm Tree Commercial Park phase 2",
       "nameAr": "إيلم تري كوميرشال بارك المرحلة الثانية",
@@ -79,19 +92,6 @@
       "minPrice": 2250000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2783-elm-tree-commercial-park-phase-2"
-    },
-    {
-      "id": 1095,
-      "name": "Ranches",
-      "nameAr": "رانشز",
-      "area": "6th of October City",
-      "areaAr": "مدينة السادس من أكتوبر",
-      "developer": "Dorra Group",
-      "developerAr": "دره جروب",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad4dd1e116ba9a54e643409/Dorra%20Ranches.png",
-      "minPrice": 0,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/1095-ranches"
     },
     {
       "id": 2729,
@@ -131,32 +131,6 @@
       "minPrice": 0,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2807-junction-business-park"
-    },
-    {
-      "id": 1868,
-      "name": "Wadi East - Ras El Hekma",
-      "nameAr": "وادى ايست - راس الحكمة",
-      "area": "Ras El Hekma",
-      "areaAr": "رأس الحكمة",
-      "developer": "Modon ",
-      "developerAr": " مدن",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/1868/gallery/Screenshot%202026-05-14%20194420/high.webp",
-      "minPrice": 37700000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/1868-wadi-east-ras-el-hekma"
-    },
-    {
-      "id": 1822,
-      "name": "Yemm Boulevard - Ras El Hekma",
-      "nameAr": "يم بوليفارد - رأس الحكمة",
-      "area": "Ras El Hekma",
-      "areaAr": "رأس الحكمة",
-      "developer": "Modon ",
-      "developerAr": " مدن",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/1822/gallery/WhatsApp%20Image%202026-04-01%20at%203.55.12%20PM/high.webp",
-      "minPrice": 22700000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/1822-yemm-boulevard-ras-el-hekma"
     },
     {
       "id": 2828,
@@ -237,17 +211,17 @@
       "href": "https://www.nawy.com/compound/2792-orchard-villas-alburouj"
     },
     {
-      "id": 2700,
-      "name": "Etaje Taj city",
-      "nameAr": "ايتاج تاج سيتي",
-      "area": "New Cairo",
-      "areaAr": "القاهرة الجديدة",
-      "developer": "Madinet Masr",
-      "developerAr": "مدينة مصر",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad9c6217358d722b6449715/Cinematic%20Nighttime%20Urban%20Masterplan.png",
-      "minPrice": 5425000,
+      "id": 1095,
+      "name": "Ranches",
+      "nameAr": "رانشز",
+      "area": "6th of October City",
+      "areaAr": "مدينة السادس من أكتوبر",
+      "developer": "Dorra Group",
+      "developerAr": "دره جروب",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad4dd1e116ba9a54e643409/Dorra%20Ranches.png",
+      "minPrice": 0,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2700-etaje-madinet-misr"
+      "href": "https://www.nawy.com/compound/1095-ranches"
     },
     {
       "id": 2815,
