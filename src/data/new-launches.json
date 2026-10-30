@@ -1,6 +1,6 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-10-29T10:42:26.453Z",
+  "fetchedAt": "2026-10-30T10:42:17.501Z",
   "launches": [
     {
       "id": 2138,
@@ -14,19 +14,6 @@
       "minPrice": 3641000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2138-vallis"
-    },
-    {
-      "id": 2726,
-      "name": "The Lakes Sodic East",
-      "nameAr": "ذا ليكس سوديك ايست",
-      "area": "New Heliopolis",
-      "areaAr": "هيليوبوليس الجديدة",
-      "developer": "SODIC",
-      "developerAr": "سوديك",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2726/gallery/The%20Lake/high.webp",
-      "minPrice": 6700000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2726-the-lakes-sodic"
     },
     {
       "id": 2760,
@@ -68,17 +55,17 @@
       "href": "https://www.nawy.com/compound/2269-haptown-commercial"
     },
     {
-      "id": 2700,
-      "name": "Etaje Taj city",
-      "nameAr": "ايتاج تاج سيتي",
-      "area": "New Cairo",
-      "areaAr": "القاهرة الجديدة",
-      "developer": "Madinet Masr",
-      "developerAr": "مدينة مصر",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad9c6217358d722b6449715/Cinematic%20Nighttime%20Urban%20Masterplan.png",
-      "minPrice": 5425000,
+      "id": 2815,
+      "name": "Island 3 Azha Sokhna",
+      "nameAr": "ايلاند 3 أزها السخنة",
+      "area": "Ain Sokhna",
+      "areaAr": "العين السخنة",
+      "developer": "Madaar Development",
+      "developerAr": "مدار للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad9d5937358d722b644bab1/Azha%20Sokhna%20Lagoon%20Resort.png",
+      "minPrice": 0,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2700-etaje-madinet-misr"
+      "href": "https://www.nawy.com/compound/2815-island-3-azha-sokhna"
     },
     {
       "id": 2783,
@@ -146,19 +133,6 @@
       "href": "https://www.nawy.com/compound/2828-motion-collection"
     },
     {
-      "id": 2785,
-      "name": "Gardinn Solana East",
-      "nameAr": "جارد ان سولانا ايست",
-      "area": "New Cairo",
-      "areaAr": "القاهرة الجديدة",
-      "developer": "Ora Developers",
-      "developerAr": "اورا للتطوير العقاري",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2785/cover-images/Gardinn/high.webp",
-      "minPrice": 8975000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2785-gardinn-solana-east"
-    },
-    {
       "id": 1359,
       "name": "Pine Lanes",
       "nameAr": "باين لاينز",
@@ -167,7 +141,7 @@
       "developer": "People & Places",
       "developerAr": "بيبول اند بلاسيز",
       "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad60485116ba9a54e66978a/Pine%20Lanes.png",
-      "minPrice": 13858000,
+      "minPrice": 13454000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/1359-pine-lanes"
     },
@@ -211,30 +185,30 @@
       "href": "https://www.nawy.com/compound/2792-orchard-villas-alburouj"
     },
     {
-      "id": 1095,
-      "name": "Ranches",
-      "nameAr": "رانشز",
-      "area": "6th of October City",
-      "areaAr": "مدينة السادس من أكتوبر",
-      "developer": "Dorra Group",
-      "developerAr": "دره جروب",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad4dd1e116ba9a54e643409/Dorra%20Ranches.png",
-      "minPrice": 0,
+      "id": 2700,
+      "name": "Etaje Taj city",
+      "nameAr": "ايتاج تاج سيتي",
+      "area": "New Cairo",
+      "areaAr": "القاهرة الجديدة",
+      "developer": "Madinet Masr",
+      "developerAr": "مدينة مصر",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad9c6217358d722b6449715/Cinematic%20Nighttime%20Urban%20Masterplan.png",
+      "minPrice": 5425000,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/1095-ranches"
+      "href": "https://www.nawy.com/compound/2700-etaje-madinet-misr"
     },
     {
-      "id": 2815,
-      "name": "Island 3 Azha Sokhna",
-      "nameAr": "ايلاند 3 أزها السخنة",
-      "area": "Ain Sokhna",
-      "areaAr": "العين السخنة",
-      "developer": "Madaar Development",
-      "developerAr": "مدار للتطوير العقاري",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad9d5937358d722b644bab1/Azha%20Sokhna%20Lagoon%20Resort.png",
-      "minPrice": 0,
+      "id": 622,
+      "name": "Noor Capital Gardens",
+      "nameAr": "نور كابيتال جاردنز",
+      "area": "New Capital Gardens",
+      "areaAr": "حدائق العاصمة الإدارية الجديدة",
+      "developer": "Talaat Moustafa Group (TMG) Holding",
+      "developerAr": "مجموعة طلعت مصطفى القابضة",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/622/gallery/Screenshot%202026-10-18%20103707/high.webp",
+      "minPrice": 5508010,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2815-island-3-azha-sokhna"
+      "href": "https://www.nawy.com/compound/622-noor-capital-gardens"
     },
     {
       "id": 2827,
@@ -339,6 +313,19 @@
       "minPrice": 4800000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/1378-q-hills"
+    },
+    {
+      "id": 1095,
+      "name": "Ranches",
+      "nameAr": "رانشز",
+      "area": "6th of October City",
+      "areaAr": "مدينة السادس من أكتوبر",
+      "developer": "Dorra Group",
+      "developerAr": "دره جروب",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad4dd1e116ba9a54e643409/Dorra%20Ranches.png",
+      "minPrice": 0,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/1095-ranches"
     }
   ]
 }
