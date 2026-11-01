@@ -1,6 +1,6 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-10-31T10:10:35.863Z",
+  "fetchedAt": "2026-11-01T11:01:00.365Z",
   "launches": [
     {
       "id": 2138,
@@ -170,19 +170,6 @@
       "minPrice": 8200000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2808-o-riva"
-    },
-    {
-      "id": 2792,
-      "name": "Orchard villas",
-      "nameAr": "اورتشارد فيلاز",
-      "area": "El Shorouk",
-      "areaAr": "الشروق",
-      "developer": "Imkan Misr",
-      "developerAr": "امكان مصر للتطوير العقاري",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ace39624b52fbba2a66e5f0/Orchard_16x9.jpg",
-      "minPrice": 11900000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2792-orchard-villas-alburouj"
     },
     {
       "id": 2700,
