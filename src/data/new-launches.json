@@ -1,6 +1,6 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-11-01T11:01:00.365Z",
+  "fetchedAt": "2026-11-02T11:59:05.889Z",
   "launches": [
     {
       "id": 2138,
@@ -42,30 +42,17 @@
       "href": "https://www.nawy.com/compound/2714-waterway-west"
     },
     {
-      "id": 2269,
-      "name": "Xchange Hap Town",
-      "nameAr": "اكس تشينج هاب تاون",
-      "area": "Mostakbal City",
-      "areaAr": "مدينة المستقبل",
-      "developer": "Hassan Allam Properties",
-      "developerAr": "حسن علام للعقارات",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2269/gallery/Xchange/high.webp",
-      "minPrice": 10560000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2269-haptown-commercial"
-    },
-    {
-      "id": 2815,
-      "name": "Island 3 Azha Sokhna",
-      "nameAr": "ايلاند 3 أزها السخنة",
-      "area": "Ain Sokhna",
-      "areaAr": "العين السخنة",
-      "developer": "Madaar Development",
-      "developerAr": "مدار للتطوير العقاري",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad9d5937358d722b644bab1/Azha%20Sokhna%20Lagoon%20Resort.png",
+      "id": 2827,
+      "name": "Katameya 40",
+      "nameAr": "قطامية 40",
+      "area": "New Cairo",
+      "areaAr": "القاهرة الجديدة",
+      "developer": "Katameya Group",
+      "developerAr": "قطامية جروب",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6adf276eed41140720ef7fa6/Katameya%2040.jpg",
       "minPrice": 0,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2815-island-3-azha-sokhna"
+      "href": "https://www.nawy.com/compound/2827-katameya-40"
     },
     {
       "id": 2783,
@@ -133,6 +120,19 @@
       "href": "https://www.nawy.com/compound/2828-motion-collection"
     },
     {
+      "id": 2848,
+      "name": "U Nurai",
+      "nameAr": "يو نوراي",
+      "area": "El Lotus",
+      "areaAr": "اللوتس",
+      "developer": "Mercon Developments",
+      "developerAr": "ميركون للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ae7575f5b111e456785237e/mercon_16x9.jpg",
+      "minPrice": 5200000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2848-u-nurai"
+    },
+    {
       "id": 1359,
       "name": "Pine Lanes",
       "nameAr": "باين لاينز",
@@ -172,17 +172,17 @@
       "href": "https://www.nawy.com/compound/2808-o-riva"
     },
     {
-      "id": 2700,
-      "name": "Etaje Taj city",
-      "nameAr": "ايتاج تاج سيتي",
-      "area": "New Cairo",
-      "areaAr": "القاهرة الجديدة",
-      "developer": "Madinet Masr",
-      "developerAr": "مدينة مصر",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad9c6217358d722b6449715/Cinematic%20Nighttime%20Urban%20Masterplan.png",
-      "minPrice": 5425000,
+      "id": 2815,
+      "name": "Island 3 Azha Sokhna",
+      "nameAr": "ايلاند 3 أزها السخنة",
+      "area": "Ain Sokhna",
+      "areaAr": "العين السخنة",
+      "developer": "Madaar Development",
+      "developerAr": "مدار للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad9d5937358d722b644bab1/Azha%20Sokhna%20Lagoon%20Resort.png",
+      "minPrice": 0,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2700-etaje-madinet-misr"
+      "href": "https://www.nawy.com/compound/2815-island-3-azha-sokhna"
     },
     {
       "id": 622,
@@ -196,19 +196,6 @@
       "minPrice": 5508010,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/622-noor-capital-gardens"
-    },
-    {
-      "id": 2827,
-      "name": "Katameya 40",
-      "nameAr": "قطامية 40",
-      "area": "New Cairo",
-      "areaAr": "القاهرة الجديدة",
-      "developer": "Katameya Group",
-      "developerAr": "قطامية جروب",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6adf276eed41140720ef7fa6/Katameya%2040.jpg",
-      "minPrice": 0,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2827-katameya-40"
     },
     {
       "id": 2824,
