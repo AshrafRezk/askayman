@@ -1,20 +1,7 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-11-02T11:59:05.889Z",
+  "fetchedAt": "2026-11-03T11:36:47.391Z",
   "launches": [
-    {
-      "id": 2138,
-      "name": "Vallis",
-      "nameAr": "فاليس",
-      "area": "6th settlement",
-      "areaAr": "التجمع السادس",
-      "developer": "Sky AD Developments",
-      "developerAr": "سكاي ابو ظبي للتطوير العقاري",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad9b1287358d722b6446912/Villas.png",
-      "minPrice": 3641000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2138-vallis"
-    },
     {
       "id": 2760,
       "name": "Befit living",
@@ -27,6 +14,19 @@
       "minPrice": 3600000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2760-befit-living"
+    },
+    {
+      "id": 2688,
+      "name": "Marina waterfront residences",
+      "nameAr": "مارينا ووتر فرونت ريزيدنس",
+      "area": "Ras El Hekma",
+      "areaAr": "رأس الحكمة",
+      "developer": "Modon ",
+      "developerAr": " مدن",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2688/cover-images/water%20front/high.webp",
+      "minPrice": 18500000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2688-marina-waterfront-residences"
     },
     {
       "id": 2714,
@@ -42,17 +42,17 @@
       "href": "https://www.nawy.com/compound/2714-waterway-west"
     },
     {
-      "id": 2827,
-      "name": "Katameya 40",
-      "nameAr": "قطامية 40",
-      "area": "New Cairo",
-      "areaAr": "القاهرة الجديدة",
-      "developer": "Katameya Group",
-      "developerAr": "قطامية جروب",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6adf276eed41140720ef7fa6/Katameya%2040.jpg",
-      "minPrice": 0,
+      "id": 1359,
+      "name": "Pine Lanes",
+      "nameAr": "باين لاينز",
+      "area": "New Zayed",
+      "areaAr": "الشيخ زايد الجديدة",
+      "developer": "People & Places",
+      "developerAr": "بيبول اند بلاسيز",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad60485116ba9a54e66978a/Pine%20Lanes.png",
+      "minPrice": 13454000,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2827-katameya-40"
+      "href": "https://www.nawy.com/compound/1359-pine-lanes"
     },
     {
       "id": 2783,
@@ -107,6 +107,58 @@
       "href": "https://www.nawy.com/compound/2807-junction-business-park"
     },
     {
+      "id": 2455,
+      "name": "The LightHouse Village",
+      "nameAr": "زا لايت هاوس فيلدج",
+      "area": "Ras El Hekma",
+      "areaAr": "رأس الحكمة",
+      "developer": "Modon ",
+      "developerAr": " مدن",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2455/gallery/Screenshot%202026-06-30%20113542/high.webp",
+      "minPrice": 38800000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2455-the-lighthouse-village"
+    },
+    {
+      "id": 1880,
+      "name": "Yemm Beach Plaza - Ras El Hekma",
+      "nameAr": "يم بيتش بلازا - راس الحكمة",
+      "area": "Ras El Hekma",
+      "areaAr": "رأس الحكمة",
+      "developer": "Modon ",
+      "developerAr": " مدن",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/1880/gallery/Screenshot%202025-11-30%20162418/high.webp",
+      "minPrice": 27000000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/1880-yemm-beach-plaza-ras-el-hekma"
+    },
+    {
+      "id": 1868,
+      "name": "Wadi East - Ras El Hekma",
+      "nameAr": "وادى ايست - راس الحكمة",
+      "area": "Ras El Hekma",
+      "areaAr": "رأس الحكمة",
+      "developer": "Modon ",
+      "developerAr": " مدن",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/1868/gallery/Screenshot%202026-05-14%20194420/high.webp",
+      "minPrice": 37700000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/1868-wadi-east-ras-el-hekma"
+    },
+    {
+      "id": 1822,
+      "name": "Yemm Boulevard - Ras El Hekma",
+      "nameAr": "يم بوليفارد - رأس الحكمة",
+      "area": "Ras El Hekma",
+      "areaAr": "رأس الحكمة",
+      "developer": "Modon ",
+      "developerAr": " مدن",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/1822/gallery/WhatsApp%20Image%202026-04-01%20at%203.55.12%20PM/high.webp",
+      "minPrice": 22700000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/1822-yemm-boulevard-ras-el-hekma"
+    },
+    {
       "id": 2828,
       "name": "MOTION COLLECTION",
       "nameAr": "موشن كولكشن",
@@ -133,17 +185,17 @@
       "href": "https://www.nawy.com/compound/2848-u-nurai"
     },
     {
-      "id": 1359,
-      "name": "Pine Lanes",
-      "nameAr": "باين لاينز",
-      "area": "New Zayed",
-      "areaAr": "الشيخ زايد الجديدة",
-      "developer": "People & Places",
-      "developerAr": "بيبول اند بلاسيز",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad60485116ba9a54e66978a/Pine%20Lanes.png",
-      "minPrice": 13454000,
+      "id": 1095,
+      "name": "Ranches",
+      "nameAr": "رانشز",
+      "area": "6th of October City",
+      "areaAr": "مدينة السادس من أكتوبر",
+      "developer": "Dorra Group",
+      "developerAr": "دره جروب",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad4dd1e116ba9a54e643409/Dorra%20Ranches.png",
+      "minPrice": 0,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/1359-pine-lanes"
+      "href": "https://www.nawy.com/compound/1095-ranches"
     },
     {
       "id": 2801,
@@ -185,17 +237,17 @@
       "href": "https://www.nawy.com/compound/2815-island-3-azha-sokhna"
     },
     {
-      "id": 622,
-      "name": "Noor Capital Gardens",
-      "nameAr": "نور كابيتال جاردنز",
-      "area": "New Capital Gardens",
-      "areaAr": "حدائق العاصمة الإدارية الجديدة",
-      "developer": "Talaat Moustafa Group (TMG) Holding",
-      "developerAr": "مجموعة طلعت مصطفى القابضة",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/622/gallery/Screenshot%202026-10-18%20103707/high.webp",
-      "minPrice": 5508010,
+      "id": 2827,
+      "name": "Katameya 40",
+      "nameAr": "قطامية 40",
+      "area": "New Cairo",
+      "areaAr": "القاهرة الجديدة",
+      "developer": "Katameya Group",
+      "developerAr": "قطامية جروب",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6adf276eed41140720ef7fa6/Katameya%2040.jpg",
+      "minPrice": 0,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/622-noor-capital-gardens"
+      "href": "https://www.nawy.com/compound/2827-katameya-40"
     },
     {
       "id": 2824,
@@ -287,19 +339,6 @@
       "minPrice": 4800000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/1378-q-hills"
-    },
-    {
-      "id": 1095,
-      "name": "Ranches",
-      "nameAr": "رانشز",
-      "area": "6th of October City",
-      "areaAr": "مدينة السادس من أكتوبر",
-      "developer": "Dorra Group",
-      "developerAr": "دره جروب",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad4dd1e116ba9a54e643409/Dorra%20Ranches.png",
-      "minPrice": 0,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/1095-ranches"
     }
   ]
 }
