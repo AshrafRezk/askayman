@@ -1,7 +1,20 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-11-03T11:36:47.391Z",
+  "fetchedAt": "2026-11-04T11:50:32.913Z",
   "launches": [
+    {
+      "id": 1891,
+      "name": "Alam Al Roum",
+      "nameAr": "علم الروم",
+      "area": "Alam Al Roum",
+      "areaAr": "علم الروم",
+      "developer": "Qatari Diar",
+      "developerAr": "الديار القطرية",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/1891/gallery/Screenshot%202026-09-03%20164612/high.webp",
+      "minPrice": 0,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/1891-alam-al-roum"
+    },
     {
       "id": 2760,
       "name": "Befit living",
@@ -24,7 +37,7 @@
       "developer": "Modon ",
       "developerAr": " مدن",
       "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2688/cover-images/water%20front/high.webp",
-      "minPrice": 18500000,
+      "minPrice": 22700000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2688-marina-waterfront-residences"
     },
@@ -42,17 +55,17 @@
       "href": "https://www.nawy.com/compound/2714-waterway-west"
     },
     {
-      "id": 1359,
-      "name": "Pine Lanes",
-      "nameAr": "باين لاينز",
-      "area": "New Zayed",
-      "areaAr": "الشيخ زايد الجديدة",
-      "developer": "People & Places",
-      "developerAr": "بيبول اند بلاسيز",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad60485116ba9a54e66978a/Pine%20Lanes.png",
-      "minPrice": 13454000,
+      "id": 2801,
+      "name": "Trophy Office Collection",
+      "nameAr": "تروفي اوفيس كوليكشن",
+      "area": "New Capital City",
+      "areaAr": "العاصمة الإدارية الجديدة",
+      "developer": "Nile Developments",
+      "developerAr": "النيل للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad0e1a0193ebfddc199b4c3/Cover.png",
+      "minPrice": 0,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/1359-pine-lanes"
+      "href": "https://www.nawy.com/compound/2801-trophy-office-collection"
     },
     {
       "id": 2783,
@@ -115,7 +128,7 @@
       "developer": "Modon ",
       "developerAr": " مدن",
       "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2455/gallery/Screenshot%202026-06-30%20113542/high.webp",
-      "minPrice": 38800000,
+      "minPrice": 37000000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2455-the-lighthouse-village"
     },
@@ -128,7 +141,7 @@
       "developer": "Modon ",
       "developerAr": " مدن",
       "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/1880/gallery/Screenshot%202025-11-30%20162418/high.webp",
-      "minPrice": 27000000,
+      "minPrice": 21400000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/1880-yemm-beach-plaza-ras-el-hekma"
     },
@@ -154,7 +167,7 @@
       "developer": "Modon ",
       "developerAr": " مدن",
       "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/1822/gallery/WhatsApp%20Image%202026-04-01%20at%203.55.12%20PM/high.webp",
-      "minPrice": 22700000,
+      "minPrice": 14800000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/1822-yemm-boulevard-ras-el-hekma"
     },
@@ -193,22 +206,9 @@
       "developer": "Dorra Group",
       "developerAr": "دره جروب",
       "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad4dd1e116ba9a54e643409/Dorra%20Ranches.png",
-      "minPrice": 0,
+      "minPrice": 24000000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/1095-ranches"
-    },
-    {
-      "id": 2801,
-      "name": "Trophy Office Collection",
-      "nameAr": "تروفي اوفيس كوليكشن",
-      "area": "New Capital City",
-      "areaAr": "العاصمة الإدارية الجديدة",
-      "developer": "Nile Developments",
-      "developerAr": "النيل للتطوير العقاري",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad0e1a0193ebfddc199b4c3/Cover.png",
-      "minPrice": 0,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2801-trophy-office-collection"
     },
     {
       "id": 2808,
@@ -245,7 +245,7 @@
       "developer": "Katameya Group",
       "developerAr": "قطامية جروب",
       "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6adf276eed41140720ef7fa6/Katameya%2040.jpg",
-      "minPrice": 0,
+      "minPrice": 11250000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2827-katameya-40"
     },
@@ -289,19 +289,6 @@
       "href": "https://www.nawy.com/compound/2791-orb-towers"
     },
     {
-      "id": 2757,
-      "name": "ZAYED YARD",
-      "nameAr": "زايد يارد",
-      "area": "El Sheikh Zayed",
-      "areaAr": "الشيخ زايد",
-      "developer": "Madinet Masr",
-      "developerAr": "مدينة مصر",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2757/cover-images/Zayed%20Yards/high.webp",
-      "minPrice": 0,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2757-zayed-yard"
-    },
-    {
       "id": 2684,
       "name": "Ink",
       "nameAr": "مشروع INK",
@@ -326,6 +313,19 @@
       "minPrice": 6800000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2343-commonhaus"
+    },
+    {
+      "id": 1809,
+      "name": "Do",
+      "nameAr": "دو",
+      "area": "New Cairo",
+      "areaAr": "القاهرة الجديدة",
+      "developer": "One Development",
+      "developerAr": "وان للتطوير العقاري",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/1809/gallery/Screenshot%202025-11-24%20183655/high.webp",
+      "minPrice": 5700000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/1809-do"
     },
     {
       "id": 1378,
