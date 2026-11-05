@@ -1,6 +1,6 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-11-04T11:50:32.913Z",
+  "fetchedAt": "2026-11-05T11:50:57.177Z",
   "launches": [
     {
       "id": 1891,
@@ -284,7 +284,7 @@
       "developer": "Nations Of Sky",
       "developerAr": "نيشنز أوف سكاي للتطوير العقاري",
       "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2791/gallery/Luxury%20Blue-Gray%20Ribbed%20ORB%20Branding/high.webp",
-      "minPrice": 8500000,
+      "minPrice": 13600000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2791-orb-towers"
     },
@@ -322,7 +322,7 @@
       "areaAr": "القاهرة الجديدة",
       "developer": "One Development",
       "developerAr": "وان للتطوير العقاري",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/1809/gallery/Screenshot%202025-11-24%20183655/high.webp",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/1809/gallery/Screenshot%202025-11-24%20183917/high.webp",
       "minPrice": 5700000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/1809-do"
