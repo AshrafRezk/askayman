@@ -1,6 +1,6 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-11-05T11:50:57.177Z",
+  "fetchedAt": "2026-11-06T11:47:58.447Z",
   "launches": [
     {
       "id": 1891,
@@ -55,17 +55,17 @@
       "href": "https://www.nawy.com/compound/2714-waterway-west"
     },
     {
-      "id": 2801,
-      "name": "Trophy Office Collection",
-      "nameAr": "تروفي اوفيس كوليكشن",
-      "area": "New Capital City",
-      "areaAr": "العاصمة الإدارية الجديدة",
-      "developer": "Nile Developments",
-      "developerAr": "النيل للتطوير العقاري",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad0e1a0193ebfddc199b4c3/Cover.png",
-      "minPrice": 0,
+      "id": 1920,
+      "name": "V40 District",
+      "nameAr": "في 40 ديستريكت",
+      "area": "New Cairo",
+      "areaAr": "القاهرة الجديدة",
+      "developer": "City Edge Developments",
+      "developerAr": "سيتي إيدج للتطوير العقاري",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/1920/gallery/Screenshot%202025-12-15%20184147/high.webp",
+      "minPrice": 24647000,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2801-trophy-office-collection"
+      "href": "https://www.nawy.com/compound/1920-v40-district"
     },
     {
       "id": 2783,
@@ -92,6 +92,19 @@
       "minPrice": 0,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2729-sumou-boulevard-phase-2"
+    },
+    {
+      "id": 2866,
+      "name": "Lush Valley New Phase",
+      "nameAr": "المرحلة الجديدة في لاش فالي",
+      "area": "New Cairo",
+      "areaAr": "القاهرة الجديدة",
+      "developer": "City Edge Developments",
+      "developerAr": "سيتي إيدج للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6aec9844b673b12aa8015cd1/Lush%20Valley%20New%20Cairo%20Branding%20Slide.png",
+      "minPrice": 0,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2866-lush-valley-new-phase"
     },
     {
       "id": 2816,
@@ -211,6 +224,19 @@
       "href": "https://www.nawy.com/compound/1095-ranches"
     },
     {
+      "id": 2801,
+      "name": "Trophy Office Collection",
+      "nameAr": "تروفي اوفيس كوليكشن",
+      "area": "New Capital City",
+      "areaAr": "العاصمة الإدارية الجديدة",
+      "developer": "Nile Developments",
+      "developerAr": "النيل للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad0e1a0193ebfddc199b4c3/Cover.png",
+      "minPrice": 0,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2801-trophy-office-collection"
+    },
+    {
       "id": 2808,
       "name": "O Riva",
       "nameAr": "أو ريفا",
@@ -232,7 +258,7 @@
       "developer": "Madaar Development",
       "developerAr": "مدار للتطوير العقاري",
       "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad9d5937358d722b644bab1/Azha%20Sokhna%20Lagoon%20Resort.png",
-      "minPrice": 0,
+      "minPrice": 39200000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2815-island-3-azha-sokhna"
     },
