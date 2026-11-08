@@ -1,6 +1,6 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-11-07T10:52:18.442Z",
+  "fetchedAt": "2026-11-08T11:01:38.051Z",
   "launches": [
     {
       "id": 1891,
@@ -55,17 +55,17 @@
       "href": "https://www.nawy.com/compound/2714-waterway-west"
     },
     {
-      "id": 1920,
-      "name": "V40 District",
-      "nameAr": "في 40 ديستريكت",
-      "area": "New Cairo",
-      "areaAr": "القاهرة الجديدة",
-      "developer": "City Edge Developments",
-      "developerAr": "سيتي إيدج للتطوير العقاري",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/1920/gallery/Screenshot%202025-12-15%20184147/high.webp",
-      "minPrice": 24647000,
+      "id": 2815,
+      "name": "Island 3 Azha Sokhna",
+      "nameAr": "ايلاند 3 أزها السخنة",
+      "area": "Ain Sokhna",
+      "areaAr": "العين السخنة",
+      "developer": "Madaar Development",
+      "developerAr": "مدار للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad9d5937358d722b644bab1/Azha%20Sokhna%20Lagoon%20Resort.png",
+      "minPrice": 39200000,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/1920-v40-district"
+      "href": "https://www.nawy.com/compound/2815-island-3-azha-sokhna"
     },
     {
       "id": 2783,
@@ -79,32 +79,6 @@
       "minPrice": 2250000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2783-elm-tree-commercial-park-phase-2"
-    },
-    {
-      "id": 2729,
-      "name": "Sumou Boulevard Phase 2",
-      "nameAr": "المرحلة الثانية في سمو بوليفارد",
-      "area": "Mostakbal City",
-      "areaAr": "مدينة المستقبل",
-      "developer": "Paragon Adeer",
-      "developerAr": "باراجون أدير",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2729/cover-images/Cover/high.webp",
-      "minPrice": 0,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2729-sumou-boulevard-phase-2"
-    },
-    {
-      "id": 2866,
-      "name": "Lush Valley New Phase",
-      "nameAr": "المرحلة الجديدة في لاش فالي",
-      "area": "New Cairo",
-      "areaAr": "القاهرة الجديدة",
-      "developer": "City Edge Developments",
-      "developerAr": "سيتي إيدج للتطوير العقاري",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6aec9844b673b12aa8015cd1/Lush%20Valley%20New%20Cairo%20Branding%20Slide.png",
-      "minPrice": 0,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2866-lush-valley-new-phase"
     },
     {
       "id": 2816,
@@ -211,17 +185,17 @@
       "href": "https://www.nawy.com/compound/2848-u-nurai"
     },
     {
-      "id": 1095,
-      "name": "Ranches",
-      "nameAr": "رانشز",
-      "area": "6th of October City",
-      "areaAr": "مدينة السادس من أكتوبر",
-      "developer": "Dorra Group",
-      "developerAr": "دره جروب",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad4dd1e116ba9a54e643409/Dorra%20Ranches.png",
-      "minPrice": 24000000,
+      "id": 1920,
+      "name": "V40 District",
+      "nameAr": "في 40 ديستريكت",
+      "area": "New Cairo",
+      "areaAr": "القاهرة الجديدة",
+      "developer": "City Edge Developments",
+      "developerAr": "سيتي إيدج للتطوير العقاري",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/1920/gallery/Screenshot%202025-12-15%20184147/high.webp",
+      "minPrice": 24647000,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/1095-ranches"
+      "href": "https://www.nawy.com/compound/1920-v40-district"
     },
     {
       "id": 2801,
@@ -250,17 +224,30 @@
       "href": "https://www.nawy.com/compound/2808-o-riva"
     },
     {
-      "id": 2815,
-      "name": "Island 3 Azha Sokhna",
-      "nameAr": "ايلاند 3 أزها السخنة",
-      "area": "Ain Sokhna",
-      "areaAr": "العين السخنة",
-      "developer": "Madaar Development",
-      "developerAr": "مدار للتطوير العقاري",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad9d5937358d722b644bab1/Azha%20Sokhna%20Lagoon%20Resort.png",
-      "minPrice": 39200000,
+      "id": 1095,
+      "name": "Ranches",
+      "nameAr": "رانشز",
+      "area": "6th of October City",
+      "areaAr": "مدينة السادس من أكتوبر",
+      "developer": "Dorra Group",
+      "developerAr": "دره جروب",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad4dd1e116ba9a54e643409/Dorra%20Ranches.png",
+      "minPrice": 24000000,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2815-island-3-azha-sokhna"
+      "href": "https://www.nawy.com/compound/1095-ranches"
+    },
+    {
+      "id": 2867,
+      "name": "Gardens",
+      "nameAr": "جاردنز",
+      "area": "New Capital City",
+      "areaAr": "العاصمة الإدارية الجديدة",
+      "developer": "Modon Egypt",
+      "developerAr": " مدن مصر للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6af040b562f4d5e7de94c80f/Gardens_16x9.jpg",
+      "minPrice": 0,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2867-gardens"
     },
     {
       "id": 2827,
@@ -341,6 +328,19 @@
       "href": "https://www.nawy.com/compound/2343-commonhaus"
     },
     {
+      "id": 1962,
+      "name": "Lush Valley",
+      "nameAr": "لاش فالى",
+      "area": "New Cairo",
+      "areaAr": "القاهرة الجديدة",
+      "developer": "City Edge Developments",
+      "developerAr": "سيتي إيدج للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6af0346262f4d5e7de94aca6/Lush%20Valley%20New%20Cairo%20Branding%20Slide.png",
+      "minPrice": 4703664,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/1962-lush-valley"
+    },
+    {
       "id": 1809,
       "name": "Do",
       "nameAr": "دو",
@@ -365,6 +365,19 @@
       "minPrice": 4800000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/1378-q-hills"
+    },
+    {
+      "id": 1135,
+      "name": "Red",
+      "nameAr": "ريد",
+      "area": "Mostakbal City",
+      "areaAr": "مدينة المستقبل",
+      "developer": "Cornerstone Development",
+      "developerAr": "كورنرستون للتطوير العقاري",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/1135/gallery/Red%20-%20Cover/high.webp",
+      "minPrice": 4712000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/1135-red"
     }
   ]
 }
