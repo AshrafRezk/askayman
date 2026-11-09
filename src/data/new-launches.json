@@ -1,6 +1,6 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-11-08T11:01:38.051Z",
+  "fetchedAt": "2026-11-09T12:31:11.722Z",
   "launches": [
     {
       "id": 1891,
@@ -55,17 +55,17 @@
       "href": "https://www.nawy.com/compound/2714-waterway-west"
     },
     {
-      "id": 2815,
-      "name": "Island 3 Azha Sokhna",
-      "nameAr": "ايلاند 3 أزها السخنة",
-      "area": "Ain Sokhna",
-      "areaAr": "العين السخنة",
-      "developer": "Madaar Development",
-      "developerAr": "مدار للتطوير العقاري",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad9d5937358d722b644bab1/Azha%20Sokhna%20Lagoon%20Resort.png",
-      "minPrice": 39200000,
+      "id": 2867,
+      "name": "Gardens",
+      "nameAr": "جاردنز",
+      "area": "New Capital City",
+      "areaAr": "العاصمة الإدارية الجديدة",
+      "developer": "Modon Egypt",
+      "developerAr": " مدن مصر للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6af040b562f4d5e7de94c80f/Gardens_16x9.jpg",
+      "minPrice": 3100000,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2815-island-3-azha-sokhna"
+      "href": "https://www.nawy.com/compound/2867-gardens"
     },
     {
       "id": 2783,
@@ -92,19 +92,6 @@
       "minPrice": 3500000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2816-club-walk"
-    },
-    {
-      "id": 2807,
-      "name": "Junction Business Park",
-      "nameAr": "جنكشن بيزنس بارك",
-      "area": "6th of October City",
-      "areaAr": "مدينة السادس من أكتوبر",
-      "developer": "Majid Al Futtaim",
-      "developerAr": "ماجد الفطيم",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad4e8c5116ba9a54e6447bd/JUNCTION.jpg",
-      "minPrice": 0,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2807-junction-business-park"
     },
     {
       "id": 2455,
@@ -193,7 +180,7 @@
       "developer": "City Edge Developments",
       "developerAr": "سيتي إيدج للتطوير العقاري",
       "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/1920/gallery/Screenshot%202025-12-15%20184147/high.webp",
-      "minPrice": 24647000,
+      "minPrice": 4800000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/1920-v40-district"
     },
@@ -211,17 +198,17 @@
       "href": "https://www.nawy.com/compound/2801-trophy-office-collection"
     },
     {
-      "id": 2808,
-      "name": "O Riva",
-      "nameAr": "أو ريفا",
-      "area": "October Gardens",
-      "areaAr": "حدائق اكتوبر",
-      "developer": "Orascom Development Egypt",
-      "developerAr": "أوراسكوم مصر للتطوير العقاري",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2808/gallery/O%20RIVA/high.webp",
-      "minPrice": 8200000,
+      "id": 2815,
+      "name": "Island 3 Azha Sokhna",
+      "nameAr": "ايلاند 3 أزها السخنة",
+      "area": "Ain Sokhna",
+      "areaAr": "العين السخنة",
+      "developer": "Madaar Development",
+      "developerAr": "مدار للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad9d5937358d722b644bab1/Azha%20Sokhna%20Lagoon%20Resort.png",
+      "minPrice": 39200000,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2808-o-riva"
+      "href": "https://www.nawy.com/compound/2815-island-3-azha-sokhna"
     },
     {
       "id": 1095,
@@ -235,19 +222,6 @@
       "minPrice": 24000000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/1095-ranches"
-    },
-    {
-      "id": 2867,
-      "name": "Gardens",
-      "nameAr": "جاردنز",
-      "area": "New Capital City",
-      "areaAr": "العاصمة الإدارية الجديدة",
-      "developer": "Modon Egypt",
-      "developerAr": " مدن مصر للتطوير العقاري",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6af040b562f4d5e7de94c80f/Gardens_16x9.jpg",
-      "minPrice": 0,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2867-gardens"
     },
     {
       "id": 2827,
