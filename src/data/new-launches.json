@@ -1,6 +1,6 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-11-10T12:05:22.531Z",
+  "fetchedAt": "2026-11-11T11:40:22.152Z",
   "launches": [
     {
       "id": 1891,
@@ -16,6 +16,19 @@
       "href": "https://www.nawy.com/compound/1891-alam-al-roum"
     },
     {
+      "id": 2726,
+      "name": "The Lakes Sodic East",
+      "nameAr": "ذا ليكس سوديك ايست",
+      "area": "New Heliopolis",
+      "areaAr": "هيليوبوليس الجديدة",
+      "developer": "SODIC",
+      "developerAr": "سوديك",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2726/gallery/The%20Lake/high.webp",
+      "minPrice": 10928000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2726-the-lakes-sodic"
+    },
+    {
       "id": 2760,
       "name": "Befit living",
       "nameAr": "بيفت ليفنج",
@@ -27,6 +40,19 @@
       "minPrice": 3600000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/2760-befit-living"
+    },
+    {
+      "id": 1846,
+      "name": "East Vale",
+      "nameAr": "ايست فالى",
+      "area": "Mostakbal City",
+      "areaAr": "مدينة المستقبل",
+      "developer": "SODIC",
+      "developerAr": "سوديك",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/1846/gallery/Screenshot%202025-12-17%20004805/high.webp",
+      "minPrice": 9736000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/1846-sodic-mostakbal-city"
     },
     {
       "id": 2714,
@@ -42,30 +68,17 @@
       "href": "https://www.nawy.com/compound/2714-waterway-west"
     },
     {
-      "id": 2824,
-      "name": "NAVY 26",
-      "nameAr": "نيفي 26",
-      "area": "El Sheikh Zayed",
-      "areaAr": "الشيخ زايد",
-      "developer": "Housing and Development Properties HDP",
-      "developerAr": "الاسكان و التعمير العقاري",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6addda2eed41140720ecacaf/Minimalist%20NNVY%2026%20Branding%20Poster.png",
-      "minPrice": 1986000,
+      "id": 2796,
+      "name": "La Verde Signature",
+      "nameAr": "لافيردي سيجنتشر",
+      "area": "New Capital City",
+      "areaAr": "العاصمة الإدارية الجديدة",
+      "developer": "La Verde Developments",
+      "developerAr": "لا فيردي للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad0986f193ebfddc1993597/Laverd%20Signature%20Luxury%20Resort%20Complex.png",
+      "minPrice": 4680000,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2824-navy-26-mall"
-    },
-    {
-      "id": 2783,
-      "name": "Elm Tree Commercial Park phase 2",
-      "nameAr": "إيلم تري كوميرشال بارك المرحلة الثانية",
-      "area": "6th of October City",
-      "areaAr": "مدينة السادس من أكتوبر",
-      "developer": "ELM Developments",
-      "developerAr": "ايلم للتطويرالعقاري",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2783/cover-images/Elm%20treecover/high.webp",
-      "minPrice": 2250000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2783-elm-tree-commercial-park-phase-2"
+      "href": "https://www.nawy.com/compound/2796-la-verde-signature"
     },
     {
       "id": 2816,
@@ -120,19 +133,6 @@
       "href": "https://www.nawy.com/compound/1920-v40-district"
     },
     {
-      "id": 2801,
-      "name": "Trophy Office Collection",
-      "nameAr": "تروفي اوفيس كوليكشن",
-      "area": "New Capital City",
-      "areaAr": "العاصمة الإدارية الجديدة",
-      "developer": "Nile Developments",
-      "developerAr": "النيل للتطوير العقاري",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad0e1a0193ebfddc199b4c3/Cover.png",
-      "minPrice": 0,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2801-trophy-office-collection"
-    },
-    {
       "id": 2867,
       "name": "Gardens",
       "nameAr": "جاردنز",
@@ -159,6 +159,19 @@
       "href": "https://www.nawy.com/compound/2827-katameya-40"
     },
     {
+      "id": 2824,
+      "name": "NAVY 26",
+      "nameAr": "نيفي 26",
+      "area": "El Sheikh Zayed",
+      "areaAr": "الشيخ زايد",
+      "developer": "Housing and Development Properties HDP",
+      "developerAr": "الاسكان و التعمير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6addda2eed41140720ecacaf/Minimalist%20NNVY%2026%20Branding%20Poster.png",
+      "minPrice": 1986000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2824-navy-26-mall"
+    },
+    {
       "id": 1095,
       "name": "Ranches",
       "nameAr": "رانشز",
@@ -170,19 +183,6 @@
       "minPrice": 24000000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/1095-ranches"
-    },
-    {
-      "id": 2796,
-      "name": "La Verde Signature",
-      "nameAr": "لافيردي سيجنتشر",
-      "area": "New Capital City",
-      "areaAr": "العاصمة الإدارية الجديدة",
-      "developer": "La Verde Developments",
-      "developerAr": "لا فيردي للتطوير العقاري",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad0986f193ebfddc1993597/Laverd%20Signature%20Luxury%20Resort%20Complex.png",
-      "minPrice": 4680000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2796-la-verde-signature"
     },
     {
       "id": 2791,
@@ -248,19 +248,6 @@
       "minPrice": 0,
       "currency": "",
       "href": "https://www.nawy.com/compound/1426-glen"
-    },
-    {
-      "id": 1378,
-      "name": "Q Hills",
-      "nameAr": "كيو هيلز",
-      "area": "New Zayed",
-      "areaAr": "الشيخ زايد الجديدة",
-      "developer": "Q Developments",
-      "developerAr": "كيو للتطوير العقاري",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad5e766116ba9a54e665979/Minimal%20Hills%20New%20Zayed%20Logo.png",
-      "minPrice": 5160000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/1378-q-hills"
     }
   ]
 }
