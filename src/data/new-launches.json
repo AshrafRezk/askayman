@@ -1,6 +1,6 @@
 {
   "source": "https://www.nawy.com/new-launches",
-  "fetchedAt": "2026-11-11T11:40:22.152Z",
+  "fetchedAt": "2026-11-12T12:10:05.479Z",
   "launches": [
     {
       "id": 1891,
@@ -14,6 +14,19 @@
       "minPrice": 0,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/1891-alam-al-roum"
+    },
+    {
+      "id": 2138,
+      "name": "Vallis",
+      "nameAr": "فاليس",
+      "area": "6th settlement",
+      "areaAr": "التجمع السادس",
+      "developer": "Sky AD Developments",
+      "developerAr": "سكاي ابو ظبي للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad9b1287358d722b6446912/Villas.png",
+      "minPrice": 3696000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2138-vallis"
     },
     {
       "id": 2726,
@@ -68,17 +81,17 @@
       "href": "https://www.nawy.com/compound/2714-waterway-west"
     },
     {
-      "id": 2796,
-      "name": "La Verde Signature",
-      "nameAr": "لافيردي سيجنتشر",
-      "area": "New Capital City",
-      "areaAr": "العاصمة الإدارية الجديدة",
-      "developer": "La Verde Developments",
-      "developerAr": "لا فيردي للتطوير العقاري",
-      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad0986f193ebfddc1993597/Laverd%20Signature%20Luxury%20Resort%20Complex.png",
-      "minPrice": 4680000,
+      "id": 2791,
+      "name": "ORB Towers",
+      "nameAr": "أبراج اورب",
+      "area": "El Sheikh Zayed",
+      "areaAr": "الشيخ زايد",
+      "developer": "Nations Of Sky",
+      "developerAr": "نيشنز أوف سكاي للتطوير العقاري",
+      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2791/gallery/Luxury%20Blue-Gray%20Ribbed%20ORB%20Branding/high.webp",
+      "minPrice": 13600000,
       "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2796-la-verde-signature"
+      "href": "https://www.nawy.com/compound/2791-orb-towers"
     },
     {
       "id": 2816,
@@ -120,19 +133,6 @@
       "href": "https://www.nawy.com/compound/2848-u-nurai"
     },
     {
-      "id": 1920,
-      "name": "V40 District",
-      "nameAr": "في 40 ديستريكت",
-      "area": "New Cairo",
-      "areaAr": "القاهرة الجديدة",
-      "developer": "City Edge Developments",
-      "developerAr": "سيتي إيدج للتطوير العقاري",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/1920/gallery/Screenshot%202025-12-15%20184147/high.webp",
-      "minPrice": 4800000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/1920-v40-district"
-    },
-    {
       "id": 2867,
       "name": "Gardens",
       "nameAr": "جاردنز",
@@ -172,6 +172,19 @@
       "href": "https://www.nawy.com/compound/2824-navy-26-mall"
     },
     {
+      "id": 2796,
+      "name": "La Verde Signature",
+      "nameAr": "لافيردي سيجنتشر",
+      "area": "New Capital City",
+      "areaAr": "العاصمة الإدارية الجديدة",
+      "developer": "La Verde Developments",
+      "developerAr": "لا فيردي للتطوير العقاري",
+      "imageUrl": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/launches/cover_images/6ad0986f193ebfddc1993597/Laverd%20Signature%20Luxury%20Resort%20Complex.png",
+      "minPrice": 4680000,
+      "currency": "EGP",
+      "href": "https://www.nawy.com/compound/2796-la-verde-signature"
+    },
+    {
       "id": 1095,
       "name": "Ranches",
       "nameAr": "رانشز",
@@ -183,19 +196,6 @@
       "minPrice": 24000000,
       "currency": "EGP",
       "href": "https://www.nawy.com/compound/1095-ranches"
-    },
-    {
-      "id": 2791,
-      "name": "ORB Towers",
-      "nameAr": "أبراج اورب",
-      "area": "El Sheikh Zayed",
-      "areaAr": "الشيخ زايد",
-      "developer": "Nations Of Sky",
-      "developerAr": "نيشنز أوف سكاي للتطوير العقاري",
-      "imageUrl": "https://prod-images.nawy.com/processed/inventory/compounds/2791/gallery/Luxury%20Blue-Gray%20Ribbed%20ORB%20Branding/high.webp",
-      "minPrice": 13600000,
-      "currency": "EGP",
-      "href": "https://www.nawy.com/compound/2791-orb-towers"
     },
     {
       "id": 2343,
